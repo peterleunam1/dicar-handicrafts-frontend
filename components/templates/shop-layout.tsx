@@ -29,7 +29,7 @@ const ShopLayout: FC<ShopLayoutProps> = ({
 
       <Main>{children}</Main>
 
-      <Footer/>
+      <Footer />
     </>
   );
 };

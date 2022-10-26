@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import styled from "styled-components";
-import { ShopLayout, Menu, Counter, SlideShow } from "../components";
+import { ShopLayout, Menu, SlideShow } from "../components";
 import Mochila from "../public/assets/mochilas.png";
 import Sandalia from "../public/assets/sandalias.png";
 import Sombrero from "../public/assets/sombreros.png";

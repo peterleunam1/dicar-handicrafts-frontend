@@ -1,0 +1,1 @@
+export type BannerOptions = 'mochilas' | 'sandalias' | 'sombreros' | 'accesorios';

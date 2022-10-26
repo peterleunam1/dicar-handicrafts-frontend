@@ -41,7 +41,9 @@ const Title = styled.h2<{ transform: string }>`
 `;
 
 const CardMenu: FC<CardMenuProps> = ({ src, title }) => {
+
   const [hover, setHover] = useState(false);
+
   return (
     <Link href={`/productos/${title}`}>
       <ProductContainer
@@ -50,7 +52,7 @@ const CardMenu: FC<CardMenuProps> = ({ src, title }) => {
         onMouseLeave={() => setHover(false)}
       >
         <ImageContainer>
-          <Image src={src} width="250px" height="282px" />
+          <Image src={src} width="250px" height="282px" alt={title.toUpperCase()} />
         </ImageContainer>
         <Title transform={hover ? "translateY(0px)" : "translateY(50px)"}>
           {title.toUpperCase()}

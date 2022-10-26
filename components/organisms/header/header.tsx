@@ -24,7 +24,6 @@ const OptionsLeft = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 13%;
 `;
 
 const Header: FC = () => {

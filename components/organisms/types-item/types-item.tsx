@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FC } from "react";
 import styled from "styled-components";
 import { ProductList } from "../../../components";
@@ -6,6 +7,11 @@ import { TypeItemsProps } from "../../../interfaces";
 
 const Container = styled.section`
   margin: 40px 0;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 const Title = styled.h2`
   cursor: pointer;
@@ -28,16 +34,23 @@ const Text = styled.p`
     }
   }
 `;
-const TypesItem: FC<TypeItemsProps> = ({title, route}) => {
+const TypesItem: FC<TypeItemsProps> = ({ title, route, products }) => {
+
+  const { type } = useRouter().query;
+
   return (
     <Container>
-      <Link href={route || " "}>
-      <Title>{title}</Title>
+      <Link href={`${type}/${route}`}>
+        <a>
+          <Title>{title}</Title>
+        </a>
       </Link>
-      <ProductList />
+      <ProductList products={products} />
       <Text>
-        <Link  href={route || " "}>
-        <strong>Ver todos</strong>
+        <Link href={`${type}/${route}`}>
+          <a>
+            <strong>Ver todos</strong>
+          </a>
         </Link>
       </Text>
     </Container>

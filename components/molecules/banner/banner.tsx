@@ -2,13 +2,13 @@ import { FC } from "react";
 import styled from "styled-components";
 import { BannerProps } from "../../../interfaces";
 
-const BannerContainer = styled.section<{img:string}>`
+const BannerContainer = styled.section<{ img: string }>`
   width: 100%;
   height: 200px;
   position: relative;
   background-image: url(${(props) => props.img});
   background-repeat: no-repeat;
-  background-position: 0px -120px;
+  background-position: center;
   background-size: cover;
   
   &::after {
@@ -35,13 +35,13 @@ const Title = styled.h1`
   z-index: 2;
 `;
 
-const Banner:FC<BannerProps> = ({title, image}) => {
-    return(
-        <>
-        <BannerContainer img={image}>
-          <Title>{title.toUpperCase()}</Title>
-        </BannerContainer>
-        </>
-    )
+const Banner: FC<BannerProps> = ({ title, image }) => {
+  return (
+    <>
+      <BannerContainer img={image}>
+        <Title>{title.toUpperCase()}</Title>
+      </BannerContainer>
+    </>
+  )
 }
 export default Banner

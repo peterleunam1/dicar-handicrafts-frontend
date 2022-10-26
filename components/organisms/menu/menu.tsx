@@ -18,7 +18,7 @@ const Menu: FC<MenuProps> = ({ images }) => {
     <MenuStyled>
       {images.map((element, indx) => {
         return (
-            <CardMenu key={element} src={element} title={titles[indx]}/>
+          <CardMenu key={element.blurDataURL} src={element} title={titles[indx]} />
         )
       })}
     </MenuStyled>

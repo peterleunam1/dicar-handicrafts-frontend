@@ -1,5 +1,5 @@
 import { FC, useContext, useState } from "react";
-import styled,{keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Icon, ThemeIcon, Input } from "../../../components";
 import ContextTheme from "../../../context/ThemeContextUI";
 
@@ -29,7 +29,7 @@ const CloseSearch = styled.div`
 `;
 
 
-const NavBar: FC = () => {
+const NavBar = () => {
   const { toggleTheme } = useContext(ContextTheme) as any;
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   return (
@@ -44,7 +44,7 @@ const NavBar: FC = () => {
           <CloseSearch onClick={() => {
             setIsSearchVisible(false);
           }}>
-            <Icon fill="fa-solid fa-xmark" color="#e8e8e8" hover="#606060"/>
+            <Icon fill="fa-solid fa-xmark" color="#e8e8e8" hover="#606060" />
           </CloseSearch>
         </Search>
       ) : (

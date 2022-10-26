@@ -14,6 +14,6 @@ export type { SlideShowProps } from "./organisms/slide-show"
 export type { LogoProps } from "./atoms/logo"
 export type { ButtonProps } from "./atoms/button"
 export type { AuthBoxProps } from "./organisms/auth-box"
- 
-
-
+export type { BannerOptions } from './helpers/banner-images';
+export type { ICategory, IProduct } from './helpers/products';
+export type { ProductListProps } from './organisms/product-list';

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { ProductListProps } from "../../../interfaces";
 import Product from "../../molecules/product/product";
 
 
@@ -18,14 +19,16 @@ const ProducListStyled = styled.section`
     margin-top: 22px;
 `;
 
-const ProductList:FC = () => {
-    return(
-         <ProducListStyled>
-            <Product/>
-            <Product/>
-            <Product/>
-            <Product/>
-            <Product/>
+const ProductList: FC<ProductListProps> = ({ products }) => {
+
+    console.log(products);
+    return (
+        <ProducListStyled>
+            {
+                products.map(product => (
+                    <Product key={product.id} {...product} />
+                ))
+            }
         </ProducListStyled>
     )
 }

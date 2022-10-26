@@ -1,7 +1,14 @@
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import GlobalStyle from "../globalStyles";
+import { ThemeContextProvider } from "../context/ThemeContextUI";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <ThemeContextProvider>
+      <GlobalStyle />
+      <Component {...pageProps} />
+    </ThemeContextProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

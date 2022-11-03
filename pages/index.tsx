@@ -83,53 +83,54 @@ const Divisor = styled.div`
 `;
 
 const Home: NextPage = () => {
-  const images = [Mochila, Sandalia, Sombrero, Accesorio];
 
-  const { value } = useUser();
+  const images = [Mochila, Sandalia, Sombrero, Accesorio];
+  const { user } = useUser();
 
   return (
-    <ShopLayout
-      title="Home"
-      descriptionPage="Pagina principal de artesanias dicar"
-    >
-      {EmptyObject(value) ? (
-        ""
-      ) : (
-        <UserName>
-          Bienvenido, <strong>{value.firstname}</strong>
-        </UserName>
-      )}
-      <Menu images={images}></Menu>
-      <Divisor>
-        <p>
-          Detrás de cada una de nuestras{" "}
-          <StrongText size="19px">creaciones</StrongText> esta una{" "}
-          <StrongText size="19px">artesana wayuu </StrongText> resaltando toda
-          su cultura, historia y tradición en
-          <StrongText size="19px"> cada pieza.</StrongText>
-        </p>
-      </Divisor>
-      <Offers type="video" urlMultimedia="https://i.imgur.com/GjxYwv6.mp4">
-        <ProductList products={products_combo} />
-      </Offers>
-      <ArtSection>
-        <Wrapper width="38%" sizeText="18px">
-          <Title>Artes ancestrales</Title>
-          <Text>
-            El tejido para el pueblo wuayúu es más que una práctica cultural y{" "}
-            <StrongText>herencia de sus ancestros</StrongText>, es una forma de{" "}
-            <StrongText>concebir y expresar</StrongText> la vida tal como la
-            sienten y la desean. Un arte pensado y{" "}
-            <StrongText>gozado</StrongText>. La observación de sus innumerables
-            tejidos les permite leer <StrongText>el espíritu</StrongText> que
-            guía su acción y pensamiento.
-          </Text>
-        </Wrapper>
-        <SliderContainer>
-          <SlideShow images={slideImages} />
-        </SliderContainer>
-      </ArtSection>
-    </ShopLayout>
+    <>
+      {
+          <ShopLayout
+            title={'Home'}
+            descriptionPage="Pagina principal de artesanias dicar">
+            { !EmptyObject(user) &&
+              <UserName>
+                Bienvenido, <strong>{user.firstname}</strong>
+              </UserName>
+            }
+            <Menu images={images}></Menu>
+            <Divisor>
+              <p>
+                Detrás de cada una de nuestras{" "}
+                <StrongText size="19px">creaciones</StrongText> esta una{" "}
+                <StrongText size="19px">artesana wayuu </StrongText> resaltando toda
+                su cultura, historia y tradición en
+                <StrongText size="19px"> cada pieza.</StrongText>
+              </p>
+            </Divisor>
+            <Offers type="video" urlMultimedia="https://i.imgur.com/GjxYwv6.mp4">
+              <ProductList products={products_combo} />
+            </Offers>
+            <ArtSection>
+              <Wrapper width="38%" sizeText="18px">
+                <Title>Artes ancestrales</Title>
+                <Text>
+                  El tejido para el pueblo wuayúu es más que una práctica cultural y{" "}
+                  <StrongText>herencia de sus ancestros</StrongText>, es una forma de{" "}
+                  <StrongText>concebir y expresar</StrongText> la vida tal como la
+                  sienten y la desean. Un arte pensado y{" "}
+                  <StrongText>gozado</StrongText>. La observación de sus innumerables
+                  tejidos les permite leer <StrongText>el espíritu</StrongText> que
+                  guía su acción y pensamiento.
+                </Text>
+              </Wrapper>
+              <SliderContainer>
+                <SlideShow images={slideImages} />
+              </SliderContainer>
+            </ArtSection>
+          </ShopLayout>
+      }
+    </>
   );
 };
 

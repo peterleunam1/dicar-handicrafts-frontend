@@ -17,19 +17,3 @@ const singIn = async (object:any) => {
       
   }
   export default singIn; 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-

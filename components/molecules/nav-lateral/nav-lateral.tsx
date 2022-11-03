@@ -3,8 +3,8 @@ import Link from "next/link";
 import styled from "styled-components";
 import { NavLateralProps } from "../../../interfaces";
 import useUser from "../../../hooks/useUser";
-import { EmptyObject } from "../../../helpers";
 import { Input, Icon, UserInfo, Button } from "../../../components";
+import { EmptyObject } from "../../../helpers";
 
 const AsideMenu = styled.aside<{ transform: string }>`
   background-color: ${({ theme }) => theme.background};
@@ -59,7 +59,7 @@ const ListItem = styled.li`
 `;
 
 const NavLateral: FC<NavLateralProps> = ({ transform }) => {
-  const { value } = useUser();
+  const { user } = useUser();
 
   const handleClick = () => {
     localStorage.removeItem("userAuth");
@@ -107,7 +107,7 @@ const NavLateral: FC<NavLateralProps> = ({ transform }) => {
         </Link>
       </ul>
 
-      {EmptyObject(value) ? (
+      {EmptyObject(user) ? (
         <>
           <Link href="/auth/login">
             <div>
@@ -129,9 +129,9 @@ const NavLateral: FC<NavLateralProps> = ({ transform }) => {
       ) : (
         <>
           <UserInfo
-            name={`${value.firstname} ${value.lastname}`}
-            email={value.email}
-            phone={value.phone_number}
+            name={`${user.firstname} ${user.lastname}`}
+            email={user.email ?? ''}
+            phone={user.phone_number ?? ''}
           >
             <ul>
               <Link href={""}>

@@ -1,14 +1,17 @@
-const useUser = () => {
-  let value;
-  let user
-  if (typeof window !== "undefined") {
-    value = window.localStorage.getItem("userAuth");
-    if(value){
-      user = JSON.parse(value)
-    }
-  }
+import { useEffect, useState } from "react";
+import { IUser } from "../interfaces";
+
+const useUser = (): { user: IUser } => {
+  const [user, setUser] = useState<IUser>({});
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('userAuth') || "{}");
+
+    setUser(user);
+  }, []);
+
   return {
-    value: user || {},
+    user
   };
 };
 

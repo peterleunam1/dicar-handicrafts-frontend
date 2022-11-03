@@ -1,13 +1,196 @@
 import { NextPage } from "next";
-import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import InnerImageZoom from "react-inner-image-zoom";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.min.css";
+import { Button, ShopLayout } from "../../../components";
+import InterRapidisimo from "../../../public/assets/interapisidisimo.png";
+import { products_mochilas, toCapitalize } from "../../../helpers";
+import { products_accesorios} from "../../../helpers";
+import { products_sandalias } from "../../../helpers";
+import { products_sombreros } from "../../../helpers";
 
-import { Banner, Product, ShopLayout } from "../../../components";
+
+const Container = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 78vh;
+`;
+const ImageContainer = styled.figure`
+  width: 350px;
+  height: auto;
+  overflow: hidden;
+  cursor: pointer;
+  margin-right: 40px;
+  background-color: aliceblue;
+  img {
+    border-radius: 10px;
+  }
+`;
+
+const InfoContainer = styled.aside`
+  height: 450px;
+  width: 30%;
+  height: auto;
+  margin-left: 40px;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 5px;
+    background-color: #f6d1bc;
+    border-radius: 5px;
+  }
+  h2 {
+    margin: 15px 0px 8px 0;
+  }
+`;
+
+const Text = styled.p`
+  margin: 18px 0;
+  font-size: 13px;
+`;
+const AccentTex = styled.strong<{ size?: string; ml?: string; color?: string }>`
+  color: ${(props) => props.color || "#f6d1bc"};
+  font-size: ${(props) => props.size};
+  margin-left: ${(props) => props.ml};
+`;
+const StrikeText = styled.div`
+  position: relative;
+  width: max-content;
+  padding: 0px 8px;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    border-radius: 5px;
+  }
+`;
+const Price = styled.p`
+  font-size: 23px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+`;
+const SendType = styled.figure`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0;
+  margin: 20px 0px;
+  a {
+    cursor: pointer;
+  }
+`;
+const FigCaption = styled.figcaption`
+  margin-right: 10px;
+`;
 
 const Type: NextPage = () => {
-    return (
-        <ShopLayout title="Mochilas" descriptionPage="Mejores mochilas artesanales de la ciudad">
-            <h2>types</h2>
-        </ShopLayout>
-    )
-}
-export default Type 
+  const { product: param, type } = useRouter().query;
+  const y = Number(param);
+
+let product 
+  switch (type) {
+    case "mochilas":
+        product = products_mochilas.find((x) => x.id === y);
+        break;
+    case "sandalias":
+        product = products_sandalias.find((x) => x.id === y);
+        break;
+    case "sombreros":
+        product = products_sombreros.find((x) => x.id === y);
+        break;
+    case "accesorios":
+        product = products_accesorios.find((x) => x.id === y);
+        break;
+    default:
+        break;
+  }
+
+
+
+  const Desc = (price: number) => {
+    let newPrice = 0;
+    newPrice = price * 0.3 + price;
+    return newPrice;
+  };
+
+  return (
+    <ShopLayout
+      title={`${type}`}
+      descriptionPage="Mejores mochilas artesanales de la ciudad"
+    >
+      <Container>
+        <ImageContainer>
+          <InnerImageZoom
+            src={product?.image || ""}
+            zoomSrc={product?.image || ""}
+            zoomType="hover"
+            zoomScale={0.7}
+          />
+        </ImageContainer>
+        <InfoContainer>
+          <h2>{product?.name}</h2>
+          <p>
+            {product?.description}
+          </p>
+          <Text>
+            Vendido y entregado por <AccentTex>Artesanías Dicar</AccentTex>
+          </Text>
+          <StrikeText>{`$ ${Desc(product?.price || 0)}.000`}</StrikeText>
+          <Price>
+            {`$${product?.price}.000`}{" "}
+            <AccentTex size="15px" ml="8px">
+              {" "}
+              -30%
+            </AccentTex>
+          </Price>
+          {/* <AccentTex color="lightgreen">Disponible</AccentTex> */}
+          {product?.qty_in_stock !== 0 ? (
+            <AccentTex color="lightgreen">Disponible</AccentTex>
+          ) : (
+            <AccentTex color="#ff4142">Agotado</AccentTex>
+          )}
+          <Button
+            text="Agregar al carrito"
+            bg="#f6d1bc"
+            hover="rgba(246, 209, 188, 0.637)"
+            mt="25px"
+            mb="10px"
+          />
+          <Button
+            text="Comprar rápida"
+            bg="#fff"
+            hover="rgba(246, 209, 188, 0.637)"
+            border=" 1.5px solid #f6d1bc"
+          />
+          <SendType>
+            <FigCaption>Envios a través de:</FigCaption>
+            <a
+              href="https://www.interrapidisimo.com/sigue-tu-envio/"
+              target={"_blank"}
+            >
+              <Image src={InterRapidisimo} width="135x" height="30px" />
+            </a>
+          </SendType>
+          <Button text="Agregar a favoritos" bg="#e8e8e8" hover="#cececec3" />
+        </InfoContainer>
+      </Container>
+    </ShopLayout>
+  );
+};
+export default Type;

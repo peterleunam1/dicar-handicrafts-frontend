@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { NextPage } from "next";
 import Link from "next/link";
 import styled from "styled-components";
 import { AuthBox, AuthLayout, Input, Button } from "../../components";
+import { useRouter } from "next/router";
+import singIn from "../../services/sign-in";
+import ContextUser from "../../context/UserContext";
+import useUser from "../../hooks/useUser";
 
 const FormContainer = styled.form`
   height: 75%;
@@ -18,24 +22,26 @@ const ButtonContainer = styled.div`
 `;
 
 const Login: NextPage = () => {
-    const [auth, setAuth] = useState({})
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAuth({
-          ...auth,
-          [e.target.name]: e.target.value,
-        });
-      
-      };
+  const [auth, setAuth] = useState({});
+  const router = useRouter();
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAuth({
+      ...auth,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
-        e.preventDefault()
-        let value
-        if (typeof window !== 'undefined') {
-            value = JSON.parse(window.localStorage.getItem('user')|| "" )
-        }
-        
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { data, message, token } = await singIn(auth);
+    if (message === "User logged successfully") {
+      window.localStorage.setItem('userAuth', JSON.stringify(data));
+      router.push("/");
+    } else {
+      alert({ message });
     }
-
+  };
   return (
     <AuthLayout title="Inicio de sesión">
       <AuthBox title="Inicio de sesión">
@@ -57,7 +63,11 @@ const Login: NextPage = () => {
             onChange={handleChange}
           />
           <ButtonContainer>
-            <Button text="Ingresar" bg="#f6d1bc" hover="rgba(246, 209, 188, 0.637)"/>
+            <Button
+              text="Ingresar"
+              bg="#f6d1bc"
+              hover="rgba(246, 209, 188, 0.637)"
+            />
           </ButtonContainer>
         </FormContainer>
         <p>

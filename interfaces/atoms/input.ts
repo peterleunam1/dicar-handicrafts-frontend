@@ -7,5 +7,6 @@ export interface InputProps {
     fSize?: string
     border_color?: string
     mb?: string
+    bradius?: string
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

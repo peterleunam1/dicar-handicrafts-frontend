@@ -10,6 +10,7 @@ const BannerContainer = styled.section<{ img: string }>`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  border-radius: 10px;
   
   &::after {
     content: "";

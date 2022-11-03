@@ -1,9 +1,10 @@
 import { NextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import { useStyleRegistry } from "styled-jsx";
-import { AuthBox, AuthLayout, Input, Button } from "../../components";
+import { AuthBox, AuthLayout, Input, Button, Select } from "../../components";
+import addUser from "../../services/register";
 
 const Container = styled.div`
   height: 75%;
@@ -25,18 +26,8 @@ const Form = styled.form`
 const Registro: NextPage = () => {
   const [page, setPage] = useState(false);
   const [user, setUser] = useState({})
-    const [array, setArray] = useState([])
-    let users:any = []
-
-    const setUsuarios = () => {
-        localStorage.setItem('user', JSON.stringify(users))
-    }
-    const getUsuarios = () => {
-        if (window){
-            let local = window.localStorage.getItem("user");
-            return local
-        }
-    }
+  const [confirm, setConfirm] = useState("")
+  const router = useRouter()
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,28 +35,20 @@ const Registro: NextPage = () => {
       ...user,
       [e.target.name]: e.target.value,
     });
-  
   };
-//   const {password, passwordConfirm, names,lastName, doc, phone, email, adress} = user as any 
-const {password, passwordConfirm} = user as any 
 
+  const ConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    // await  setConfirm( e.target.value)
+    // confirm !== password ? alert("Las contraseñas deben ser iguales") : ""
+  }
 
-  console.log(password, passwordConfirm)
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+ 
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-       if(password !== passwordConfirm){
-            alert("Las contraseñas deben coincidir")
-       } 
-    //    users = getUsuarios()
-    //    users.push(user)
-    //    setUsuarios()
-    let value
-    if (typeof window !== 'undefined') {
-        localStorage.setItem("user",  JSON.stringify(user) )
-        value = window.localStorage.getItem('user')
-    }
-    users.push(value)
-    localStorage.setItem("user",  JSON.stringify(users) )
+        const result = await addUser(user).then(()=>{
+          console.log(result)
+        })
+        router.push('/auth/login')
   }
 
   
@@ -83,7 +66,7 @@ const {password, passwordConfirm} = user as any
             <Input
               type="text"
               placeholder="Nombres"
-              name="names"
+              name="firstname"
               py="10px"
               mb="15px"
               onChange={handleChange}
@@ -91,7 +74,7 @@ const {password, passwordConfirm} = user as any
             <Input
               type="text"
               placeholder="Apellidos"
-              name="lastName"
+              name="lastname"
               py="10px"
               mb="15px"
               onChange={handleChange}
@@ -99,7 +82,7 @@ const {password, passwordConfirm} = user as any
             <Input
               type="number"
               placeholder="Documento de indentidad"
-              name="doc"
+              name="document"
               py="10px"
               mb="15px"
               onChange={handleChange}
@@ -107,7 +90,7 @@ const {password, passwordConfirm} = user as any
             <Input
               type="number"
               placeholder="Teléfono celular"
-              name="phone"
+              name="phone_number"
               py="10px"
               mb="15px"
               onChange={handleChange}
@@ -144,15 +127,7 @@ const {password, passwordConfirm} = user as any
               name="passwordConfirm"
               py="10px"
               mb="15px"
-              onChange={handleChange}
-            />
-            <Input
-              type="text"
-              placeholder="Dirección"
-              name="adress"
-              py="10px"
-              mb="30px"
-              onChange={handleChange}
+              onChange={ConfirmPassword}
             />
             <ButtonContainer onClick={()=> handleSubmit}>
               <Button

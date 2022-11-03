@@ -26,8 +26,8 @@ const OptionsLeft = styled.div`
   justify-content: space-between;
 `;
 
+
 const Header: FC = () => {
-  const { theme } = useContext(ContextTheme) as any;
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   return (
     <HeaderStyled>
@@ -37,14 +37,13 @@ const Header: FC = () => {
         </span>
         <SocialBar />
         {isOpenMenu ? (
-          <NavLateral transform="translateX(0px)" />
+          <NavLateral transform="translateX(0px)"/>
         ) : (
-          <NavLateral transform="translateX(-300px)" />
+          <NavLateral transform="translateX(-350px)" />
         )}
       </OptionsLeft>
 
       <Logo route="/" />
-
       <NavBar />
     </HeaderStyled>
   );

@@ -23,8 +23,13 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     background-color:${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
-;
-;
+  }
+  ul{
+    list-style: none;
+  }
+  *{
+    margin: 0;
+    padding: 0;
   }
 `;
 export default GlobalStyles;

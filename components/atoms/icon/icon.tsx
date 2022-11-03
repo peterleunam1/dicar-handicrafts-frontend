@@ -20,8 +20,6 @@ const IconStyled = styled.i<{
 `;
 const Icon: FC<IconProps> = ({ fill, size, color, margin, path, hover }) => {
   return (
-    <Link href={path || ""} target="_blank">
-      <a>
         <IconStyled
           margin={margin || "15px"}
           className={fill}
@@ -29,8 +27,6 @@ const Icon: FC<IconProps> = ({ fill, size, color, margin, path, hover }) => {
           color={color || "#606060"}
           hover={hover || "#000"}
         ></IconStyled>
-      </a>
-    </Link>
   );
 };
 export default Icon;

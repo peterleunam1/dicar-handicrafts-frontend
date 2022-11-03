@@ -8,12 +8,19 @@ export type { InputProps } from "./atoms/input";
 export type { CardMenuProps } from "./molecules/card-menu"
 export type { BannerProps } from "./molecules/banner"
 export type { MenuProps } from "./organisms/menu"
-export type { TypeItemsProps } from "./organisms/types-item"
 export type { NavLateralProps } from "./molecules/nav-lateral"
 export type { SlideShowProps } from "./organisms/slide-show"
 export type { LogoProps } from "./atoms/logo"
 export type { ButtonProps } from "./atoms/button"
 export type { AuthBoxProps } from "./organisms/auth-box"
 export type { BannerOptions } from './helpers/banner-images';
-export type { ICategory, IProduct } from './helpers/products';
+export type { IProduct } from './helpers/products';
 export type { ProductListProps } from './organisms/product-list';
+export type { OffersProps } from './organisms/offers';
+export type { CounterProps } from './atoms/counter';
+export type { SelectProps } from './atoms/select'
+export type { UserContextProps } from './context/userContext'
+export type { IUser } from './context/userContext'
+export type { UserContextProviderProps } from './context/userContext'
+export type { ModalProps } from './molecules/modal'
+export type { UserInfoProps } from './atoms/user-info'

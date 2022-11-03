@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const FooterStyled = styled.footer`
   width: 100%;
-  background-color: rgb(202, 199, 199);
+  background-color: #e8e8e8;
   display: flex;
   flex-direction: column;
   padding: 30px 0px;

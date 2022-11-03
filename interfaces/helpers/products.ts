@@ -1,14 +1,15 @@
-export interface ICategory {
-    id: number,
-    name: string
-}
+// export interface ICategory {
+//     id: number,
+//     name: string
+// }
 
 export interface IProduct {
     id: number,
-    price: string,
+    category?: string,
+    price: number,
     name: string,
     description: string,
     qty_in_stock: number,
-    categories: ICategory[]
+    type?: string
     image: string
 }

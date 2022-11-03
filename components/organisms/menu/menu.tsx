@@ -5,8 +5,8 @@ import { MenuProps } from "../../../interfaces";
 
 
 const MenuStyled = styled.section`
-  width: 90%;
-  margin: 40px auto 60px auto;
+  width: 95%;
+  margin: 35px auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 40px;

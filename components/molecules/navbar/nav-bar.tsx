@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { FC, useContext, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { Icon, ThemeIcon, Input } from "../../../components";
+import { Icon, ThemeIcon, Input, CardCircular } from "../../../components";
 import ContextTheme from "../../../context/ThemeContextUI";
 
 const NavBarStyled = styled.nav`
@@ -27,6 +28,16 @@ const CloseSearch = styled.div`
   top: 3.5px;
   left: 80%;
 `;
+const CartContainer = styled.span`
+position: relative;
+margin: 0;
+padding: 0;
+`;
+const CounterText = styled.p`
+  font-size: 10px;
+  font-weight: bolder;
+`;
+
 
 
 const NavBar = () => {
@@ -56,8 +67,15 @@ const NavBar = () => {
           <Icon fill="fa-solid fa-magnifying-glass" margin="0px"></Icon>
         </span>
       )}
+      <CartContainer>
       <Icon fill="fa-solid fa-cart-shopping"></Icon>
-      <Icon fill="fa-regular fa-star"></Icon>
+      <CardCircular bg="#f6d1bc" top="-8px" left="30px" size="13px">
+          <CounterText>1</CounterText>
+      </CardCircular>
+      </CartContainer>
+      <Link href="/productos/deseos">
+          <Icon fill="fa-regular fa-star"></Icon>
+      </Link>
       <ThemeIcon onClick={toggleTheme}>
         <Icon fill="fa-regular fa-lightbulb"></Icon>
       </ThemeIcon>

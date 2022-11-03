@@ -14,6 +14,7 @@ const CardStyled = styled.div<{width: string, height:string, bg:string, top?:str
     top: ${(props) => props.top};
     left: ${(props) => props.left};
     z-index: 2;
+    cursor: pointer;
 `;
 
 const CardCircular:FC<CardCircularProps> = ({size, bg, children, top, left}) => {

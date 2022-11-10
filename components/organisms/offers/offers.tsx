@@ -20,7 +20,7 @@ const SubContainer = styled.div<{ width: string; sizeText: string }>`
   justify-content: center;
   align-items: center;
   article {
-    margin: 10px 0 20px 0;
+    margin: 10px 0px 20px 8%;
   }
   p {
     width: 82%;

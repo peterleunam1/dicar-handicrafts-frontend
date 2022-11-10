@@ -26,9 +26,7 @@ const Form = styled.form`
 const Registro: NextPage = () => {
   const [page, setPage] = useState(false);
   const [user, setUser] = useState({})
-  const [confirm, setConfirm] = useState("")
   const router = useRouter()
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
@@ -37,18 +35,16 @@ const Registro: NextPage = () => {
     });
   };
 
-  const ConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>)=>{
-    // await  setConfirm( e.target.value)
-    // confirm !== password ? alert("Las contraseñas deben ser iguales") : ""
-  }
 
  
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const result = await addUser(user).then(()=>{
-          console.log(result)
-        })
-        router.push('/auth/login')
+        const {status} = await addUser(user) as any
+        if (status === 201 || status === 200){
+          router.push('/auth/login')
+        }else{
+          alert("Hubo un error")
+        }
   }
 
   
@@ -92,9 +88,13 @@ const Registro: NextPage = () => {
               placeholder="Teléfono celular"
               name="phone_number"
               py="10px"
-              mb="15px"
+              mb="20px"
               onChange={handleChange}
             />
+             <p>
+              ¿Ya tienes una cuenta? 
+              <Link href="/auth/login">Inicia sesión</Link>
+            </p>
           </Container>
         </AuthBox>
         <AuthBox
@@ -127,7 +127,6 @@ const Registro: NextPage = () => {
               name="passwordConfirm"
               py="10px"
               mb="15px"
-              onChange={ConfirmPassword}
             />
             <ButtonContainer onClick={()=> handleSubmit}>
               <Button

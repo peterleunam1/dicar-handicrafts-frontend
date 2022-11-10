@@ -14,7 +14,16 @@ export interface UserContextProviderProps{
     children: React.ReactNode
 }
 
-export interface UserContextProps{
-    user?: IUser[],
-    setUser: (value: IUser[]) => void
+export interface AddressContextProps{
+    update?: boolean,
+    setUpdate: (value: boolean) => void
+
+    address?: string
+    setAddress: (value:string) =>void
+
+    department?: string
+    setDepartment: (value:string) =>void
+    
+    city?: string
+    setCity: (value:string) =>void
 }

@@ -3,7 +3,6 @@ const addUser = async (object: any) => {
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "Access-Control-Allow-Origin": "*",
@@ -11,10 +10,18 @@ const addUser = async (object: any) => {
       body: new URLSearchParams(object),
     });
     if (!response.ok) {
-      throw new Error(response.statusText);
+      const data = response.json;
+      return {
+        ...data,
+        status: response.status
+      };
+    } else {
+      const data = response.json;
+      return {
+        ...data,
+        status: response.status
+      };
     }
-    const data = response.json
-    return data
   } catch (error) {
     console.log(error);
   }

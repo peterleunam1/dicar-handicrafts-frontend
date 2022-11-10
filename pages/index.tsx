@@ -14,6 +14,7 @@ import Accesorio from "../public/assets/accesorios.png";
 import { EmptyObject, products_combo, slideImages } from "../helpers";
 import useUser from "../hooks/useUser";
 
+
 const SliderContainer = styled.div`
   width: 60%;
 `;
@@ -109,6 +110,7 @@ const Home: NextPage = () => {
               </p>
             </Divisor>
             <Offers type="video" urlMultimedia="https://i.imgur.com/GjxYwv6.mp4">
+        
               <ProductList products={products_combo} />
             </Offers>
             <ArtSection>

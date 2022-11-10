@@ -9,10 +9,19 @@ const singIn = async (object:any) => {
       
         if (response.ok) {
           const result = await response.json();
-          return result
+          return {
+            ...result,
+            status: response.status
+          }
+        }else{
+          const result = await response.json();
+          return{
+            ...result,
+            status: 401
+          }
         }
-      } catch (err) {
-        console.error(err);
+      } catch (err:any) {
+        console.log("Esto es una prueba")
       }
       
   }

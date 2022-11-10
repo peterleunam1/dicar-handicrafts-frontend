@@ -25,9 +25,10 @@ const Container = styled.section<{ width?: string; height?: string }>`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   border: 0.5px solid #000;
+  padding: 0px 30px;
 `;
 
 const Close = styled.article`

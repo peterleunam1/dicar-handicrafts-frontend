@@ -3,6 +3,7 @@ import Head from "next/head";
 import { ShopLayoutProps } from "../../interfaces";
 import styled from "styled-components";
 import { Header, Footer, NavLateral } from "../../components";
+import { CounterCartProvider } from "../../context/CounterCart";
 
 const Main = styled.main`
   margin: 100px auto 70px auto;
@@ -17,7 +18,7 @@ const ShopLayout: FC<ShopLayoutProps> = ({
   children,
 }) => {
   return (
-    <>
+    <CounterCartProvider>
       <Head>
         <title>{title} - Dicar</title>
         <meta name="description" content={descriptionPage} />
@@ -30,7 +31,7 @@ const ShopLayout: FC<ShopLayoutProps> = ({
       <Main>{children}</Main>
 
       <Footer />
-    </>
+    </CounterCartProvider>
   );
 };
 export default ShopLayout;

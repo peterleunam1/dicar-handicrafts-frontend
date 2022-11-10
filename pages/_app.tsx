@@ -1,15 +1,15 @@
 import type { AppProps } from "next/app";
 import GlobalStyle from "../globalStyles";
 import { ThemeContextProvider } from "../context/ThemeContextUI";
-import { UserContextProvider } from "../context/UserContext";
+import { AddressContextProvider } from "../context/AddressContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeContextProvider>
       <GlobalStyle />
-      <UserContextProvider>
+      <AddressContextProvider>
         <Component {...pageProps} />
-      </UserContextProvider>
+      </AddressContextProvider>
     </ThemeContextProvider>
   );
 }

@@ -7,7 +7,7 @@ const ContainerStyled = styled.div<{
   py: string;
   mb: string;
   borderColor: string;
-  bradius?:string;
+  bradius?: string;
 }>`
   border-radius: ${(props) => props.bradius || "15px"};
   display: flex;
@@ -17,6 +17,8 @@ const ContainerStyled = styled.div<{
   border: 1px solid ${(props) => props.borderColor};
   margin-bottom: ${(props) => props.mb};
   width: 90%;
+  margin-top: 5px;
+
 `;
 const InputStyled = styled.input<{ fSize: string }>`
   background-color: transparent;
@@ -25,6 +27,10 @@ const InputStyled = styled.input<{ fSize: string }>`
   outline: none;
   font-size: ${(props) => props.fSize};
   color: #606060;
+`;
+const LabelInput = styled.label`
+  font-size: 13px;
+  font-weight: 500;
 `;
 const Input: FC<InputProps> = ({
   onChange,
@@ -36,26 +42,30 @@ const Input: FC<InputProps> = ({
   fSize,
   border_color,
   mb,
-  bradius
+  bradius,
+  label,
 }) => {
   return (
-    <ContainerStyled
-      py={py || "3px"}
-      px={px || "15px"}
-      mb={mb || "0px"}
-      bradius = {bradius}
-      borderColor={border_color || "rgb(202, 199, 199)"}
-    >
-      <InputStyled
-        fSize={fSize || "13px"}
-        onChange={onChange}
-        className="input__form"
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        required
-      />
-    </ContainerStyled>
+    <>
+      <LabelInput htmlFor="">{label}</LabelInput>
+
+      <ContainerStyled
+        py={py || "3px"}
+        px={px || "15px"}
+        mb={mb || "0px"}
+        bradius={bradius}
+        borderColor={border_color || "rgb(202, 199, 199)"}
+      >
+        <InputStyled
+          fSize={fSize || "13px"}
+          onChange={onChange}
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          required
+        />
+      </ContainerStyled>
+    </>
   );
 };
 export default Input;

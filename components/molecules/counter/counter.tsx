@@ -13,8 +13,8 @@ const Container = styled.span`
   }
 `;
 const CircularCard = styled.div`
-  width: 28px;
-  height: 28px;
+  width: 25px;
+  height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;

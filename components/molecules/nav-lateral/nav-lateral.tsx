@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
 import styled from "styled-components";
+import Cookies from "js-cookie";
 import { NavLateralProps } from "../../../interfaces";
 import useUser from "../../../hooks/useUser";
 import { Input, Icon, UserInfo, Button } from "../../../components";
@@ -63,6 +64,7 @@ const NavLateral: FC<NavLateralProps> = ({ transform }) => {
 
   const handleClick = () => {
     localStorage.removeItem("userAuth");
+    Cookies.remove('token');
     window.location.reload();
   };
 
@@ -134,13 +136,18 @@ const NavLateral: FC<NavLateralProps> = ({ transform }) => {
             phone={user.phone_number ?? ''}
           >
             <ul>
-              <Link href={""}>
+              <Link href="/direccion/agregar-domicilio">
                 <ListItem>
                   <Icon fill=" fa-regular fa-address-book" margin="0" />
-                  <p>Agendar dirección</p>
+                  <p>Agregar dirección</p>
                 </ListItem>
               </Link>
-
+              <Link href={""}>
+                <ListItem>
+                  <Icon fill="fa-brands fa-shopify" margin="0" />
+                  <p>Mis compras</p>
+                </ListItem>
+              </Link>
               <ListItem onClick={handleClick}>
                 <Icon fill="fa-solid fa-arrow-right-from-bracket" margin="0" />
                 <p>Cerrar sesión</p>

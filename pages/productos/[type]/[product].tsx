@@ -4,13 +4,16 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import InnerImageZoom from "react-inner-image-zoom";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.min.css";
-import { Button, ShopLayout } from "../../../components";
+import { Button, Modal, ShopLayout } from "../../../components";
 import InterRapidisimo from "../../../public/assets/interapisidisimo.png";
-import { products_mochilas, toCapitalize } from "../../../helpers";
-import { products_accesorios} from "../../../helpers";
+import { EmptyObject, products_mochilas, toCapitalize } from "../../../helpers";
+import { products_accesorios } from "../../../helpers";
 import { products_sandalias } from "../../../helpers";
 import { products_sombreros } from "../../../helpers";
-
+import useUser from "../../../hooks/useUser";
+import { useState } from "react";
+import CartGif from "../../../public/assets/shopping-cart.gif";
+import Cookies from "js-cookie";
 
 const Container = styled.section`
   display: flex;
@@ -102,26 +105,41 @@ const FigCaption = styled.figcaption`
 const Type: NextPage = () => {
   const { product: param, type } = useRouter().query;
   const y = Number(param);
+  const { user } = useUser();
+  const [modal, setModal] = useState(true);
+  const route = useRouter().push;
 
-let product 
+  let product:any;
   switch (type) {
     case "mochilas":
-        product = products_mochilas.find((x) => x.id === y);
-        break;
+      product = products_mochilas.find((x) => x.id === y);
+      break;
     case "sandalias":
-        product = products_sandalias.find((x) => x.id === y);
-        break;
+      product = products_sandalias.find((x) => x.id === y);
+      break;
     case "sombreros":
-        product = products_sombreros.find((x) => x.id === y);
-        break;
+      product = products_sombreros.find((x) => x.id === y);
+      break;
     case "accesorios":
-        product = products_accesorios.find((x) => x.id === y);
-        break;
+      product = products_accesorios.find((x) => x.id === y);
+      break;
     default:
-        break;
+      break;
   }
 
-
+  const handleClick = () => {
+    EmptyObject(user) ? (
+      <Modal status={modal} setStatus={setModal}>
+        <Image src={CartGif} width="60px" height="50px" />
+        <p>Para agregar productos al carrito necesita iniciar sesión</p>
+      </Modal>
+    ) : (
+     (
+      route("/checkout/confirma-datos"),
+      Cookies.set("FastBuy", JSON.stringify([product]))
+     )
+    );
+  };
 
   const Desc = (price: number) => {
     let newPrice = 0;
@@ -145,9 +163,7 @@ let product
         </ImageContainer>
         <InfoContainer>
           <h2>{product?.name}</h2>
-          <p>
-            {product?.description}
-          </p>
+          <p>{product?.description}</p>
           <Text>
             Vendido y entregado por <AccentTex>Artesanías Dicar</AccentTex>
           </Text>
@@ -159,7 +175,6 @@ let product
               -30%
             </AccentTex>
           </Price>
-          {/* <AccentTex color="lightgreen">Disponible</AccentTex> */}
           {product?.qty_in_stock !== 0 ? (
             <AccentTex color="lightgreen">Disponible</AccentTex>
           ) : (
@@ -172,12 +187,14 @@ let product
             mt="25px"
             mb="10px"
           />
-          <Button
-            text="Comprar rápida"
-            bg="#fff"
-            hover="rgba(246, 209, 188, 0.637)"
-            border=" 1.5px solid #f6d1bc"
-          />
+          <div onClick={handleClick}>
+            <Button
+              text="Comprar rápida"
+              bg="#fff"
+              hover="rgba(246, 209, 188, 0.637)"
+              border=" 1.5px solid #f6d1bc"
+            />
+          </div>
           <SendType>
             <FigCaption>Envios a través de:</FigCaption>
             <a

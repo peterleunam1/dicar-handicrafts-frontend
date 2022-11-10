@@ -5,4 +5,5 @@ export interface IconProps {
     margin?: string
     path?: string
     hover?: string
+    mr?:string
 }

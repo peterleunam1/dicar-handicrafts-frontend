@@ -6,7 +6,6 @@ const useUser = (): { user: IUser } => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('userAuth') || "{}");
-
     setUser(user);
   }, []);
 

@@ -2,11 +2,13 @@ import { useState, useContext } from "react";
 import { NextPage } from "next";
 import Link from "next/link";
 import styled from "styled-components";
-import { AuthBox, AuthLayout, Input, Button } from "../../components";
+import { AuthBox, AuthLayout, Input, Button, Alert } from "../../components";
 import { useRouter } from "next/router";
 import singIn from "../../services/sign-in";
-import ContextUser from "../../context/UserContext";
+import ContextUser from "../../context/AddressContext";
 import useUser from "../../hooks/useUser";
+import Cookies from 'js-cookie'
+import Loader from "../../components/atoms/loader/loader";
 
 const FormContainer = styled.form`
   height: 75%;
@@ -20,9 +22,19 @@ const FormContainer = styled.form`
 const ButtonContainer = styled.div`
   width: 50%;
 `;
+const  Load = styled.div`
+position: absolute;
+top: 15px;
+left: 57%;
+width: 100px;
+height: 100px;
+z-index: 10;
+`;
 
 const Login: NextPage = () => {
   const [auth, setAuth] = useState({});
+  const [message, setMessage] = useState("")
+  const [visibility, setVisibility] = useState("hidden")
   const router = useRouter();
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,18 +45,29 @@ const Login: NextPage = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { data, message, token } = await singIn(auth);
-    if (message === "User logged successfully") {
-      window.localStorage.setItem('userAuth', JSON.stringify(data));
-      router.push("/");
-    } else {
-      alert({ message });
+    try{
+      e.preventDefault();
+      setMessage("empty")
+      const result = await singIn(auth);
+      if (result.status === 200) {
+        const {data, token} = result
+        window.localStorage.setItem('userAuth', JSON.stringify(data));
+        Cookies.set("token", token)
+        router.push("/");
+      }else{
+        setVisibility("visible")
+        setMessage("Correo electrónico o contraseña incorrecto")
+      }
+    }catch(error:any){
+
     }
+
   };
   return (
     <AuthLayout title="Inicio de sesión">
-      <AuthBox title="Inicio de sesión">
+      {
+        message !== "empty" ? <Alert visibility={visibility} type="error" message={message}/>: <Load><Loader/></Load>
+        }      <AuthBox title="Inicio de sesión">
         <FormContainer onSubmit={handleSubmit}>
           <Input
             type="email"

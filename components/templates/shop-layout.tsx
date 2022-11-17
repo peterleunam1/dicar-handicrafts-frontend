@@ -2,7 +2,7 @@ import { FC } from "react";
 import Head from "next/head";
 import { ShopLayoutProps } from "../../interfaces";
 import styled from "styled-components";
-import { Header, Footer, NavLateral } from "../../components";
+import { Header, Footer } from "../../components";
 import { CounterCartProvider } from "../../context/CounterCart";
 
 const Main = styled.main`

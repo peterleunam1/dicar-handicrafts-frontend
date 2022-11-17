@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import Loader from "../../components/atoms/loader/loader";
 
 const fetcher = (...args: [key: string]) =>
   fetch(...args).then((res) => res.json());
@@ -11,9 +12,11 @@ const getState = () => {
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
+
   const { data: states } = data;
   return {
     states,
   };
 };
 export default getState;
+

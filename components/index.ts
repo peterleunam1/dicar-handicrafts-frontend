@@ -32,5 +32,6 @@ export { default as loader } from "./atoms/loader/loader";
 export { default as Alert } from "./atoms/alert/alert";
 export { default as Summary } from "./molecules/summary/summary";
 export { default as Item } from "./atoms/item/item";
+export { default as AdminLayout } from "./templates/admin-layout";
 
 

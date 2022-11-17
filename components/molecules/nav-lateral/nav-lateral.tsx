@@ -1,40 +1,53 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 import { NavLateralProps } from "../../../interfaces";
 import useUser from "../../../hooks/useUser";
-import { Input, Icon, UserInfo, Button } from "../../../components";
+import { Input, Icon, Logo, Button } from "../../../components";
 import { EmptyObject } from "../../../helpers";
 
-const AsideMenu = styled.aside<{ transform: string }>`
+const AsideMenu = styled.aside<{
+  transform: string;
+  height: string;
+  mg: string;
+  pt: string;
+}>`
   background-color: ${({ theme }) => theme.background};
   width: 260px;
-  height: calc(100vh - 65px);
+  height: ${(props) => props.height};
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   overflow-y: hidden;
-  margin-top: 65px;
+  margin-top: ${(props) => props.mg};
   transition: 0.5s ease transform;
   z-index: 3;
   box-shadow: ${({ theme }) => theme.bshadow};
   transform: ${(props) => props.transform};
   padding: 25px 35px;
+  padding-top: ${(props) => props.pt};
 
-  span {
+  figure {
     width: 100%;
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 25px;
+    justify-content: center;
   }
 `;
-const Form = styled.form`
+const Close = styled.span<{ display: string }>`
+  width: 100%;
+  margin-bottom: 25px;
+  display: ${(props) => props.display};
+  display: flex;
+  justify-content: flex-end;
+`;
+const Form = styled.form<{ display: string }>`
   padding-bottom: 25px;
   border-bottom: 1px solid #e8e8e8;
+  display: ${(props) => props.display};
 `;
-const ListItem = styled.li`
+const ListItem = styled.li<{ color?: string }>`
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
@@ -52,6 +65,7 @@ const ListItem = styled.li`
     width: 88%;
     display: flex;
     justify-content: flex-start;
+    color: ${(props) => props.color || ""};
 
     &:hover {
       font-weight: bolder;
@@ -59,21 +73,44 @@ const ListItem = styled.li`
   }
 `;
 
-const NavLateral: FC<NavLateralProps> = ({ transform }) => {
+const NavLateral: FC<NavLateralProps> = ({
+  transform,
+  display_items,
+  height,
+  mg,
+  pt,
+  setIsOpen,
+  logo = false,
+}) => {
   const { user } = useUser();
 
   const handleClick = () => {
     localStorage.removeItem("userAuth");
-    Cookies.remove('token');
+    Cookies.remove("token");
     window.location.reload();
   };
 
   return (
-    <AsideMenu transform={transform}>
-      <span>
+    <AsideMenu
+      transform={transform}
+      height={height || "calc(100vh - 65px)"}
+      mg={mg || "68px"}
+      pt={pt || "0px"}
+    >
+      <Close
+        onClick={() => setIsOpen(false)}
+        display={display_items || "block"}
+      >
         <Icon fill="fa-solid fa-xmark" />
-      </span>
-      <Form>
+      </Close>
+      {logo ? (
+        <figure>
+          <Logo route="/" />
+        </figure>
+      ) : (
+        <></>
+      )}
+      <Form display={display_items || "block"}>
         <Input
           type="text"
           placeholder="Busque un producto aquí"
@@ -82,6 +119,23 @@ const NavLateral: FC<NavLateralProps> = ({ transform }) => {
           fSize="14px"
         />
       </Form>
+      {user.rol_id === 4 || EmptyObject(user) ? (
+        <></>
+      ) : (
+        <>
+          <ul>
+            <ListItem color="lightgreen">
+              <p>--- Admin ---</p>
+            </ListItem>
+            <Link href="/admin/home">
+              <ListItem>
+                <Icon fill="fa-solid fa-crown" margin="0" />
+                <p>Agregar productos</p>
+              </ListItem>
+            </Link>
+          </ul>
+        </>
+      )}
       <ul>
         <Link href="/productos/mochilas">
           <ListItem>
@@ -130,30 +184,28 @@ const NavLateral: FC<NavLateralProps> = ({ transform }) => {
         </>
       ) : (
         <>
-          <UserInfo
-            name={`${user.firstname} ${user.lastname}`}
-            email={user.email ?? ''}
-            phone={user.phone_number ?? ''}
-          >
-            <ul>
-              <Link href="/direccion/agregar-domicilio">
-                <ListItem>
-                  <Icon fill=" fa-regular fa-address-book" margin="0" />
-                  <p>Agregar dirección</p>
-                </ListItem>
-              </Link>
-              <Link href={""}>
-                <ListItem>
-                  <Icon fill="fa-brands fa-shopify" margin="0" />
-                  <p>Mis compras</p>
-                </ListItem>
-              </Link>
-              <ListItem onClick={handleClick}>
-                <Icon fill="fa-solid fa-arrow-right-from-bracket" margin="0" />
-                <p>Cerrar sesión</p>
+          <ul>
+            <ListItem>
+              <Icon fill="fa-solid fa-user" margin="0" />
+              <p>Perfil</p>
+            </ListItem>
+            <Link href="/direccion/agregar-domicilio">
+              <ListItem>
+                <Icon fill=" fa-regular fa-address-book" margin="0" />
+                <p>Agregar dirección</p>
               </ListItem>
-            </ul>
-          </UserInfo>
+            </Link>
+            <Link href={""}>
+              <ListItem>
+                <Icon fill="fa-solid fa-tags" margin="0" />
+                <p>Mis compras</p>
+              </ListItem>
+            </Link>
+            <ListItem onClick={handleClick}>
+              <Icon fill="fa-solid fa-arrow-right-from-bracket" margin="0" />
+              <p>Cerrar sesión</p>
+            </ListItem>
+          </ul>
         </>
       )}
     </AsideMenu>

@@ -53,7 +53,11 @@ const Login: NextPage = () => {
         const {data, token} = result
         window.localStorage.setItem('userAuth', JSON.stringify(data));
         Cookies.set("token", token)
-        router.push("/");
+        if (data.rol_id === 4 ){
+          router.push("/");
+        }else{
+          router.push("/admin/home");
+        }
       }else{
         setVisibility("visible")
         setMessage("Correo electrónico o contraseña incorrecto")

@@ -37,12 +37,11 @@ const Header: FC = () => {
         </span>
         <SocialBar />
         {isOpenMenu ? (
-          <NavLateral transform="translateX(0px)"/>
+          <NavLateral transform="translateX(0px)" setIsOpen={setIsOpenMenu}/>
         ) : (
-          <NavLateral transform="translateX(-350px)" />
+          <NavLateral transform="translateX(-350px)" setIsOpen={setIsOpenMenu}/>
         )}
       </OptionsLeft>
-
       <Logo route="/" />
       <NavBar />
     </HeaderStyled>

@@ -2,6 +2,7 @@ export type { ThemeIconsProps } from "./atoms/theme-icon";
 export type { ThemeContextUi } from "./context/themeContextUI";
 export type { IconProps } from "./atoms/icon";
 export type { ShopLayoutProps } from "./templates/shop-layout";
+export type { AdminLayoutProps } from "./templates/admin-layout";
 export type { AuthLayoutProps } from "./templates/auth-layout";
 export type { CardCircularProps } from "./atoms/card-circular";
 export type { InputProps } from "./atoms/input";

@@ -1,18 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Banner, Icon, ProductList, ShopLayout } from "../../../components";
-import { getBannerImage, toCapitalize } from "../../../helpers";
-import { BannerOptions, IProduct } from "../../../interfaces";
 import {
-  products_mochilas,
-  products_accesorios,
-  products_sandalias,
-  products_sombreros,
+  getBannerImage,
+  toCapitalize,
+  toSubcategories,
 } from "../../../helpers";
-
-const Options = ["arhuaca", "wayuu", "kankuama", "iraca"];
+import { BannerOptions, IProduct } from "../../../interfaces";
+import useProducts from "../../../hooks/useProducts";
 
 const FilterContainer = styled.section`
   display: flex;
@@ -72,38 +69,13 @@ const Mochilas: NextPage = () => {
   const { type } = useRouter().query;
   const [tipe, setTipe] = useState<Array<IProduct>>([]);
   const [empty, setEmpty] = useState(true);
-
-
-  let product:any;
-  let options;
-  switch (type) {
-    case "mochilas":
-      product = products_mochilas;
-      options = ["arhuaca", "wayuu", "kankuama", "iraca"];
-      break;
-    case "sandalias":
-      product = products_sandalias;
-      options = ["plataforma", "wayuu"];
-
-      break;
-    case "sombreros":
-      product = products_sombreros;
-      options = ["decorado", "wayuu"];
-      break;
-    case "accesorios":
-      options = ["arete", "manilla", "pulsera", "otro"];
-      product = products_accesorios;
-      break;
-
-    default:
-      break;
-  }
+  const { products } = useProducts(type);
+  const options = toSubcategories(type);
 
   const handleClick = (param: string) => {
-    const filtered = product.filter((x:IProduct) => x.type === param);
+    const filtered = products.filter((x: IProduct) => x.type === param);
     setTipe(filtered);
     setEmpty(false);
-    
   };
 
   return (
@@ -127,15 +99,15 @@ const Mochilas: NextPage = () => {
             <FilterOption isActive={empty} onClick={() => setEmpty(true)}>
               Todas
             </FilterOption>
-            {options?.map((element, index) => {
+            {options?.map(({name, id}) => {
               return (
-                <FilterOption
+                <FilterOption 
                   onClick={() => {
-                    handleClick(element);
+                    handleClick(name);
                   }}
-                  key={index++}
+                  key={id}
                 >
-                  {`${toCapitalize(element)}s`}
+                  {`${toCapitalize(name)}s`}
                 </FilterOption>
               );
             })}
@@ -143,7 +115,7 @@ const Mochilas: NextPage = () => {
         </HeaderFilter>
         <ProductsContainer>
           {empty ? (
-            <ProductList products={product || products_mochilas} />
+            <ProductList products={products} />
           ) : (
             <ProductList products={tipe} />
           )}

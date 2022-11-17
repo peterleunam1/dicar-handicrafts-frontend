@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { toCapitalize } from "../../../helpers";
 import { SelectProps } from "../../../interfaces";
 
 const SelectStyled = styled.select`
@@ -18,7 +19,7 @@ const LabelInput = styled.label`
 `;
 
 const Select: FC<SelectProps> = ({ onChange, array, name, arg, label }) => {
-  array = array.sort();
+  array.sort();
   return (
     <>
       <LabelInput htmlFor="">{label}</LabelInput>
@@ -26,10 +27,10 @@ const Select: FC<SelectProps> = ({ onChange, array, name, arg, label }) => {
         <option value="DEFAULT" disabled>
           Seleccione
         </option>
-        {array.map((element) => {
+        {array?.map((element) => {
           return (
             <option value={element[`${arg}`]} key={element.id}>
-              {element[`${arg}`]}
+              {toCapitalize(element[`${arg}`])}
             </option>
           );
         })}

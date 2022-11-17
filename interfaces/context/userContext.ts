@@ -6,6 +6,7 @@ export interface IUser {
     lastname?: string;
     email?: string;
     phone_number?: string;
+    rol_id?: number
     createdAt?: string;
     updatedAt?: string;
 }

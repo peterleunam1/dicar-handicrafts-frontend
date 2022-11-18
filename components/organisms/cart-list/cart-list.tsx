@@ -1,18 +1,10 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { products_accesorios } from "../../../helpers";
 import { CartItem, Button, Summary, Item } from "../../../components";
 import { useRouter } from "next/router";
-import { CartListProps } from "../../../interfaces";
+import { CartListProps, IProduct } from "../../../interfaces";
 
-const productsInCart = [
-  products_accesorios[10],
-  products_accesorios[11],
-  products_accesorios[12],
-  products_accesorios[13],
-  products_accesorios[1],
-  products_accesorios[2],
-];
 const HeaderList = styled.header`
   width: 100%;
   height: 50px;
@@ -77,9 +69,16 @@ const Total = styled.p`
   font-weight: bolder;
 `;
 
-const CartList: FC<CartListProps> = ({ mode, array}) => {
+const CartList: FC<CartListProps> = ({ mode, array }) => {
   const route = useRouter().push;
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
+  const [productsInCart, setProductsInCart] = useState<IProduct[]>([]);
+
+  useEffect(() => {
+    const currentProductsInCart = JSON.parse(localStorage.getItem('cart') || "[]");
+    setProductsInCart(currentProductsInCart);
+  }, []);
+
   const handleClick = () => {
     route("/checkout/confirma-datos");
   };

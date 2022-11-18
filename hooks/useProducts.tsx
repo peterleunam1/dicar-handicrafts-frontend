@@ -8,7 +8,7 @@ const useProducts = (category: any) => {
     getProductByCatgory(category || "").then((data) => {
       setProducts(data);
     });
-  }, []);
+  }, [category]);
 
   return {
     products

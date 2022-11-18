@@ -7,7 +7,8 @@ import { IProduct } from "../../../interfaces";
 import { EmptyObject } from "../../../helpers";
 import useUser from "../../../hooks/useUser";
 import CounterCartContext from "../../../context/CounterCart";
-import CartGif  from "../../../public/assets/shopping-cart.gif"
+import CartGif from "../../../public/assets/shopping-cart.gif"
+import { IProductComponent } from "../../../interfaces/helpers/products";
 
 const ProductContainer = styled.article`
   width: max-content;
@@ -41,12 +42,12 @@ const Text = styled.div<{ size: string; bold: number; aling?: string }>`
 const ButtonC = styled.div`
   width: 200px;
 `;
-const Product: FC<IProduct> = ({ image, name, price, id, category, type }) => {
-  let { counter, setCounter } = useContext(CounterCartContext);
+const Product: FC<IProductComponent> = ({ product, setInCart }) => {
+  const { image, category, id, name, price, type } = product;
+  const { counter, setCounter } = useContext(CounterCartContext);
   const [isFavorite, setIsFavorite] = useState(false);
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
-  const [inCart, setInCart] = useState<Array<IProduct>>([]);
   const { user } = useUser();
 
   const handleCart = () => {
@@ -68,45 +69,12 @@ const Product: FC<IProduct> = ({ image, name, price, id, category, type }) => {
     }
   };
 
-  let data
-  useEffect(()=>{
-    data = localStorage.getItem("inCart");
-  if(!data){
-    setInCart(JSON.parse(data || "{}"))
-  }else{
-    setInCart([ ])
-  }
-  },[])
-  useEffect(() => {
-    console.log("Saving to local storage");
-    localStorage.setItem("inCart", JSON.stringify(inCart));
-  }, [inCart])
-
-
-
   const handleConfirmCart = (product: IProduct) => {
-    setCounter((counter = counter! + 1));
+    setCounter(counter + 1);
     setModal2(false);
-
-    setInCart([...inCart, { 
-      id: product.id,
-      category: product.category,
-      price: product.price,
-      name: product.name,
-      type: product.type,
-      image: product.image
-     }]);
-    //LOGICA PARA AGREGAR PRODUCTOS AL CARRO
-    // window.localStorage.setItem("inCart", JSON.stringify(product));
-  //  inCart.push(product)
-  //   window.localStorage.setItem("inCart", JSON.stringify(inCart));
+    setInCart(product);
   };
 
-  // let value;
-  //   if (typeof window !== "undefined") {
-  //     value = window.localStorage.getItem("inCart")|| {};
-  //   }
-  // console.log(value)
   return (
     <ProductContainer>
       <div onClick={handleCart}>
@@ -150,11 +118,11 @@ const Product: FC<IProduct> = ({ image, name, price, id, category, type }) => {
         </Link>
       </InfoContent>
       <Modal status={modal} setStatus={setModal}>
-      <Image src={CartGif} width="60px" height="50px"/>
+        <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
         <p>Para agregar productos al carrito necesita iniciar sesión</p>
       </Modal>
       <Modal status={modal2} setStatus={setModal2}>
-        <Image src={CartGif} width="60px" height="50px"/>
+        <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
         <p>
           ¿Desea agregar el producto <strong>{name?.toLocaleLowerCase()}</strong>{" "}
           al carrito?
@@ -176,7 +144,7 @@ const Product: FC<IProduct> = ({ image, name, price, id, category, type }) => {
             bg="#f6d1bc"
             hover="rgba(246, 209, 188, 0.637)"
             mt="20px"
-            //  mb="10px"
+          //  mb="10px"
           />
         </ButtonC>
       </Modal>

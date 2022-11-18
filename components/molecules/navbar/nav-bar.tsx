@@ -22,14 +22,14 @@ const CounterText = styled.p`
   font-weight: bolder;
 `;
 
-const NavBar:FC = () => {
+const NavBar: FC = () => {
   const { toggleTheme } = useContext(ContextTheme) as any;
-  const {counter} = useContext(CounterCartContext)
+  const { counter } = useContext(CounterCartContext)
   const { user } = useUser();
   const [status, setStatus] = useState(true)
   const route = useRouter();
 
-  const handleClick = (path:string) => {
+  const handleClick = (path: string) => {
     EmptyObject(user) ? (
       <Modal status={status} setStatus={setStatus}>
         <p>hola</p>
@@ -40,16 +40,16 @@ const NavBar:FC = () => {
   };
   return (
     <NavBarStyled>
-      <CartContainer onClick={()=>{handleClick("/cart")}}>
+      <CartContainer onClick={() => { handleClick("/cart") }}>
         <Icon fill="fa-solid fa-cart-shopping"></Icon>
         <CardCircular bg="#f6d1bc" top="-8px" left="30px" size="13px">
           <CounterText>{counter}</CounterText>
         </CardCircular>
       </CartContainer>
- 
-        <div onClick={()=>handleClick("/productos/deseos")}>
-          <Icon fill="fa-regular fa-star"></Icon>
-        </div>
+
+      <div onClick={() => handleClick("/productos/deseos")}>
+        <Icon fill="fa-regular fa-star"></Icon>
+      </div>
       <ThemeIcon onClick={toggleTheme}>
         <Icon fill="fa-regular fa-lightbulb"></Icon>
       </ThemeIcon>

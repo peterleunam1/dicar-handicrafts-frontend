@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
-import { Counter, Icon, Item} from "../../../components";
+import { Counter, Icon, Item } from "../../../components";
 import { CartItemProps, CounterProps, IProduct } from "../../../interfaces";
 import { toCapitalize } from "../../../helpers";
 
@@ -122,14 +122,20 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
 
 const CartItem: FC<CartItemProps> = ({ item, mode, total, setTotal }) => {
   const [qty, setQty] = useState(1);
-  console.log(item)
   const { image, category, price, id, name, type, qty_in_stock } = item;
 
   function handleAdd(event: number) {
     setQty(() => event);
   }
-  setTotal((qty * price))
-  console.log(total)
+  setTotal((qty * price!))
+
+  const handleRemove = () => {
+    const productsInCart: IProduct[] = JSON.parse(localStorage.getItem('cart') || "[]");
+    const productsExcluded = productsInCart.filter(product => product.id !== id);
+
+    localStorage.setItem('cart', JSON.stringify(productsExcluded));
+  }
+
   return (
     <>
       {mode === "complete" ? (
@@ -142,6 +148,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode, total, setTotal }) => {
                   width="100px"
                   height="120px"
                   layout="responsive"
+                  alt="Product Image"
                 />
               </ImageC>
             </Link>
@@ -165,7 +172,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode, total, setTotal }) => {
                     Agregar a favoritos
                   </Links>
                   |{" "}
-                  <Links>
+                  <Links onClick={handleRemove}>
                     <Icon
                       fill="fa-solid fa-xmark"
                       margin="0px"
@@ -192,11 +199,11 @@ const CartItem: FC<CartItemProps> = ({ item, mode, total, setTotal }) => {
           </ContentRigth>
           <ContentLeft>
             <Prices border="1.5px solid #e8e8e8;" margin="20px">
-              <strong>Precio unitario:</strong>$ {price}.000
+              <strong>Precio unitario:</strong>
             </Prices>
             <Prices>
               {" "}
-              <strong>Precio:</strong> <h3>{`$${price * qty}.000`}</h3>
+              <strong>Precio:</strong> <h3>{`$${price! * qty}`}</h3>
             </Prices>
           </ContentLeft>
         </ListItem>

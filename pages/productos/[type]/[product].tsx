@@ -109,7 +109,7 @@ const Type: NextPage = () => {
   const [modal, setModal] = useState(true);
   const route = useRouter().push;
 
-  let product:any;
+  let product: any;
   switch (type) {
     case "mochilas":
       product = products_mochilas.find((x) => x.id === y);
@@ -130,14 +130,14 @@ const Type: NextPage = () => {
   const handleClick = () => {
     EmptyObject(user) ? (
       <Modal status={modal} setStatus={setModal}>
-        <Image src={CartGif} width="60px" height="50px" />
+        <Image src={CartGif} width="60px" height="50px" alt="Imagen de carrito" />
         <p>Para agregar productos al carrito necesita iniciar sesión</p>
       </Modal>
     ) : (
-     (
-      route("/checkout/confirma-datos"),
-      Cookies.set("FastBuy", JSON.stringify([product]))
-     )
+      (
+        route("/checkout/confirma-datos"),
+        Cookies.set("FastBuy", JSON.stringify([product]))
+      )
     );
   };
 
@@ -199,9 +199,9 @@ const Type: NextPage = () => {
             <FigCaption>Envios a través de:</FigCaption>
             <a
               href="https://www.interrapidisimo.com/sigue-tu-envio/"
-              target={"_blank"}
+              target={"_blank"} rel="noreferrer"
             >
-              <Image src={InterRapidisimo} width="135x" height="30px" />
+              <Image src={InterRapidisimo} width="135x" height="30px" alt="Product image" />
             </a>
           </SendType>
           <Button text="Agregar a favoritos" bg="#e8e8e8" hover="#cececec3" />

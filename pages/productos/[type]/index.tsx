@@ -56,6 +56,7 @@ const FilterOption = styled.li<{ isActive?: boolean }>`
   height: 22px;
   background-color: ${(props) =>
     props.isActive ? "#f6d1bc" : "rgba(253, 253, 253, .79)"};
+  font-weight: ${(props) => props.isActive ? '600' : 'normal'};
   &:hover {
     background-color: #f6d1bc;
     font-weight: 600;
@@ -65,17 +66,21 @@ const ProductsContainer = styled.div`
   border-top: 2px solid #e8e8e8;
   width: 100%;
 `;
-const Mochilas: NextPage = () => {
+const ProductType: NextPage = () => {
   const { type } = useRouter().query;
-  const [tipe, setTipe] = useState<Array<IProduct>>([]);
-  const [empty, setEmpty] = useState(true);
+  const [productsFiltered, setProductsFiltered] = useState<Array<IProduct>>([]);
+  const [filterActive, setFilterActive] = useState('todas');
   const { products } = useProducts(type);
   const options = toSubcategories(type);
 
-  const handleClick = (param: string) => {
-    const filtered = products.filter((x: IProduct) => x.type === param);
-    setTipe(filtered);
-    setEmpty(false);
+  useEffect(() => {
+    setFilterActive('todas');
+  }, [type])
+
+  const handleClick = (name: string) => {
+    const filtered = products.filter((x: IProduct) => x.type === name);
+    setProductsFiltered(filtered);
+    setFilterActive(name);
   };
 
   return (
@@ -96,12 +101,13 @@ const Mochilas: NextPage = () => {
             <p>Filtrar las opciones</p>{" "}
           </Text>
           <FilterOptions>
-            <FilterOption isActive={empty} onClick={() => setEmpty(true)}>
+            <FilterOption isActive={filterActive === 'todas'} onClick={() => setFilterActive('todas')}>
               Todas
             </FilterOption>
-            {options?.map(({name, id}) => {
+            {options?.map(({ name, id }) => {
               return (
-                <FilterOption 
+                <FilterOption
+                  isActive={filterActive === name}
                   onClick={() => {
                     handleClick(name);
                   }}
@@ -114,10 +120,10 @@ const Mochilas: NextPage = () => {
           </FilterOptions>
         </HeaderFilter>
         <ProductsContainer>
-          {empty ? (
+          {filterActive === 'todas' ? (
             <ProductList products={products} />
           ) : (
-            <ProductList products={tipe} />
+            <ProductList products={productsFiltered} />
           )}
         </ProductsContainer>
       </FilterContainer>
@@ -125,4 +131,4 @@ const Mochilas: NextPage = () => {
   );
 };
 
-export default Mochilas;
+export default ProductType;

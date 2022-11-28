@@ -52,7 +52,6 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
 
   const handleCart = () => {
     if (EmptyObject(user)) {
-      console.log("mirave");
       return setModal(true);
     } else {
       setModal2(true);
@@ -61,7 +60,6 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
 
   const handleWishList = () => {
     if (EmptyObject(user)) {
-      console.log("mirave");
       return setModal(true);
     } else {
       setIsFavorite(true);

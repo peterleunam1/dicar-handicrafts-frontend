@@ -21,9 +21,18 @@ const ProductList: FC<ProductListProps> = ({ products }) => {
     }, []);
 
     const handleSaveOnCart = (product: IProduct) => {
-        setCart([...cart, product]);
-        const productsInCart = [...cart, product];
-        window.localStorage.setItem('cart', JSON.stringify(productsInCart));
+        const productInCart = cart.find(item => item.id === product.id);
+
+        if (productInCart) {
+            productInCart.qty! += 1;
+            setCart([...cart, { ...productInCart }])
+            window.localStorage.setItem('cart', JSON.stringify([...cart, { ...productInCart }]));
+        }
+        else {
+            setCart([...cart, { ...product, qty: 1 }]);
+            const productsInCart = [...cart, { ...product, qty: 1 }];
+            window.localStorage.setItem('cart', JSON.stringify(productsInCart));
+        }
     };
 
     return (

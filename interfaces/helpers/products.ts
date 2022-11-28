@@ -7,6 +7,7 @@ export interface IProduct {
     qty_in_stock?: number,
     type?: string,
     image: string,
+    qty?: number
 }
 
 export interface IProductComponent {

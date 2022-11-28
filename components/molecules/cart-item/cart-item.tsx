@@ -124,8 +124,9 @@ const CartItem: FC<CartItemProps> = ({ item, mode, total, setTotal }) => {
   const [qty, setQty] = useState(1);
   const { image, category, price, id, name, type, qty_in_stock } = item;
 
-  function handleAdd(event: number) {
-    setQty(() => event);
+  function handleAdd(qty: number) {
+    if (qty === 0) handleRemove();
+    setQty(() => qty);
   }
   setTotal((qty * price!))
 
@@ -199,7 +200,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode, total, setTotal }) => {
           </ContentRigth>
           <ContentLeft>
             <Prices border="1.5px solid #e8e8e8;" margin="20px">
-              <strong>Precio unitario:</strong>
+              <p><strong>Precio unitario:</strong> ${item.price}</p>
             </Prices>
             <Prices>
               {" "}

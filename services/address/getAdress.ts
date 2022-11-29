@@ -1,8 +1,9 @@
 import Cookies from "js-cookie";
+import { BASE_URL } from "../../helpers";
 
 export async function getAdress() {
   const response = await fetch(
-    "https://dicard-handicraft.herokuapp.com/api/v1/private/address",
+    `${BASE_URL}/private/address`,
     {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",

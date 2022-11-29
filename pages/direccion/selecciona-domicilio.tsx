@@ -141,7 +141,9 @@ const SeleccionaDomicio: NextPage = () => {
           <Icon fill="fa-regular fa-trash-can" hover="#ff0000" />
           <h5>¿Desea eliminar la dirección de manera permanente?</h5>
           <ButtonC margin="20px" onClick={async() => {
-             const result = await deleteAddress(id)
+             const result = await deleteAddress({
+              id: id
+             })
             console.log(result)
             setUpdate(true)
             setModal(false)

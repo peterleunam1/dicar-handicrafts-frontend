@@ -7,7 +7,7 @@ import CounterCartContext from "../../../context/CounterCart";
 import ContextTheme from "../../../context/ThemeContextUI";
 import { EmptyObject } from "../../../helpers";
 import useUser from "../../../hooks/useUser";
-
+import useQuantity from "../../../hooks/useQuantity";
 const NavBarStyled = styled.nav`
   display: flex;
   align-items: center;
@@ -24,11 +24,12 @@ const CounterText = styled.p`
 
 const NavBar: FC = () => {
   const { toggleTheme } = useContext(ContextTheme) as any;
-  const { counter } = useContext(CounterCartContext)
   const { user } = useUser();
   const [status, setStatus] = useState(true)
   const route = useRouter();
-
+  const { quantity } = useQuantity();
+  const {data} = quantity as any;
+console.log(quantity)
   const handleClick = (path: string) => {
     EmptyObject(user) ? (
       <Modal status={status} setStatus={setStatus}>
@@ -43,10 +44,9 @@ const NavBar: FC = () => {
       <CartContainer onClick={() => { handleClick("/cart") }}>
         <Icon fill="fa-solid fa-cart-shopping"></Icon>
         <CardCircular bg="#f6d1bc" top="-8px" left="30px" size="13px">
-          <CounterText>{counter}</CounterText>
+          <CounterText>{data}</CounterText>
         </CardCircular>
       </CartContainer>
-
       <div onClick={() => handleClick("/productos/deseos")}>
         <Icon fill="fa-regular fa-star"></Icon>
       </div>

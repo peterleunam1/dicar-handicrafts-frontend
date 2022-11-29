@@ -50,11 +50,6 @@ const EmptyPage: NextPage = () => {
             <h2>No hay productos dentro del carrito</h2>
         </Info>
       </Container>
-    {/* <ButtonContainer>  <Button
-            text="Regresar"
-            bg="#f6d1bc"
-            hover="rgba(246, 209, 188, 0.637)"
-          /></ButtonContainer> */}
     </ShopLayout>
   );
 };

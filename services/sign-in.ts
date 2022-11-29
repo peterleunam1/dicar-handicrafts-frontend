@@ -1,7 +1,8 @@
+import { BASE_URL } from "../helpers";
 
 const singIn = async (object:any) => {
     try {
-        const response = await fetch("https://dicard-handicraft.herokuapp.com/api/v1/auth/sign-in", {
+        const response = await fetch(`${BASE_URL}/auth/sign-in`, {
           method: 'POST',
           headers: {'Access-Control-Allow-Origin':'*'},
           body: new URLSearchParams(object)

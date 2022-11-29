@@ -1,12 +1,12 @@
 import useSWR from "swr";
-import Loader from "../../components/atoms/loader/loader";
+import { BASE_URL } from "../../helpers";
 
 const fetcher = (...args: [key: string]) =>
   fetch(...args).then((res) => res.json());
 
 const getState = () => {
   const { data, error } = useSWR(
-    "https://dicard-handicraft.herokuapp.com/api/v1/public/states",
+    `${BASE_URL}/public/states`,
     fetcher
   );
 

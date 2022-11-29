@@ -9,6 +9,7 @@ import useUser from "../../../hooks/useUser";
 import CounterCartContext from "../../../context/CounterCart";
 import CartGif from "../../../public/assets/shopping-cart.gif"
 import { IProductComponent } from "../../../interfaces/helpers/products";
+import addProductToCart from "../../../services/cart/addToCart";
 
 const ProductContainer = styled.article`
   width: max-content;
@@ -67,10 +68,17 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
     }
   };
 
-  const handleConfirmCart = (product: IProduct) => {
-    setCounter(counter + 1);
-    setModal2(false);
-    setInCart(product);
+  const handleConfirmCart = async (product: IProduct) => {
+    const result = await addProductToCart({
+      product_id: product.id
+    })
+
+   if (result?.status === 201) {
+    alert("Producto agregado al carrito con exito");
+   }else{
+      alert("Error al agregar el producto al carrito");
+   }
+   setModal2(false);
   };
 
   return (
@@ -142,7 +150,6 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
             bg="#f6d1bc"
             hover="rgba(246, 209, 188, 0.637)"
             mt="20px"
-          //  mb="10px"
           />
         </ButtonC>
       </Modal>

@@ -1,5 +1,7 @@
+import { BASE_URL } from "../helpers";
+
 const addUser = async (object: any) => {
-  const apiUrl = `https://dicard-handicraft.herokuapp.com/api/v1/auth/sign-up`;
+  const apiUrl = `${BASE_URL}/auth/sign-up`;
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -9,19 +11,12 @@ const addUser = async (object: any) => {
       },
       body: new URLSearchParams(object),
     });
-    if (!response.ok) {
-      const data = response.json;
-      return {
-        ...data,
-        status: response.status
-      };
-    } else {
-      const data = response.json;
-      return {
-        ...data,
-        status: response.status
-      };
-    }
+
+    const data = response.json;
+    return {
+      ...data,
+      status: response.status,
+    };
   } catch (error) {
     console.log(error);
   }

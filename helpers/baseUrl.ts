@@ -1,0 +1,1 @@
+export const BASE_URL = "https://dicard-handicraft-backend-production.up.railway.app/api/v1"

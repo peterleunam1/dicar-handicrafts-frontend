@@ -1,8 +1,9 @@
 import Cookies from "js-cookie";
+import { BASE_URL } from "../../helpers";
 
 const addProduct = async (object: any) => {
   console.log(object)
-    const apiUrl = `https://dicard-handicraft.herokuapp.com/api/v1/private/products/create`;
+    const apiUrl = `${BASE_URL}/private/products/create`;
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -13,7 +14,6 @@ const addProduct = async (object: any) => {
         },
         body: new URLSearchParams(object),
       });
-      console.log(response)
     const data = response.json;
 
     return{

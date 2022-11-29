@@ -14,6 +14,9 @@ import useUser from "../../../hooks/useUser";
 import { useState } from "react";
 import CartGif from "../../../public/assets/shopping-cart.gif";
 import Cookies from "js-cookie";
+import useProducts from "../../../hooks/useProducts";
+import { IProduct } from "../../../interfaces";
+import addProductToCart from "../../../services/cart/addToCart";
 
 const Container = styled.section`
   display: flex;
@@ -108,26 +111,11 @@ const Type: NextPage = () => {
   const { user } = useUser();
   const [modal, setModal] = useState(true);
   const route = useRouter().push;
-
+  const {products} = useProducts(type)
   let product: any;
-  switch (type) {
-    case "mochilas":
-      product = products_mochilas.find((x) => x.id === y);
-      break;
-    case "sandalias":
-      product = products_sandalias.find((x) => x.id === y);
-      break;
-    case "sombreros":
-      product = products_sombreros.find((x) => x.id === y);
-      break;
-    case "accesorios":
-      product = products_accesorios.find((x) => x.id === y);
-      break;
-    default:
-      break;
-  }
+  product = products.find((x:IProduct) => x.id === y);
 
-  const handleClick = () => {
+  const handleClick = async() => {
     EmptyObject(user) ? (
       <Modal status={modal} setStatus={setModal}>
         <Image src={CartGif} width="60px" height="50px" alt="Imagen de carrito" />
@@ -135,8 +123,11 @@ const Type: NextPage = () => {
       </Modal>
     ) : (
       (
-        route("/checkout/confirma-datos"),
-        Cookies.set("FastBuy", JSON.stringify([product]))
+        await addProductToCart({
+          product_id: product.id,
+        }).then((res) => {
+          alert("Producto agregado al carrito");
+        })
       )
     );
   };
@@ -146,6 +137,8 @@ const Type: NextPage = () => {
     newPrice = price * 0.3 + price;
     return newPrice;
   };
+
+ 
 
   return (
     <ShopLayout
@@ -180,14 +173,16 @@ const Type: NextPage = () => {
           ) : (
             <AccentTex color="#ff4142">Agotado</AccentTex>
           )}
-          <Button
+         <div onClick={handleClick}>
+         <Button
             text="Agregar al carrito"
             bg="#f6d1bc"
             hover="rgba(246, 209, 188, 0.637)"
             mt="25px"
             mb="10px"
           />
-          <div onClick={handleClick}>
+         </div>
+          <div>
             <Button
               text="Comprar rápida"
               bg="#fff"

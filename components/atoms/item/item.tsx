@@ -49,7 +49,7 @@ const Item: FC<CartItemProps> = ({ item, qt }) => {
       </Images>
       <Info>
         <Title>{name}</Title>
-        <Price>${price}.000</Price>
+        <Price>${price}</Price>
       </Info>
       <Count>x {qt}</Count>
     </Row>

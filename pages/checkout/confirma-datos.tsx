@@ -8,8 +8,10 @@ import { CartList, Input, InputFull, ShopLayout } from "../../components";
 import ContextAdress from "../../context/AddressContext";
 import { EmptyObject } from "../../helpers";
 import useAdress from "../../hooks/useAdress";
+import useToCart from "../../hooks/useToCart";
 import useUser from "../../hooks/useUser";
 import { IProduct } from "../../interfaces";
+
 
 const Main = styled.div`
   width: 100%;
@@ -57,8 +59,11 @@ const ConfirmaDatos: NextPage = () => {
   const { address, city, department } = useContext(ContextAdress);
   const { data } = useAdress();
   const {user} = useUser()
-  const route = useRouter().push
   const { data: addresses } = data as any;
+
+  const { inCart } = useToCart();
+  const { data:result } = inCart as any;
+  const productsInCart = result?.products;
 
   let domicilio;
   let cityCampare;
@@ -78,11 +83,8 @@ const ConfirmaDatos: NextPage = () => {
     cityCampare = "No establecido";
     departmentCompare = "No establecido"
   }
-  const Redirect = () =>{
-    route("/")
-  }
+ 
 
-const value = JSON.parse(Cookies.get("FastBuy")|| "{}")
 
   return (
     <ShopLayout
@@ -178,7 +180,7 @@ const value = JSON.parse(Cookies.get("FastBuy")|| "{}")
             </div>
           </UserInformation>
   
-          <CartList mode="summary" array={value}/>
+          <CartList mode="summary" array={productsInCart}/>
         </Main></>
       }
     </ShopLayout>

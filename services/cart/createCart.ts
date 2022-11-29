@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 import { BASE_URL } from "../../helpers";
 
-const addAddress = async (object: any) => {
-    const apiUrl = `${BASE_URL}/private/address/create`;
+const createCart = async () => {
+    const apiUrl = `${BASE_URL}/private/cart/create`;
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -11,9 +11,8 @@ const addAddress = async (object: any) => {
           "Access-Control-Allow-Origin": "*",
           'Authorization': 'Bearer ' +  Cookies.get("token")
         },
-        body: new URLSearchParams(object),
+        body: "",
       });
-      console.log(response)
     const data = response.json;
 
     return{
@@ -24,5 +23,5 @@ const addAddress = async (object: any) => {
       console.log(error);
     }
   };
-  export default addAddress;
+  export default createCart;
   

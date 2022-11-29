@@ -1,7 +1,11 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import styled from "styled-components";
 import { Icon } from "../../../components";
+import ContextCart from "../../../context/CartContext";
 import { CounterProps } from "../../../interfaces";
+import addProductToCart from "../../../services/cart/addToCart";
+import deleteItemFromCart from "../../../services/cart/deleteItemFromCart";
+import addProduct from "../../../services/products/addproduct";
 
 const Container = styled.span`
   width: 85px;
@@ -23,28 +27,39 @@ const CircularCard = styled.div`
   cursor: pointer;
 `;
 
-const Counter: FC<CounterProps> = ({ onAction }) => {
-  const [counter, setCounter] = useState(1);
-
-  const subtract = () => {
+const Counter: FC<CounterProps> = ({id, onAction, qty}) => {
+  const [counter, setCounter] = useState(qty);
+const {setUpdate} = useContext(ContextCart)
+  const subtract = async () => {
+    await deleteItemFromCart({
+      product_id: id,
+    }).then((res) => { 
+      setUpdate(true)
+    });
     counter > 0
-      ? setCounter((prev) => {
+      ? setCounter((prev:number) => {
           onAction(prev - 1);
           return prev - 1;
         })
       : setCounter(0);
   };
 
-  const Add = () => {
-    setCounter((prev) => {
+  const Add = async() => {
+    await addProductToCart({
+      product_id: id,
+    }).then((res) => {
+      setUpdate(true)
+    });
+    setCounter((prev:number) => {
       onAction(prev + 1);
       return prev + 1;
     });
   };
 
+
   return (
     <Container>
-      <CircularCard onClick={() => subtract()}>
+      <CircularCard onClick={()=>subtract()}>
         <Icon
           fill="fa-solid fa-minus"
           margin="0px"
@@ -52,8 +67,8 @@ const Counter: FC<CounterProps> = ({ onAction }) => {
           color="rgb(202, 199, 199)"
         />
       </CircularCard>
-      <span> {` ${counter} `} </span>
-      <CircularCard onClick={Add}>
+      <span>{`${counter}`}</span>
+      <CircularCard onClick={()=>Add()}>
         <Icon
           fill="fa-solid fa-plus"
           margin="0px"

@@ -7,8 +7,9 @@ import { useRouter } from "next/router";
 import singIn from "../../services/sign-in";
 import ContextUser from "../../context/AddressContext";
 import useUser from "../../hooks/useUser";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import Loader from "../../components/atoms/loader/loader";
+import createCart from "../../services/cart/createCart";
 
 const FormContainer = styled.form`
   height: 75%;
@@ -22,21 +23,21 @@ const FormContainer = styled.form`
 const ButtonContainer = styled.div`
   width: 50%;
 `;
-const  Load = styled.div`
-position: absolute;
-top: 15px;
-left: 57%;
-width: 100px;
-height: 100px;
-z-index: 10;
+const Load = styled.div`
+  position: absolute;
+  top: 15px;
+  left: 57%;
+  width: 100px;
+  height: 100px;
+  z-index: 10;
 `;
 
 const Login: NextPage = () => {
   const [auth, setAuth] = useState({});
-  const [message, setMessage] = useState("")
-  const [visibility, setVisibility] = useState("hidden")
+  const [message, setMessage] = useState("");
+  const [visibility, setVisibility] = useState("hidden");
   const router = useRouter();
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAuth({
       ...auth,
@@ -45,33 +46,36 @@ const Login: NextPage = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    try{
+    try {
       e.preventDefault();
-      setMessage("empty")
+      setMessage("empty");
       const result = await singIn(auth);
       if (result.status === 200) {
-        const {data, token} = result
-        window.localStorage.setItem('userAuth', JSON.stringify(data));
-        Cookies.set("token", token)
-        if (data.rol_id === 4 ){
+        const { data, token } = result;
+        window.localStorage.setItem("userAuth", JSON.stringify(data));
+        Cookies.set("token", token);
+        if (data.rol_id === 4) {
           router.push("/");
-        }else{
+        } else {
           router.push("/admin/home");
         }
-      }else{
-        setVisibility("visible")
-        setMessage("Correo electrónico o contraseña incorrecto")
+      } else {
+        setVisibility("visible");
+        setMessage("Correo electrónico o contraseña incorrecto");
       }
-    }catch(error:any){
-
-    }
-
+      await createCart();
+    } catch (error: any) {}
   };
   return (
     <AuthLayout title="Inicio de sesión">
-      {
-        message !== "empty" ? <Alert visibility={visibility} type="error" message={message}/>: <Load><Loader/></Load>
-        }      <AuthBox title="Inicio de sesión">
+      {message !== "empty" ? (
+        <Alert visibility={visibility} type="error" message={message} />
+      ) : (
+        <Load>
+          <Loader />
+        </Load>
+      )}{" "}
+      <AuthBox title="Inicio de sesión">
         <FormContainer onSubmit={handleSubmit}>
           <Input
             type="email"

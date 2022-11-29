@@ -1,10 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
-import { Counter, Icon, Item } from "../../../components";
+import { Counter, Icon, Item, Modal, Button } from "../../../components";
 import { CartItemProps, CounterProps, IProduct } from "../../../interfaces";
 import { toCapitalize } from "../../../helpers";
+import deleteItemFromCart from "../../../services/cart/deleteItemFromCart";
+import ContextCart from "../../../context/CartContext";
 
 const ListItem = styled.article`
   width: calc(100%-20px);
@@ -61,6 +63,9 @@ const Info = styled.div`
     align-items: center;
     justify-content: space-between;
   }
+`;
+const ButtonC = styled.div`
+  width: 200px;
 `;
 const Description = styled.p`
   font-size: 13px;
@@ -120,22 +125,21 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
   }
 `;
 
-const CartItem: FC<CartItemProps> = ({ item, mode, total, setTotal }) => {
+const CartItem: FC<CartItemProps> = ({ item, mode }) => {
   const [qty, setQty] = useState(1);
-  const { image, category, price, id, name, type, qty_in_stock } = item;
+  const { image, category, price, id, name, type, qty_in_stock, qty:quantity} = item;
+  const { setUpdate } = useContext(ContextCart);
+  const [modal, setModal] = useState(false);
+
 
   function handleAdd(qty: number) {
     if (qty === 0) handleRemove();
     setQty(() => qty);
   }
-  setTotal((qty * price!))
 
-  const handleRemove = () => {
-    const productsInCart: IProduct[] = JSON.parse(localStorage.getItem('cart') || "[]");
-    const productsExcluded = productsInCart.filter(product => product.id !== id);
-
-    localStorage.setItem('cart', JSON.stringify(productsExcluded));
-  }
+  const handleRemove = async () => {
+    setModal(true);
+  };
 
   return (
     <>
@@ -193,14 +197,15 @@ const CartItem: FC<CartItemProps> = ({ item, mode, total, setTotal }) => {
                   <strong>Categoria: </strong>
                   {` ${toCapitalize(category || "")}`}
                 </p>
-
-                <Counter onAction={handleAdd} />
+                <Counter id={item?.id} onAction={handleAdd} qty={quantity}/>
               </Numbers>
             </SubContainer>
           </ContentRigth>
           <ContentLeft>
             <Prices border="1.5px solid #e8e8e8;" margin="20px">
-              <p><strong>Precio unitario:</strong> ${item.price}</p>
+              <p>
+                <strong>Precio unitario:</strong> ${item.price}
+              </p>
             </Prices>
             <Prices>
               {" "}
@@ -209,8 +214,28 @@ const CartItem: FC<CartItemProps> = ({ item, mode, total, setTotal }) => {
           </ContentLeft>
         </ListItem>
       ) : (
-        <Item item={item} qt={qty} setTotal={setTotal}></Item>
+        <Item item={item} qt={quantity}></Item>
       )}
+      <Modal status={modal} setStatus={setModal}>
+        <p>¿Estás seguro que deseas eliminar este producto?</p>
+        <ButtonC
+          onClick={() =>
+            deleteItemFromCart({
+              product_id: id,
+            }).then(() => {
+              setUpdate(true);
+              setModal(false);
+            })
+          }
+        >
+          <Button
+            text="Confirmar"
+            bg="#f6d1bc"
+            hover="rgba(246, 209, 188, 0.637)"
+            mt="20px"
+          />
+        </ButtonC>
+      </Modal>
     </>
   );
 };

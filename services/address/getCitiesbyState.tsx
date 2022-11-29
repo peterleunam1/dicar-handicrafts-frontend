@@ -1,11 +1,12 @@
 import useSWR from "swr";
+import { BASE_URL } from "../../helpers";
 
 const fetcher = (...args: [key: string]) =>
   fetch(...args).then((res) => res.json());
 
 const getCitiesByState = (state: string) => {
   const { data, error } = useSWR(
-    `https://dicard-handicraft.herokuapp.com/api/v1/public/cities/bydepartment/${state}`,
+    `${BASE_URL}/public/cities/bydepartment/${state}`,
     fetcher
   );
 

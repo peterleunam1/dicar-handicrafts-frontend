@@ -45,7 +45,7 @@ const FilterOption = styled.li<{ isActive?: boolean }>`
   align-items: center;
   justify-content: center;
   border: 0.5px solid #e8e8e8;
-  box-shadow: 0px 0px 6px rgba(232, 232, 232, 0.76);
+  box-shadow: ${(props) => props.theme.bshadow};
   backdrop-filter: blur(12px);
   border-radius: 3px 3px 0px 0px;
   font-weight: 500;
@@ -55,7 +55,7 @@ const FilterOption = styled.li<{ isActive?: boolean }>`
   padding: 2px 25px;
   height: 22px;
   background-color: ${(props) =>
-    props.isActive ? "#f6d1bc" : "rgba(253, 253, 253, .79)"};
+    props.isActive ? "#f6d1bc" : props.theme.card};
   font-weight: ${(props) => props.isActive ? '600' : 'normal'};
   &:hover {
     background-color: #f6d1bc;

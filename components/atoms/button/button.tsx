@@ -19,7 +19,7 @@ const ButtonStyled = styled.button<{
   cursor: pointer;
   margin-top: ${(props) => props.mt};
   margin-bottom: ${(props) => props.mb};
-  
+
   p {
     color: ${(props) => props.color};
     margin: 0;
@@ -36,7 +36,7 @@ const Button: FC<ButtonProps> = ({
   color,
   border,
   mb,
-  mt
+  mt,
 }) => {
   return (
     <ButtonStyled

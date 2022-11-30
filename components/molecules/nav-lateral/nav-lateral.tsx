@@ -185,10 +185,12 @@ const NavLateral: FC<NavLateralProps> = ({
       ) : (
         <>
           <ul>
-            <ListItem>
-              <Icon fill="fa-solid fa-user" margin="0" />
-              <p>Perfil</p>
-            </ListItem>
+            <Link href="/usuario">
+              <ListItem>
+                <Icon fill="fa-solid fa-user" margin="0" />
+                <p>Perfil</p>
+              </ListItem>
+            </Link>
             <Link href="/direccion/agregar-domicilio">
               <ListItem>
                 <Icon fill=" fa-regular fa-address-book" margin="0" />

@@ -5,10 +5,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'i.imgur.com',
-      },
-      {
-        hostname: 'souvenirsdecolombia.com'
+        hostname: '*',
       }
     ]
   }

@@ -3,13 +3,13 @@ import Image from "next/image";
 import styled from "styled-components";
 import { OffersProps } from "../../../interfaces";
 
-const Container = styled.section<{ bg?: string }>`
+const Container = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 25px auto 50px auto;
   width: 95%;
-  background-color: ${(props) => props.bg};
+  background-color: ${(props) => props.theme.card};
   border-radius: 10px;
 `;
 
@@ -43,7 +43,7 @@ const Title = styled.h2`
 
 const Offers: FC<OffersProps> = ({ type, urlMultimedia, children }) => {
   return (
-    <Container bg="#e8e8e8">
+    <Container>
       {type === "video" ? (
         <video autoPlay loop width={"auto"} height={500} controls>
           <source src={urlMultimedia} type="video/mp4" />

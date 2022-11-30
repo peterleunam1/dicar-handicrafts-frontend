@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 const FooterStyled = styled.footer`
   width: 100%;
-  background-color: #e8e8e8;
+  background-color: ${(props) => props.theme.card};
   display: flex;
   flex-direction: column;
   padding: 30px 0px;
-  color: #000;
+  color: ${(props) => props.theme.text};
 `;
 const ListsContainer = styled.div`
   display: flex;

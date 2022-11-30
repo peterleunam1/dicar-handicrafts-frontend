@@ -114,7 +114,7 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
       <InfoContent>
         <Text size="11px" bold={700} aling="end">
           {" "}
-          ${price}.000 COP
+          ${price} COP
         </Text>
         <Link href={`/productos/${category}/${id}`}>
           <Text size="16px" bold={500}>

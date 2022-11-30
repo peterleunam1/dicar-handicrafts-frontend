@@ -37,3 +37,5 @@ export type { CounterCart } from "./context/CounterCart";
 export type { SummaryProps } from "./molecules/summary";
 export type {CartContextProviderProps} from "./context/CartContext";
 export type {CartContextProps} from "./context/CartContext";
+export type {AccordionProps} from "./atoms/accordion";
+

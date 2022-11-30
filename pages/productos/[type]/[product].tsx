@@ -160,9 +160,9 @@ const Type: NextPage = () => {
           <Text>
             Vendido y entregado por <AccentTex>Artesanías Dicar</AccentTex>
           </Text>
-          <StrikeText>{`$ ${Desc(product?.price || 0)}.000`}</StrikeText>
+          <StrikeText>{`$ ${Desc(product?.price || 0)}`}</StrikeText>
           <Price>
-            {`$${product?.price}.000`}{" "}
+            {`$${product?.price}`}{" "}
             <AccentTex size="15px" ml="8px">
               {" "}
               -30%

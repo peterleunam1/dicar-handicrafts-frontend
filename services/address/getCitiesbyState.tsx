@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { BASE_URL } from "../../helpers";
+import { BASE_URL, sortArray } from "../../helpers";
 
 const fetcher = (...args: [key: string]) =>
   fetch(...args).then((res) => res.json());
@@ -16,7 +16,7 @@ const getCitiesByState = (state: string) => {
   const cities = Object.entries(data.data);
 
   return {
-    cities: cities,
+    cities: sortArray(cities, "municipio"),
   };
 };
 export default getCitiesByState;

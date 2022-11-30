@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { BASE_URL } from "../../helpers";
+import { BASE_URL, sortArray } from "../../helpers";
 
 const fetcher = (...args: [key: string]) =>
   fetch(...args).then((res) => res.json());
@@ -15,7 +15,7 @@ const getState = () => {
 
   const { data: states } = data;
   return {
-    states,
+    states: sortArray(states, "departamento"),
   };
 };
 export default getState;

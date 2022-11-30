@@ -54,17 +54,13 @@ const Login: NextPage = () => {
         const { data, token } = result;
         window.localStorage.setItem("userAuth", JSON.stringify(data));
         Cookies.set("token", token);
-        if (data.rol_id === 4) {
-          router.push("/");
-        } else {
-          router.push("/admin/home");
-        }
+        router.push("/");
       } else {
         setVisibility("visible");
         setMessage("Correo electrónico o contraseña incorrecto");
       }
       await createCart();
-    } catch (error: any) {}
+    } catch (error: any) { }
   };
   return (
     <AuthLayout title="Inicio de sesión">

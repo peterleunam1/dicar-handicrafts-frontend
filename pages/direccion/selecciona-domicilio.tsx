@@ -54,7 +54,7 @@ const ButtonC = styled.div<{ margin?: string; width?: string }>`
 const SeleccionaDomicio: NextPage = () => {
   const { data, loading } = useAdress();
   const { data: adrresses, status } = data as any;
-  const { setAddress, setCity, setDepartment, setUpdate} = useContext(ContextAdress);
+  const { setAddress, setCity, setDepartment, setUpdate } = useContext(ContextAdress);
   const [id, setId] = useState(0)
   const [modal, setModal] = useState(false);
 
@@ -109,7 +109,7 @@ const SeleccionaDomicio: NextPage = () => {
                         }}
                       />
                     </Span>
-                    <div onClick={()=> {
+                    <div onClick={() => {
                       setModal(true)
                       setId(elemenent.id)
                     }}>
@@ -119,7 +119,7 @@ const SeleccionaDomicio: NextPage = () => {
                 );
               })
             ) : (
-              <p>Notiene direcciones registradas</p>
+              <p>No tiene direcciones registradas</p>
             )}
           </div>
         ) : (
@@ -140,11 +140,10 @@ const SeleccionaDomicio: NextPage = () => {
         <Modal setStatus={setModal} status={modal} width="28%" height="26vh">
           <Icon fill="fa-regular fa-trash-can" hover="#ff0000" />
           <h5>¿Desea eliminar la dirección de manera permanente?</h5>
-          <ButtonC margin="20px" onClick={async() => {
-             const result = await deleteAddress({
+          <ButtonC margin="20px" onClick={async () => {
+            const result = await deleteAddress({
               id: id
-             })
-            console.log(result)
+            })
             setUpdate(true)
             setModal(false)
           }}>

@@ -33,8 +33,8 @@ const Info = styled.div`
     font-size: 13px;
   }
 `;
-const ButtonC = styled.div<{width?:string}>`
-  width: ${props=>props.width || "25%"};
+const ButtonC = styled.div<{ width?: string }>`
+  width: ${props => props.width || "25%"};
   display: flex;
   justify-content: flex-start;
 `;
@@ -134,12 +134,11 @@ const CartList: FC<CartListProps> = ({ mode, array }) => {
   const { data } = inCart as any;
   const productsInCart = data?.products;
   const { quantity } = useQuantity();
-  const { data: quantityData } = quantity as any;
-  const {setUpdate} = useContext(ContextCart)
+  const { setUpdate } = useContext(ContextCart)
   const handleClick = () => {
     route("/checkout/confirma-datos");
   };
-  const HandleClear = async() => {
+  const HandleClear = async () => {
     await clearCart()
     setUpdate(true)
   };
@@ -147,71 +146,71 @@ const CartList: FC<CartListProps> = ({ mode, array }) => {
   return (
     <>
       {mode === "complete" ? (
-       <>
-       {
-          productsInCart?.length > 0 ? (
-            <div>
-            <ButtonC width="15%" onClick={HandleClear}>
-             <Button 
-               text="Limpiar carrito"
-               bg="#e8e8e8" 
-               hover="#cececec3"   
-               mt="0px"       
-               mb="15px"
-             />
-             </ButtonC>
-            <HeaderList>
-              <Info>
-                <strong>carrito de compras - artesanías dicar</strong>
-                <p>
-                  {quantityData} {quantityData === 1 ? "producto" : "productos"}
-                </p>
-              </Info>
-              <ButtonC onClick={handleClick}>
-                <Button
-                  text="Proceder al pago"
-                  bg="#f6d1bc"
-                  hover="rgba(246, 209, 188, 0.637)"
-                />
-              </ButtonC>
-            </HeaderList>
-  
-            {productsInCart?.map((element: IProduct) => {
-              return <CartItem mode="complete" item={element} key={element.id} />;
-            })}
-            <TotalComplete>
-              <TotalRight>total</TotalRight>
-              <TotalLeft>
-                <SubTotalComplete>
-                  <span>
-                    subtotal:
-                    <strong>$ {data?.total}</strong>
-                  </span>
-                  <span>
-                    costo de envío:
-                    <strong>$ 10000</strong>
-                  </span>
-                </SubTotalComplete>
-                <TotalContainer>
-                  Total: <span>$ {data?.total + 10000}</span>
-                </TotalContainer>
-                <ButtonC onClick={handleClick} width="100%">
-                <Button
-                  text="Proceder al pago"
-                  bg="#f6d1bc"
-                  hover="rgba(246, 209, 188, 0.637)"
-                />
+        <>
+          {
+            productsInCart?.length > 0 ? (
+              <div>
+                <ButtonC width="15%" onClick={HandleClear}>
+                  <Button
+                    text="Limpiar carrito"
+                    bg="#e8e8e8"
+                    hover="#cececec3"
+                    mt="0px"
+                    mb="15px"
+                  />
                 </ButtonC>
-              </TotalLeft>
-            </TotalComplete>
-          </div>
-          ) : (
-            <div>
-              <EmptyPage></EmptyPage>
-            </div>
-          )
-       }
-       </>
+                <HeaderList>
+                  <Info>
+                    <strong>carrito de compras - artesanías dicar</strong>
+                    <p>
+                      {quantity} {quantity === 1 ? "producto" : "productos"}
+                    </p>
+                  </Info>
+                  <ButtonC onClick={handleClick}>
+                    <Button
+                      text="Proceder al pago"
+                      bg="#f6d1bc"
+                      hover="rgba(246, 209, 188, 0.637)"
+                    />
+                  </ButtonC>
+                </HeaderList>
+
+                {productsInCart?.map((element: IProduct) => {
+                  return <CartItem mode="complete" item={element} key={element.id} />;
+                })}
+                <TotalComplete>
+                  <TotalRight>total</TotalRight>
+                  <TotalLeft>
+                    <SubTotalComplete>
+                      <span>
+                        subtotal:
+                        <strong>$ {data?.total}</strong>
+                      </span>
+                      <span>
+                        costo de envío:
+                        <strong>$ 10000</strong>
+                      </span>
+                    </SubTotalComplete>
+                    <TotalContainer>
+                      Total: <span>$ {data?.total + 10000}</span>
+                    </TotalContainer>
+                    <ButtonC onClick={handleClick} width="100%">
+                      <Button
+                        text="Proceder al pago"
+                        bg="#f6d1bc"
+                        hover="rgba(246, 209, 188, 0.637)"
+                      />
+                    </ButtonC>
+                  </TotalLeft>
+                </TotalComplete>
+              </div>
+            ) : (
+              <div>
+                <EmptyPage></EmptyPage>
+              </div>
+            )
+          }
+        </>
       ) : (
         <Summary>
           {array?.map((element) => {

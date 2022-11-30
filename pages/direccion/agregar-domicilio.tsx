@@ -88,7 +88,7 @@ const AgregarDomicilio: NextPage = () => {
   const [adress, setAdress] = useState({});
   const { states } = getState() as any;
   const { cities } = getCitiesByState(state) as any;
-  const {setUpdate} = useContext(ContextAdress)
+  const { setUpdate } = useContext(ContextAdress)
   const [modal, setModal] = useState(true);
   const route = useRouter()
 

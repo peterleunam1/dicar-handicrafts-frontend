@@ -45,7 +45,6 @@ const ButtonC = styled.div`
 `;
 const Product: FC<IProductComponent> = ({ product, setInCart }) => {
   const { image, category, id, name, price, type } = product;
-  const { counter, setCounter } = useContext(CounterCartContext);
   const [isFavorite, setIsFavorite] = useState(false);
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
@@ -73,12 +72,12 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
       product_id: product.id
     })
 
-   if (result?.status === 201) {
-    alert("Producto agregado al carrito con exito");
-   }else{
+    if (result?.status === 201 || result?.status === 200) {
+      alert("Producto agregado al carrito con exito");
+    } else {
       alert("Error al agregar el producto al carrito");
-   }
-   setModal2(false);
+    }
+    setModal2(false);
   };
 
   return (

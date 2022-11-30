@@ -127,7 +127,7 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
 
 const CartItem: FC<CartItemProps> = ({ item, mode }) => {
   const [qty, setQty] = useState(1);
-  const { image, category, price, id, name, type, qty_in_stock, qty:quantity} = item;
+  const { image, category, price, id, name, type, qty_in_stock, qty: quantity } = item;
   const { setUpdate } = useContext(ContextCart);
   const [modal, setModal] = useState(false);
 
@@ -197,7 +197,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
                   <strong>Categoria: </strong>
                   {` ${toCapitalize(category || "")}`}
                 </p>
-                <Counter id={item?.id} onAction={handleAdd} qty={quantity}/>
+                <Counter id={item?.id} onAction={handleAdd} qty={quantity} />
               </Numbers>
             </SubContainer>
           </ContentRigth>
@@ -209,7 +209,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
             </Prices>
             <Prices>
               {" "}
-              <strong>Precio:</strong> <h3>{`$${price! * qty}`}</h3>
+              <strong>Precio:</strong> <h3>{`$${price! * quantity!}`}</h3>
             </Prices>
           </ContentLeft>
         </ListItem>

@@ -18,7 +18,6 @@ const addUser = async (object: any) => {
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
   }
 };
 export default addUser;

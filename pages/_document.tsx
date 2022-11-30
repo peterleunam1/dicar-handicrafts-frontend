@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import Document, {
   DocumentContext,
   DocumentInitialProps,
@@ -6,7 +7,6 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
-import { ThemeContextProvider } from "../context/ThemeContextUI";
 class MyDocument extends Document {
   static async getInitialProps(
     ctx: DocumentContext

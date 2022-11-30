@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import { getQuantity } from "../services/cart/getQuantity";
 
-const useProducts = () => {
-  const [quantity, setQuantity] = useState([]);
+const useQuantity = () => {
+  const [quantity, setQuantity] = useState<number>();
 
   useEffect(() => {
     getQuantity().then((data) => {
-      setQuantity(data);
+      if (data.status === 200) {
+        setQuantity(data.data);
+      }
+      else {
+        setQuantity(0);
+      }
+    }).catch((err) => {
+      console.log(err);
     });
   }, []);
 
@@ -15,4 +22,4 @@ const useProducts = () => {
   };
 };
 
-export default useProducts;
+export default useQuantity;

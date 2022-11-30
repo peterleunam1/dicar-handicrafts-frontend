@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { BASE_URL } from "../../helpers";
 
-const deleteAddress = async (object:any) => {
+const deleteAddress = async (object: any) => {
   const apiUrl = `${BASE_URL}/private/address/remove`;
   try {
     const response = await fetch(apiUrl, {
@@ -14,13 +14,11 @@ const deleteAddress = async (object:any) => {
       body: new URLSearchParams(object),
     });
     const data = await response.json();
-    console.log(response.status)
     return {
       ...data,
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
   }
 };
 export default deleteAddress;

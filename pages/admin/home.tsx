@@ -93,24 +93,25 @@ const HomeAdmin: NextPage = () => {
       [e.target.name]: e.target.value
     });
   };
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      try{    
-        e.preventDefault();
-       const {status} =  addProduct(product) as any
-       if (status === 201 || status === 200 || status === 204) {
+    try {
+      e.preventDefault();
+      console.log(product);
+
+      const { status } = addProduct(product) as any
+      if (status === 201 || status === 200 || status === 204) {
         alert("producto agregado con éxito")
-       }
-    }catch(err){
-      console.log(err)
+      }
+    } catch (err) {
     }
   };
- const options =toSubcategories(category.toLowerCase())
+  const options = toSubcategories(category.toLowerCase())
   return (
     <>
       {EmptyObject(user) || user.rol_id === 4 ? (
         <ShopLayout title="Error" descriptionPage="">
-          No tienes permiso, dele pa' fuera mi loco
+          No tienes permiso, dele pa&apos; fuera mi loco
         </ShopLayout>
       ) : (
         <AdminLayout title="Admin">
@@ -192,13 +193,13 @@ const HomeAdmin: NextPage = () => {
                 name="price"
                 onChange={handleChange}
               />
-                 <ButtonContainer onClick={()=>handleSubmit}>
-            <Button
-              text="Ingresar"
-              bg="#f6d1bc"
-              hover="rgba(246, 209, 188, 0.637)"
-            />
-          </ButtonContainer>
+              <ButtonContainer onClick={() => handleSubmit}>
+                <Button
+                  text="Ingresar"
+                  bg="#f6d1bc"
+                  hover="rgba(246, 209, 188, 0.637)"
+                />
+              </ButtonContainer>
             </Form>
           </Main>
         </AdminLayout>

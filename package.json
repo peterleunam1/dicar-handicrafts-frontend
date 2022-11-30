@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.15.0",
+    "@stripe/stripe-js": "^1.44.1",
     "js-cookie": "^3.0.1",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-epayco": "^0.1.5",
+    "react-helmet": "^6.1.0",
     "react-inner-image-zoom": "^3.0.2",
     "react-slideshow-image": "^4.0.5",
     "styled-components": "^5.3.6",
@@ -23,6 +27,7 @@
     "@types/node": "18.11.2",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "@types/react-helmet": "^6.1.6",
     "@types/react-inner-image-zoom": "^3.0.0",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-styled-components": "^2.0.7",

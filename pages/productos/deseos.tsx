@@ -19,6 +19,7 @@ const TheadContent = styled.tr`
   justify-content: center;
   width: 100%;
   height: 42px;
+  color: #6b6b6b;
 `;
 const ContentRight = styled.th<{ background: string; radius?: string }>`
   height: 100%;

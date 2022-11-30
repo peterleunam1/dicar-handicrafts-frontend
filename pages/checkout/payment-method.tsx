@@ -6,6 +6,7 @@ import { sendIdToServer } from "../../services/stripe/stripe";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import CreditCart from "../../public/assets/credit-card.gif";
+import clearCart from "../../services/cart/clearCart";
 
 const stripePromise = loadStripe('pk_test_I5S3jCmpIIXtf3nBq2s0aQd7');
 
@@ -40,6 +41,8 @@ const PaymentMethodForm = ({ amount }: { amount: number }) => {
         router.push("/checkout/congratulations");
       }
     }
+
+    await clearCart();
   };
 
   return (

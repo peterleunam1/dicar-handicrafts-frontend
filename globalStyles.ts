@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { ThemeData } from "./interfaces/context/themeContextUI";
 
 export const light = {
   text: "#606060",
@@ -22,8 +23,8 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    background-color:${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.text};
+    background-color:${({ theme }) => (theme as ThemeData).background};
+    color: ${({ theme }) => (theme as ThemeData).text};
   }
   ul{
     list-style: none;

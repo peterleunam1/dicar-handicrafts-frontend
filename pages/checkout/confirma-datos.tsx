@@ -4,7 +4,7 @@ import Link from "next/link";
 import Script from 'next/script';
 import { useCallback, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { CartList, Input, InputFull, ShopLayout } from "../../components";
+import { CartList, Input, InputFull, ShopLayout, Button } from "../../components";
 import ContextAdress from "../../context/AddressContext";
 import { EmptyObject } from "../../helpers";
 import useAdress from "../../hooks/useAdress";
@@ -52,6 +52,9 @@ const ConfirmText = styled.p`
       font-weight: 600;
     }
   }
+`;
+const ButtonC = styled.div`
+  width: 25%;
 `;
 
 const ConfirmaDatos: NextPage = () => {
@@ -180,7 +183,15 @@ const ConfirmaDatos: NextPage = () => {
             <CartList mode="summary" array={productsInCart} />
           </Main>
           <Link href={{ pathname: '/checkout/payment-method', query: { amount: result?.total + 10000 } }}>
-            <a>Continuar</a>
+            <ButtonC>
+            <Button
+                text="Continuar"
+                bg="#f6d1bc"
+                hover="rgba(246, 209, 188, 0.637)"
+                mt="25px"
+                mb="10px"
+            />
+            </ButtonC>
           </Link>
         </>
       }

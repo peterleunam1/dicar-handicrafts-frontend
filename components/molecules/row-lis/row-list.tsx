@@ -7,6 +7,7 @@ const Row = styled.tr`
   height: 40px;
   display: flex;
   margin-top: 10px;
+  color: #6b6b6b;
   &:first-child {
     border-top: 1px solid #e8e8e8;
   }

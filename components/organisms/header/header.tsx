@@ -1,11 +1,7 @@
-import { FC, useContext, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { FC, useState } from "react";
 import styled from "styled-components";
 import { Icon, SocialBar, NavBar, NavLateral, Logo } from "../../../components";
-import ContextTheme from "../../../context/ThemeContextUI";
-import LogoWhite from "../../../public/assets/logo-white.png";
-import LogoBlack from "../../../public/assets/logo-black.png";
+
 
 const HeaderStyled = styled.header`
   display: flex;

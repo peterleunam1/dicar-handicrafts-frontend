@@ -1,13 +1,12 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useContext, useState } from "react";
 import styled from "styled-components";
 import { Icon, ThemeIcon, Modal, CardCircular } from "../../../components";
-import CounterCartContext from "../../../context/CounterCart";
 import ContextTheme from "../../../context/ThemeContextUI";
 import { EmptyObject } from "../../../helpers";
 import useUser from "../../../hooks/useUser";
 import useQuantity from "../../../hooks/useQuantity";
+
 const NavBarStyled = styled.nav`
   display: flex;
   align-items: center;
@@ -47,14 +46,11 @@ const NavBar: FC = () => {
         )
       }
       <CartContainer onClick={() => { handleClick("/cart") }}>
-        <Icon fill="fa-solid fa-cart-shopping"></Icon>
+        <Icon fill="fa-solid fa-cart-shopping" mr="0"></Icon>
         <CardCircular bg="#f6d1bc" top="-8px" left="30px" size="13px">
           <CounterText>{quantity}</CounterText>
         </CardCircular>
       </CartContainer>
-      <div onClick={() => handleClick("/productos/deseos")}>
-        <Icon fill="fa-regular fa-star"></Icon>
-      </div>
       <ThemeIcon onClick={toggleTheme}>
         <Icon fill="fa-regular fa-lightbulb"></Icon>
       </ThemeIcon>

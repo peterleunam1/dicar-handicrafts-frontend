@@ -21,6 +21,13 @@ const ProductContainer = styled.article<{ show: string }>`
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.25);
     visibility: ${(props) => props.show};
+    @media (max-width: 500px) {
+      visibility: visible;
+    }
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
   }
 `;
 const ImageContainer = styled.div`
@@ -38,6 +45,13 @@ const Title = styled.h2<{ transform: string }>`
   transition: 0.7s ease transform;
   color: #ffff;
   z-index: 1;
+  @media (max-width: 500px) {
+    transform: translateY(0px);
+    bottom: 5%;
+    left: 0%;
+    width: 100%;
+    font-size: 1.2rem;
+  }
 `;
 
 const CardMenu: FC<CardMenuProps> = ({ src, title }) => {

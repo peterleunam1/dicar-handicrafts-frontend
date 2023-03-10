@@ -1,4 +1,4 @@
-import { FC, useState, useContext, useEffect } from "react";
+import { FC, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -6,7 +6,6 @@ import { CardCircular, Icon, Modal, Button } from "../../../components";
 import { IProduct } from "../../../interfaces";
 import { EmptyObject } from "../../../helpers";
 import useUser from "../../../hooks/useUser";
-import CounterCartContext from "../../../context/CounterCart";
 import CartGif from "../../../public/assets/shopping-cart.gif"
 import { IProductComponent } from "../../../interfaces/helpers/products";
 import addProductToCart from "../../../services/cart/addToCart";
@@ -45,27 +44,17 @@ const ButtonC = styled.div`
 `;
 const Product: FC<IProductComponent> = ({ product, setInCart }) => {
   const { image, category, id, name, price, type } = product;
-  const [isFavorite, setIsFavorite] = useState(false);
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const { user } = useUser();
 
-  const handleCart = () => {
-    if (EmptyObject(user)) {
-      return setModal(true);
-    } else {
-      setModal2(true);
-    }
-  };
-
-  const handleWishList = () => {
-    if (EmptyObject(user)) {
-      return setModal(true);
-    } else {
-      setIsFavorite(true);
-      alert("Producto agregado a los favoritos con exito");
-    }
-  };
+  // const handleCart = () => {
+  //   if (EmptyObject(user)) {
+  //     return setModal(true);
+  //   } else {
+  //     setModal2(true);
+  //   }
+  // };
 
   const handleConfirmCart = async (product: IProduct) => {
     const result = await addProductToCart({
@@ -82,30 +71,9 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
 
   return (
     <ProductContainer>
-      <div onClick={handleCart}>
+      <div>
         <CardCircular bg="#F6D1BC" size="33px" top="10px" left="78%">
           <Icon fill="fa-solid fa-cart-shopping" margin="0px" size="14px" />
-        </CardCircular>
-      </div>
-      <div onClick={handleWishList}>
-        <CardCircular bg="#b8b6b6" size="33px" top="50px" left="78%">
-          {isFavorite ? (
-            <Icon
-              fill="fa-solid fa-star"
-              margin="0px"
-              size="14px"
-              color="#fdfd96"
-              hover="none"
-            />
-          ) : (
-            <Icon
-              fill="fa-regular fa-star"
-              margin="0px"
-              size="14px"
-              color="#606060"
-              hover="none"
-            />
-          )}
         </CardCircular>
       </div>
       <ImageContainer>

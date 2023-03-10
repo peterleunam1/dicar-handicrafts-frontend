@@ -9,6 +9,9 @@ import { LogoProps } from "../../../interfaces";
 
 const LogoContainer = styled.div`
   cursor: pointer;
+  @media (max-width: 500px) {
+    padding-left: 10%;
+  }
 `;
 
 const Logo: FC<LogoProps> = ({ route }) => {

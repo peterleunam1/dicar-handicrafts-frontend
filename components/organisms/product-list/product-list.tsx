@@ -5,11 +5,16 @@ import Product from "../../molecules/product/product";
 
 
 const ProducListStyled = styled.section`
-  
   margin: 22px auto 0px auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 30px;
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+    width: 100%;
+    gap: 10px;
+    margin-right: 50px;
+    }
 `;
 
 const ProductList: FC<ProductListProps> = ({ products }) => {

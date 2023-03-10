@@ -5,20 +5,24 @@ const FooterStyled = styled.footer`
   width: 100%;
   background-color: ${(props) => props.theme.card};
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-around;
   padding: 30px 0px;
   color: ${(props) => props.theme.text};
-`;
-const ListsContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 const ListItems = styled.ul`
   width: 25%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  @media (max-width: 500px) {
+    width: 90%;
+  }
 `;
 const ListItem = styled.li<{ bold?: number; size?: string; margin?: string}>`
   width: 85%;
@@ -28,7 +32,10 @@ const ListItem = styled.li<{ bold?: number; size?: string; margin?: string}>`
   cursor: pointer;
 `;
 const CopyandRight = styled.div`
-  width: 100%;
+  width: 60%;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 const PayMethods = styled.div`
   width: 100%;
@@ -40,29 +47,16 @@ const Text = styled.p`
   text-align: center;
   font-weight: 350;
   font-size: 14px;
+  max-width: 80%;
+  @media (max-width: 500px) {
+   text-align: left;
+    padding-left: 20px;
+    margin-top: 30px;
+  }
 `;
 const Footer: FC = () => {
   return (
     <FooterStyled>
-      <ListsContainer>
-        <ListItems>
-          <ListItem size="20px" bold={500}>
-            Atención al cliente
-          </ListItem>
-          <ListItem>Solicitud de cambio</ListItem>
-          <ListItem>Peticiones, quejas y/o reclamos. </ListItem>
-        </ListItems>
-
-        <ListItems>
-          <ListItem size="20px" bold={500}>
-            Enlaces de interés
-          </ListItem>
-          <ListItem>Nosotros</ListItem>
-          <ListItem>Preguntas frecuentes</ListItem>
-          <ListItem>Politica de privacidad</ListItem>
-          <ListItem>Términos y condiciones </ListItem>
-        </ListItems>
-
         <ListItems>
           <ListItem size="20px" bold={500}>
             Contacto
@@ -72,9 +66,7 @@ const Footer: FC = () => {
             Centro Comercial Parque Heredia Local 154 Cartagena de Indias.{" "}
           </ListItem>
         </ListItems>
-      </ListsContainer>
       <CopyandRight>
-        <PayMethods>Métodos de Pago</PayMethods>
         <Text>
           Copyright © 2021 Artesanias Dicar . Todos los derechos reservados.
         </Text>

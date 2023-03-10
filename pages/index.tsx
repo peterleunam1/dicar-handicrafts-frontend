@@ -16,6 +16,9 @@ import useUser from "../hooks/useUser";
 
 const SliderContainer = styled.div`
   width: 60%;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 const Wrapper = styled.div<{ width: string; sizeText: string }>`
   max-width: ${(props) => props.width};
@@ -29,6 +32,14 @@ const Wrapper = styled.div<{ width: string; sizeText: string }>`
   p {
     width: 82%;
     font-size: ${(props) => props.sizeText};
+    @media (max-width: 500px) {
+      font-size: 16px;
+      width: 100%;
+    }
+  }
+  @media (max-width: 500px) {
+    max-width: unset;
+    width: 100%;
   }
 `;
 const ArtSection = styled.section<{ bg?: string }>`
@@ -39,11 +50,20 @@ const ArtSection = styled.section<{ bg?: string }>`
   width: 95%;
   background-color: ${(props) => props.bg};
   border-radius: 10px;
+
+  @media (max-width: 500px) {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
 `;
 const StrongText = styled.strong<{ size?: string }>`
   font-weight: bolder;
   color: #f6d1bc;
   font-size: ${(props) => props.size || "20px"};
+  @media (max-width: 500px) {
+    color: ${(props) => props.theme.text};
+    font-size: 15px;
+  }
 `;
 const UserName = styled.p`
   width: 95%;
@@ -52,11 +72,21 @@ const UserName = styled.p`
 const Text = styled.p`
   font-size: 18px;
   margin: 20px 0px;
+  @media (max-width: 500px) {
+    font-size: 16px;
+    margin: 0px;
+    width: 100%;
+    text-align: left;
+  }
 `;
 const Title = styled.h3`
   font-weight: bolder;
-  width: 82%;
+  width: 100%;
   text-transform: uppercase;
+  padding-left: 65px;
+  @media (max-width: 500px) {
+    padding-left: 0px;
+  }
 `;
 
 const Divisor = styled.div`
@@ -70,6 +100,9 @@ const Divisor = styled.div`
   background-size: cover;
   background-repeat: no-repeat top;
   background-position: bottom;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
   p {
     width: 43%;
     margin: 0;
@@ -79,11 +112,13 @@ const Divisor = styled.div`
     font-family: ibm-plex-mono, sans-serif;
     font-style: normal;
     font-weight: 100;
+    @media (max-width: 500px) {
+      width: 100%;
+    }
   }
 `;
 
 const Home: NextPage = () => {
-
   const images = [Mochila, Sandalia, Sombrero, Accesorio];
   const { user } = useUser();
 
@@ -91,38 +126,39 @@ const Home: NextPage = () => {
     <>
       {
         <ShopLayout
-          title={'Home'}
-          descriptionPage="Pagina principal de artesanias dicar">
-          {!EmptyObject(user) &&
+          title={"Home"}
+          descriptionPage="Pagina principal de artesanias dicar"
+        >
+          {!EmptyObject(user) && (
             <UserName>
               Bienvenido, <strong>{user.firstname}</strong>
             </UserName>
-          }
+          )}
           <Menu images={images}></Menu>
           <Divisor>
             <p>
               Detrás de cada una de nuestras{" "}
               <StrongText size="19px">creaciones</StrongText> esta una{" "}
-              <StrongText size="19px">artesana wayuu </StrongText> resaltando toda
-              su cultura, historia y tradición en
+              <StrongText size="19px">artesana wayuu </StrongText> resaltando
+              toda su cultura, historia y tradición en
               <StrongText size="19px"> cada pieza.</StrongText>
             </p>
           </Divisor>
           <Offers type="video" urlMultimedia="https://i.imgur.com/GjxYwv6.mp4">
-
             <ProductList products={products_combo} />
           </Offers>
+          <Title>Artes ancestrales</Title>
           <ArtSection>
             <Wrapper width="38%" sizeText="18px">
-              <Title>Artes ancestrales</Title>
               <Text>
-                El tejido para el pueblo wuayúu es más que una práctica cultural y{" "}
-                <StrongText>herencia de sus ancestros</StrongText>, es una forma de{" "}
-                <StrongText>concebir y expresar</StrongText> la vida tal como la
-                sienten y la desean. Un arte pensado y{" "}
-                <StrongText>gozado</StrongText>. La observación de sus innumerables
-                tejidos les permite leer <StrongText>el espíritu</StrongText> que
-                guía su acción y pensamiento.
+                El tejido para el pueblo wuayúu es más que una práctica cultural
+                y <StrongText>herencia de sus ancestros</StrongText>, es una
+                forma de <StrongText>concebir y expresar</StrongText> la vida
+                tal como la sienten y la desean. Un arte pensado y{" "}
+                <StrongText>gozado</StrongText>. La observación de sus
+                innumerables tejidos les permite leer{" "}
+                <StrongText>el espíritu</StrongText> que guía su acción y
+                pensamiento.
               </Text>
             </Wrapper>
             <SliderContainer>

@@ -12,8 +12,8 @@ const MenuStyled = styled.section`
   gap: 40px;
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    width: 90%;
+    gap: 15px;
+    width: 100%;
     margin: 0 auto;
   }
 `;

@@ -11,6 +11,16 @@ const Container = styled.section`
   width: 95%;
   background-color: ${(props) => props.theme.card};
   border-radius: 10px;
+  overflow: hidden;
+  span {
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 500px) {
+    padding: 20px 0px;
+  }
 `;
 
 const SubContainer = styled.div<{ width: string; sizeText: string }>`
@@ -19,12 +29,18 @@ const SubContainer = styled.div<{ width: string; sizeText: string }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 500px) {
+    max-width: unset;
+    width: 100%;
+  }
   article {
     margin: 10px 0px 20px 8%;
   }
   p {
     width: 82%;
     font-size: ${(props) => props.sizeText};
+    text-align: center;
+    width: 92%;
   }
 `;
 const StrongText = styled.strong<{ size?: string }>`
@@ -38,27 +54,31 @@ const Title = styled.h2`
   width: 82%;
   text-align: center;
   text-transform: uppercase;
+  @media (max-width: 500px) {
+    width: 100%;
+    font-size: 20px;
+  }
 `;
 // https://i.imgur.com/GjxYwv6.mp4
 
 const Offers: FC<OffersProps> = ({ type, urlMultimedia, children }) => {
   return (
     <Container>
-      {type === "video" ? (
-        <video autoPlay loop width={"auto"} height={500} controls>
-          <source src={urlMultimedia} type="video/mp4" />
-        </video>
-      ) : (
-        <Image width={"auto"} src={urlMultimedia} height="500px" />
-      )}
+      <span>
+        {type === "video" ? (
+          <video autoPlay loop width={"auto"} height={500} controls>
+            <source src={urlMultimedia} type="video/mp4" />
+          </video>
+        ) : (
+          <Image width={"auto"} src={urlMultimedia} height="500px" />
+        )}
+      </span>
       <SubContainer width="85%" sizeText="12px">
         <Title>
           Disfruta de nuestros{" "}
           <StrongText size="24px">combos especiales</StrongText>
         </Title>
-        <article>
-          {children}
-        </article>
+        <article>{children}</article>
         <p>
           Por la compra de los tres productos recibe un{" "}
           <StrongText size="12px">descuento</StrongText> de hasta el 20% en el

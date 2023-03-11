@@ -21,7 +21,11 @@ const OptionsLeft = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
+const SocialContainer = styled.div`
+  @media (max-width: 500px) {
+    display: none;
+  }
+`
 
 const Header: FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -31,7 +35,9 @@ const Header: FC = () => {
         <span onClick={() => setIsOpenMenu(!isOpenMenu)}>
           <Icon fill="fa-solid fa-bars" margin="0px" />
         </span>
+        <SocialContainer>
         <SocialBar />
+        </SocialContainer>
         {isOpenMenu ? (
           <NavLateral transform="translateX(0px)" setIsOpen={setIsOpenMenu}/>
         ) : (

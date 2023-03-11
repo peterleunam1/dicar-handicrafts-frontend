@@ -34,6 +34,10 @@ const Title = styled.h1`
   font-weight: 600;
   margin: 0;
   z-index: 2;
+
+  @media (max-width: 500px) {
+    font-size: 40px;
+  }
 `;
 
 const Banner: FC<BannerProps> = ({ title, image }) => {

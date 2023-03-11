@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { NavLateralProps } from "../../../interfaces";
 import useUser from "../../../hooks/useUser";
-import { Input, Icon, Logo, Button } from "../../../components";
+import { Input, Icon, Logo, Button, SocialBar } from "../../../components";
 import { EmptyObject } from "../../../helpers";
 
 const AsideMenu = styled.aside<{
@@ -29,6 +29,10 @@ const AsideMenu = styled.aside<{
   padding: 25px 35px;
   padding-top: ${(props) => props.pt};
 
+  @media (max-width: 500px) {
+    width: 62%;
+  }
+
   figure {
     width: 100%;
     display: flex;
@@ -41,11 +45,6 @@ const Close = styled.span<{ display: string }>`
   display: ${(props) => props.display};
   display: flex;
   justify-content: flex-end;
-`;
-const Form = styled.form<{ display: string }>`
-  padding-bottom: 25px;
-  border-bottom: 1px solid #e8e8e8;
-  display: ${(props) => props.display};
 `;
 const ListItem = styled.li<{ color?: string }>`
   margin-bottom: 20px;
@@ -71,8 +70,24 @@ const ListItem = styled.li<{ color?: string }>`
       font-weight: bolder;
     }
   }
-`;
+  `;
 
+const LogoContainer = styled.div`
+text-align: center;
+width: 100%;
+@media (max-width: 500px) {
+  display: none;
+}
+`
+const SocialContainer2 = styled.div`
+width: 100%;
+display: none;
+  @media (max-width: 500px) {
+    display: block;
+    width: min-content;
+    margin-left:20%;
+  }
+`
 const NavLateral: FC<NavLateralProps> = ({
   transform,
   display_items,
@@ -94,8 +109,8 @@ const NavLateral: FC<NavLateralProps> = ({
     <AsideMenu
       transform={transform}
       height={height || "calc(100vh - 65px)"}
-      mg={mg || "68px"}
-      pt={pt || "0px"}
+      mg={mg || "69px"}
+      pt={pt || "25px"}
     >
       <Close
         onClick={() => setIsOpen(false)}
@@ -110,7 +125,7 @@ const NavLateral: FC<NavLateralProps> = ({
       ) : (
         <></>
       )}
-      <Form display={display_items || "block"}>
+      {/* <Form display={display_items || "block"}>
         <Input
           type="text"
           placeholder="Busque un producto aquí"
@@ -118,8 +133,8 @@ const NavLateral: FC<NavLateralProps> = ({
           bradius="5px"
           fSize="14px"
         />
-      </Form>
-      {user.rol_id === 4 || EmptyObject(user) ? (
+      </Form> */}
+      {/* {user.rol_id === 4 || EmptyObject(user) ? (
         <></>
       ) : (
         <>
@@ -135,8 +150,9 @@ const NavLateral: FC<NavLateralProps> = ({
             </Link>
           </ul>
         </>
-      )}
+      )} */}
       <ul>
+      <ListItem>  <strong>Categorías</strong></ListItem>
         <Link href="/productos/mochilas">
           <ListItem>
             <Icon fill="fa-solid fa-bag-shopping" margin="0px" />
@@ -162,8 +178,24 @@ const NavLateral: FC<NavLateralProps> = ({
           </ListItem>
         </Link>
       </ul>
-
-      {EmptyObject(user) ? (
+      <ul>
+       <ListItem> <strong>Contácto</strong></ListItem>
+        <ListItem>+57 300 7529260</ListItem>
+        <ListItem>
+          Centro Comercial Parque Heredia Local 154 Cartagena de Indias.{" "}
+        </ListItem>
+      </ul>
+      <ul>
+        <ListItem>
+        <LogoContainer>
+        <Logo/>
+        </LogoContainer>
+        <SocialContainer2>
+          <SocialBar/>
+        </SocialContainer2>
+        </ListItem>
+      </ul>
+      {/* {EmptyObject(user) ? (
         <>
           <Link href="/auth/login">
             <div>
@@ -209,7 +241,7 @@ const NavLateral: FC<NavLateralProps> = ({
             </ListItem>
           </ul>
         </>
-      )}
+      )} */}
     </AsideMenu>
   );
 };

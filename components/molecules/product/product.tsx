@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -47,6 +47,7 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const { user } = useUser();
+  const [cart, setCart] = useState<IProduct[]>([]);
 
   // const handleCart = () => {
   //   if (EmptyObject(user)) {
@@ -56,22 +57,41 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
   //   }
   // };
 
-  const handleConfirmCart = async (product: IProduct) => {
-    const result = await addProductToCart({
-      product_id: product.id
-    })
-
-    if (result?.status === 201 || result?.status === 200) {
-      alert("Producto agregado al carrito con exito");
-    } else {
-      alert("Error al agregar el producto al carrito");
+  useEffect(() => {
+    let data = localStorage.getItem("cart_dicar") || "[]";
+    if (!data) {
+      setCart(JSON.parse(data));
     }
-    setModal2(false);
+  }, []);
+
+  const handleConfirmCart = (product: IProduct) => {
+    if (cart.find((item) => item.id === product.id)) {
+      alert("Este producto ya se encuentra en el carrito");
+    }else {
+      setCart([...cart, product]);
+    }
   };
+  useEffect(() => {
+    localStorage.setItem("cart_dicar", JSON.stringify(cart));
+  }, [cart]);
+
+console.log(cart)
+  // const handleConfirmCart = async (product: IProduct) => {
+  //   const result = await addProductToCart({
+  //     product_id: product.id
+  //   })
+
+  //   if (result?.status === 201 || result?.status === 200) {
+  //     alert("Producto agregado al carrito con exito");
+  //   } else {
+  //     alert("Error al agregar el producto al carrito");
+  //   }
+  //   setModal2(false);
+  // };
 
   return (
     <ProductContainer>
-      <div>
+      <div onClick={() => setModal2(true)}>
         <CardCircular bg="#F6D1BC" size="33px" top="10px" left="78%">
           <Icon fill="fa-solid fa-cart-shopping" margin="0px" size="14px" />
         </CardCircular>
@@ -88,7 +108,7 @@ const Product: FC<IProductComponent> = ({ product, setInCart }) => {
           <Text size="16px" bold={500}>
             {name}
           </Text>
-        </Link>
+          </Link>
       </InfoContent>
       <Modal status={modal} setStatus={setModal}>
         <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />

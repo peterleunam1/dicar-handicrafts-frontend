@@ -35,6 +35,9 @@ const SubContainer = styled.div<{ width: string; sizeText: string }>`
   }
   article {
     margin: 10px 0px 20px 8%;
+    @media (max-width: 500px) {
+      margin: 10px 0px;
+    }
   }
   p {
     width: 82%;

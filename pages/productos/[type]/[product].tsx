@@ -6,14 +6,10 @@ import InnerImageZoom from "react-inner-image-zoom";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.min.css";
 import { Button, Modal, ShopLayout } from "../../../components";
 import InterRapidisimo from "../../../public/assets/interapisidisimo.png";
-import { EmptyObject, products_mochilas, toCapitalize } from "../../../helpers";
-import { products_accesorios } from "../../../helpers";
-import { products_sandalias } from "../../../helpers";
-import { products_sombreros } from "../../../helpers";
+import { EmptyObject } from "../../../helpers";
 import useUser from "../../../hooks/useUser";
 import { useState } from "react";
 import CartGif from "../../../public/assets/shopping-cart.gif";
-import Cookies from "js-cookie";
 import useProducts from "../../../hooks/useProducts";
 import { IProduct } from "../../../interfaces";
 import addProductToCart from "../../../services/cart/addToCart";
@@ -23,6 +19,10 @@ const Container = styled.section`
   align-items: center;
   justify-content: center;
   height: 78vh;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    height: auto;
+    }
 `;
 const ImageContainer = styled.figure`
   width: 350px;
@@ -34,6 +34,11 @@ const ImageContainer = styled.figure`
   img {
     border-radius: 10px;
   }
+  @media (max-width: 500px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 `;
 
 const InfoContainer = styled.aside`
@@ -42,6 +47,11 @@ const InfoContainer = styled.aside`
   height: auto;
   margin-left: 40px;
   position: relative;
+
+  @media (max-width: 500px) {
+    width: 100%;
+    margin-left: 0;
+  }
 
   &::after {
     content: "";
@@ -199,7 +209,6 @@ const Type: NextPage = () => {
               <Image src={InterRapidisimo} width="135x" height="30px" alt="Product image" />
             </a>
           </SendType>
-          <Button text="Agregar a favoritos" bg="#e8e8e8" hover="#cececec3" />
         </InfoContainer>
       </Container>
     </ShopLayout>

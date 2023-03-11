@@ -17,18 +17,34 @@ const FilterContainer = styled.section`
   align-items: center;
   justify-content: flex-start;
   margin-top: 35px;
+  @media (max-width: 500px) {
+    
+  }
 `;
 const HeaderFilter = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 const FilterOptions = styled.ul`
   width: 50%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  @media (max-width: 500px) {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 10px;
+    overflow: scroll;
+    /* flex-wrap: wrap; */
+    /* flex-direction: column;
+    align-items: flex-start; */
+  }
 `;
 const Text = styled.div`
   display: flex;
@@ -61,10 +77,17 @@ const FilterOption = styled.li<{ isActive?: boolean }>`
     background-color: #f6d1bc;
     font-weight: 600;
   }
+  @media (max-width: 500px) {
+    margin-bottom: 5px;
+    /* margin-right: 10px; */
+  }
 `;
 const ProductsContainer = styled.div`
   border-top: 2px solid #e8e8e8;
   width: 100%;
+  @media (max-width: 500px) {
+    border: none;
+  }
 `;
 const ProductType: NextPage = () => {
   const { type } = useRouter().query;

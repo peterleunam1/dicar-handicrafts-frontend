@@ -13,7 +13,10 @@ const ProducListStyled = styled.section`
     grid-template-columns: repeat(1, 1fr);
     width: 100%;
     gap: 10px;
-    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     }
 `;
 

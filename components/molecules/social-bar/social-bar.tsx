@@ -5,10 +5,6 @@ import { Icon } from "../../../components";
 const SocialBarStyled = styled.span`
   display: flex;
   align-items: center;
-  @media (max-width: 500px) {
-    background-color: red;
-    display: none;
-  }
 `;
 
 const SocialBar: FC = () => {

@@ -52,8 +52,6 @@ const ButtonC = styled.div<{ margin?: string; width?: string }>`
 `;
 
 const SeleccionaDomicio: NextPage = () => {
-  const { data, loading } = useAdress();
-  const { data: adrresses, status } = data as any;
   const { setAddress, setCity, setDepartment, setUpdate } = useContext(ContextAdress);
   const [id, setId] = useState(0)
   const [modal, setModal] = useState(false);
@@ -76,7 +74,7 @@ const SeleccionaDomicio: NextPage = () => {
             </ButtonC>
           </Link>
         </Header>
-        {status !== 401 ? (
+        {/* {status !== 401 ? (
           <div>
             {loading ? (
               <Loader />
@@ -127,7 +125,7 @@ const SeleccionaDomicio: NextPage = () => {
             Su token ha expirado, por favor <strong>incie sesión </strong>
             nuevamente.
           </p>
-        )}
+        )} */}
         <Link href="/checkout/confirma-datos">
           <ButtonC margin="30px">
             <Button

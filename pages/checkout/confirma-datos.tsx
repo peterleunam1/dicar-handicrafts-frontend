@@ -1,19 +1,22 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import { NextPage } from "next";
 import Link from "next/link";
-import Script from 'next/script';
-import { Component, useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { CartList, Input, InputFull, ShopLayout, Button, Select } from "../../components";
+import {
+  CartList,
+  Input,
+  InputFull,
+  ShopLayout,
+  Button,
+  Select,
+} from "../../components";
 import ContextAdress from "../../context/AddressContext";
-import { EmptyObject } from "../../helpers";
+import { EmptyObject, products_combo } from "../../helpers";
 import useAdress from "../../hooks/useAdress";
-import useToCart from "../../hooks/useToCart";
 import useUser from "../../hooks/useUser";
-import { useEpayco } from 'react-epayco';
 import getState from "../../services/address/getStates";
 import getCitiesByState from "../../services/address/getCitiesbyState";
-
 
 const Main = styled.div`
   width: 100%;
@@ -91,37 +94,17 @@ const ButtonC = styled.div`
 
 const ConfirmaDatos: NextPage = () => {
   const { address, city, department } = useContext(ContextAdress);
-  const { data } = useAdress();
-  const { user } = useUser()
-  const { data: addresses } = data as any;
-
-  const { inCart } = useToCart();
-  const { data: result } = inCart as any;
-  const productsInCart = result?.products;
+  const { user } = useUser();
 
   let domicilio;
   let cityCampare;
-  let departmentCompare
+  let departmentCompare;
 
-  
   const [state, setState] = useState<string>("");
   const [cityNow, setCityNow] = useState<string>("");
   const { states } = getState() as any;
   const { cities } = getCitiesByState(state) as any;
-  if (address) {
-    domicilio = address;
-    cityCampare = city;
-    departmentCompare = department
-  }
-  else if (addresses) {
-    domicilio = addresses[0].address;
-    cityCampare = addresses[0].city_name;
-    departmentCompare = addresses[0].department_name
-  } else {
-    domicilio = "No hay direcciones disponibles";
-    cityCampare = "No establecido";
-    departmentCompare = "No establecido"
-  }
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setState(e.target.value);
   };
@@ -129,19 +112,22 @@ const ConfirmaDatos: NextPage = () => {
     setCityNow(e.target.value);
   };
 
- useEffect(() => {
-  window.onbeforeunload = function() {
-    return "¿Desea recargar la página web?";
-  };
-}, [state])
+  useEffect(() => {
+    window.onbeforeunload = function () {
+      return "¿Desea recargar la página web?";
+    };
+  }, [state]);
 
   return (
     <ShopLayout
       title="Confirma tus datos"
       descriptionPage="Verifica tus datos para comprar"
     >
-      {
-        EmptyObject(user) ? <p>Contenido no disponible</p> : <><h2>Verifica tus datos</h2>
+      {EmptyObject(user) ? (
+        <p>Contenido no disponible</p>
+      ) : (
+        <>
+          <h2>Verifica tus datos</h2>
           <Main>
             <UserInformation>
               <div>
@@ -189,29 +175,29 @@ const ConfirmaDatos: NextPage = () => {
                 />
                 <InLineInput>
                   <HalfInput>
-                  <Select
-                array={states || []}
-                name="department_name"
-                arg="departamento"
-                label="Seleccione un departamento"
-                onChange={handleChange}
-              />
+                    <Select
+                      array={states || []}
+                      name="department_name"
+                      arg="departamento"
+                      label="Seleccione un departamento"
+                      onChange={handleChange}
+                    />
                   </HalfInput>
                   <HalfInput>
-                <SelectStyled>
-                <option value="">---</option>
-                {cities ? (
-                  cities.map((cities: any, index: number) => {
-                    return (
-                      <option value={cities[1].municipio} key={index++}>
-                        {cities[1].municipio}
-                      </option>
-                    );
-                  })
-                ) : (
-                  <></>
-                )}
-                </SelectStyled>
+                    <SelectStyled>
+                      <option value="">---</option>
+                      {cities ? (
+                        cities.map((cities: any, index: number) => {
+                          return (
+                            <option value={cities[1].municipio} key={index++}>
+                              {cities[1].municipio}
+                            </option>
+                          );
+                        })
+                      ) : (
+                        <></>
+                      )}
+                    </SelectStyled>
                   </HalfInput>
                 </InLineInput>
                 <Input
@@ -227,21 +213,20 @@ const ConfirmaDatos: NextPage = () => {
               </div>
             </UserInformation>
 
-            <CartList mode="summary" array={productsInCart} />
+            <CartList mode="summary" array={products_combo} />
           </Main>
-          <Link href={{ pathname: '/checkout/payment-method', query: { amount: result?.total + 10000 } }}>
-            <ButtonC>
+
+          <ButtonC>
             <Button
-                text="Continuar"
-                bg="#f6d1bc"
-                hover="rgba(246, 209, 188, 0.637)"
-                mt="25px"
-                mb="10px"
+              text="Continuar"
+              bg="#f6d1bc"
+              hover="rgba(246, 209, 188, 0.637)"
+              mt="25px"
+              mb="10px"
             />
-            </ButtonC>
-          </Link>
+          </ButtonC>
         </>
-      }
+      )}
     </ShopLayout>
   );
 };

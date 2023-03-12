@@ -24,10 +24,7 @@ const Container = styled.section`
 
 const User: NextPage = () => {
   const { user } = useUser();
-  const { data, loading } = useAdress();
-  const { data: addresses, status } = data as any;
-  console.log(addresses);
-  console.log(data);
+
   return (
     <ShopLayout title="Perfil" descriptionPage="Visualiza tus datos">
       <h1>Perfil</h1>
@@ -61,7 +58,7 @@ const User: NextPage = () => {
           )}
         </Accordion>
         <Accordion title="Mis direcciones">
-          {status === 404 ? (
+          {/* {status === 404 ? (
             <p>No tienes direcciones registradas</p>
           ) : (
             <>
@@ -78,7 +75,7 @@ const User: NextPage = () => {
                 </>
               )}
             </>
-          )}
+          )} */}
         </Accordion>
         <Accordion title="De la cuenta">
           <span>

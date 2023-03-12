@@ -15,7 +15,6 @@ export default function useAdress () {
     });
   }, [update]);
   return {
-    data,
     loading
   };
 }

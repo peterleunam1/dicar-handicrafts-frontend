@@ -5,11 +5,8 @@ import styled from "styled-components";
 import { AuthBox, AuthLayout, Input, Button, Alert } from "../../components";
 import { useRouter } from "next/router";
 import singIn from "../../services/sign-in";
-import ContextUser from "../../context/AddressContext";
-import useUser from "../../hooks/useUser";
 import Cookies from "js-cookie";
 import Loader from "../../components/atoms/loader/loader";
-import createCart from "../../services/cart/createCart";
 
 const FormContainer = styled.form`
   height: 75%;
@@ -59,7 +56,6 @@ const Login: NextPage = () => {
         setVisibility("visible");
         setMessage("Correo electrónico o contraseña incorrecto");
       }
-      await createCart();
     } catch (error: any) { }
   };
   return (

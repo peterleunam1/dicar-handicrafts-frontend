@@ -11,9 +11,13 @@ const Card = styled.article`
   padding: 40px 20px 20px 20px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   h3{
     margin-bottom: 15px;
+  }
+  @media (max-width: 500px) {
+    width: 88%;
+    margin-top: 20px;
   }
 `;
 const Content = styled.div`

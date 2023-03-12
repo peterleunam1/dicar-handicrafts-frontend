@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Icon } from "../../../components";
 import ContextCart from "../../../context/CartContext";
 import { CounterProps } from "../../../interfaces";
-import addProductToCart from "../../../services/cart/addToCart";
-import deleteItemFromCart from "../../../services/cart/deleteItemFromCart";
 import addProduct from "../../../services/products/addproduct";
 
 const Container = styled.span`
@@ -14,6 +12,9 @@ const Container = styled.span`
   justify-content: space-between;
   span{
     font-weight: 380;
+  }
+  @media (max-width: 500px) {
+    margin:14px 0px;
   }
 `;
 const CircularCard = styled.div`
@@ -30,36 +31,36 @@ const CircularCard = styled.div`
 const Counter: FC<CounterProps> = ({id, onAction, qty}) => {
   const [counter, setCounter] = useState(qty);
 const {setUpdate} = useContext(ContextCart)
-  const subtract = async () => {
-    await deleteItemFromCart({
-      product_id: id,
-    }).then((res) => { 
-      setUpdate(true)
-    });
-    counter > 0
-      ? setCounter((prev:number) => {
-          onAction(prev - 1);
-          return prev - 1;
-        })
-      : setCounter(0);
-  };
+  // const subtract = async () => {
+  //   await deleteItemFromCart({
+  //     product_id: id,
+  //   }).then((res) => { 
+  //     setUpdate(true)
+  //   });
+  //   counter > 0
+  //     ? setCounter((prev:number) => {
+  //         onAction(prev - 1);
+  //         return prev - 1;
+  //       })
+  //     : setCounter(0);
+  // };
 
-  const Add = async() => {
-    await addProductToCart({
-      product_id: id,
-    }).then((res) => {
-      setUpdate(true)
-    });
-    setCounter((prev:number) => {
-      onAction(prev + 1);
-      return prev + 1;
-    });
-  };
+  // const Add = async() => {
+  //   await addProductToCart({
+  //     product_id: id,
+  //   }).then((res) => {
+  //     setUpdate(true)
+  //   });
+  //   setCounter((prev:number) => {
+  //     onAction(prev + 1);
+  //     return prev + 1;
+  //   });
+  // };
 
 
   return (
     <Container>
-      <CircularCard onClick={()=>subtract()}>
+      {/* <CircularCard onClick={()=>subtract()}>
         <Icon
           fill="fa-solid fa-minus"
           margin="0px"
@@ -75,7 +76,8 @@ const {setUpdate} = useContext(ContextCart)
           size="13px"
           color="rgb(202, 199, 199)"
         />
-      </CircularCard>
+      </CircularCard> */}
+      counter
     </Container>
   );
 };

@@ -3,7 +3,6 @@ import Head from "next/head";
 import { ShopLayoutProps } from "../../interfaces";
 import styled from "styled-components";
 import { Header, Footer } from "../../components";
-import { CounterCartProvider } from "../../context/CounterCart";
 import { CartContextProvider } from "../../context/CartContext";
 
 const Main = styled.main`
@@ -19,22 +18,17 @@ const ShopLayout: FC<ShopLayoutProps> = ({
   children,
 }) => {
   return (
-    <CounterCartProvider>
-      <CartContextProvider>
-        <Head>
-          <title>{title} - Dicar</title>
-          <meta name="description" content={descriptionPage} />
-          <meta name="og:title" content={title} />
-          <meta name="og:description" content={descriptionPage} />
-        </Head>
-
-        <Header />
-
-        <Main>{children}</Main>
-
-        <Footer />
-      </CartContextProvider>
-    </CounterCartProvider>
+    <CartContextProvider>
+      <Head>
+        <title>{title} - Dicar</title>
+        <meta name="description" content={descriptionPage} />
+        <meta name="og:title" content={title} />
+        <meta name="og:description" content={descriptionPage} />
+      </Head>
+      <Header />
+      <Main>{children}</Main>
+      <Footer />
+    </CartContextProvider>
   );
 };
 export default ShopLayout;

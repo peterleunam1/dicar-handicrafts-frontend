@@ -4,7 +4,7 @@ import { toCapitalize } from "../../../helpers";
 import { SelectProps } from "../../../interfaces";
 
 const SelectStyled = styled.select`
-  width: 95.5%;
+  width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
   height: 33px;

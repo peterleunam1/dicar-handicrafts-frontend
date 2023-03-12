@@ -27,6 +27,9 @@ const InputStyled = styled.input<{ fSize: string }>`
   outline: none;
   font-size: ${(props) => props.fSize};
   color: #606060;
+  &::placeholder {
+    color: #b8b8b8;
+  }
 `;
 const LabelInput = styled.label`
   font-size: 13px;

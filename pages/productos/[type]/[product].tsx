@@ -12,7 +12,6 @@ import { useState } from "react";
 import CartGif from "../../../public/assets/shopping-cart.gif";
 import useProducts from "../../../hooks/useProducts";
 import { IProduct } from "../../../interfaces";
-import addProductToCart from "../../../services/cart/addToCart";
 
 const Container = styled.section`
   display: flex;
@@ -125,22 +124,22 @@ const Type: NextPage = () => {
   let product: any;
   product = products.find((x:IProduct) => x.id === y);
 
-  const handleClick = async() => {
-    EmptyObject(user) ? (
-      <Modal status={modal} setStatus={setModal}>
-        <Image src={CartGif} width="60px" height="50px" alt="Imagen de carrito" />
-        <p>Para agregar productos al carrito necesita iniciar sesión</p>
-      </Modal>
-    ) : (
-      (
-        await addProductToCart({
-          product_id: product.id,
-        }).then((res) => {
-          alert("Producto agregado al carrito");
-        })
-      )
-    );
-  };
+  // const handleClick = async() => {
+  //   EmptyObject(user) ? (
+  //     <Modal status={modal} setStatus={setModal}>
+  //       <Image src={CartGif} width="60px" height="50px" alt="Imagen de carrito" />
+  //       <p>Para agregar productos al carrito necesita iniciar sesión</p>
+  //     </Modal>
+  //   ) : (
+  //     (
+  //       await addProductToCart({
+  //         product_id: product.id,
+  //       }).then((res) => {
+  //         alert("Producto agregado al carrito");
+  //       })
+  //     )
+  //   );
+  // };
 
   const Desc = (price: number) => {
     let newPrice = 0;
@@ -183,7 +182,7 @@ const Type: NextPage = () => {
           ) : (
             <AccentTex color="#ff4142">Agotado</AccentTex>
           )}
-         <div onClick={handleClick}>
+        
          <Button
             text="Agregar al carrito"
             bg="#f6d1bc"
@@ -191,7 +190,7 @@ const Type: NextPage = () => {
             mt="25px"
             mb="10px"
           />
-         </div>
+         
           <div>
             <Button
               text="Comprar rápida"

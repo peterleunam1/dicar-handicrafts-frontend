@@ -1,21 +1,29 @@
 import React, { useState } from "react";
-import { CartContextProps, UserContextProviderProps } from "../interfaces";
+import {
+  CartContextProps,
+  IProduct,
+  UserContextProviderProps,
+} from "../interfaces";
 
 const ContextCart = React.createContext<CartContextProps>({
   setUpdate(value) {},
-
+  setInCart(value) {},
+  setCount(value) {},
 });
 
 export function CartContextProvider({ children }: UserContextProviderProps) {
-
   const [update, setUpdate] = useState(false);
-
-
+  const [inCart, setInCart] = useState<IProduct[]>([]);
+  const [count, setCount] = useState(0);
   return (
     <ContextCart.Provider
       value={{
         update,
-        setUpdate
+        setUpdate,
+        inCart,
+        setInCart,
+        count,
+        setCount,
       }}
     >
       {children}

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { Counter, Icon, Item, Modal, Button } from "../../../components";
 import { CartItemProps, CounterProps, IProduct } from "../../../interfaces";
 import { toCapitalize } from "../../../helpers";
-import deleteItemFromCart from "../../../services/cart/deleteItemFromCart";
 import ContextCart from "../../../context/CartContext";
 
 const ListItem = styled.article`
@@ -15,6 +14,13 @@ const ListItem = styled.article`
   border-bottom: 1.5px solid #e8e8e8;
   align-items: flex-start;
   justify-content: center;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 30px 0px 50px 0px;
+  }
+
 `;
 const ContentRigth = styled.div`
   width: 75%;
@@ -24,7 +30,18 @@ const ContentRigth = styled.div`
   align-items: center;
   strong {
     font-weight: 550;
+    @media (max-width: 500px) {
+      color: #f6d1bc;
+    }
   }
+  @media (max-width: 500px) {
+    width: 92%;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
 `;
 const ContentLeft = styled.div`
   width: 25%;
@@ -34,6 +51,22 @@ const ContentLeft = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  span{
+    display: none;
+    @media (max-width: 500px) {
+      display: block;
+      margin: 0 auto;
+      display: flex;
+      gap: 8px;
+      margin-left: 25%;
+    }
+  }
+  @media (max-width: 500px) {
+    width: 100%;
+    margin-top: 0px;
+
+  }
+
 `;
 const ImageC = styled.figure`
   width: 100px;
@@ -43,6 +76,11 @@ const ImageC = styled.figure`
   margin-right: 0px;
   margin-left: 0px;
   margin-top: 12px;
+  @media (max-width: 500px) {
+    width: 80px;
+    height: 100px;
+  }
+
 `;
 const SubContainer = styled.div`
   display: flex;
@@ -50,6 +88,12 @@ const SubContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 100%;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
 `;
 const Info = styled.div`
   display: flex;
@@ -113,6 +157,9 @@ const Numbers = styled.div`
   strong {
     font-weight: 550;
   }
+  @media (max-width: 500px){
+    display: none;
+  }
 `;
 const Prices = styled.div<{ border?: string; margin?: string }>`
   width: 85%;
@@ -122,6 +169,11 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
   border-bottom: ${(props) => props.border || "none"};
   strong {
     font-size: 14px;
+  }
+  @media (max-width: 500px) {
+    &:first-of-type{
+      margin-top: 10px;
+    }
   }
 `;
 
@@ -167,16 +219,6 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
                   Vendido y entragado por <Strong>Dicar.</Strong>
                 </Text>
                 <span>
-                  <Links>
-                    <Icon
-                      fill="fa-regular fa-heart"
-                      margin="0px"
-                      mr="8px"
-                      color="#ff6242"
-                    />{" "}
-                    Agregar a favoritos
-                  </Links>
-                  |{" "}
                   <Links onClick={handleRemove}>
                     <Icon
                       fill="fa-solid fa-xmark"
@@ -202,10 +244,11 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
             </SubContainer>
           </ContentRigth>
           <ContentLeft>
+            <span><Counter id={item?.id} onAction={handleAdd} qty={quantity} /></span>
             <Prices border="1.5px solid #e8e8e8;" margin="20px">
-              <p>
-                <strong>Precio unitario:</strong> ${item.price}
-              </p>
+              
+                <strong>Precio unitario:</strong> <p> ${item.price}</p>
+              
             </Prices>
             <Prices>
               {" "}
@@ -219,14 +262,14 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
       <Modal status={modal} setStatus={setModal}>
         <p>¿Estás seguro que deseas eliminar este producto?</p>
         <ButtonC
-          onClick={() =>
-            deleteItemFromCart({
-              product_id: id,
-            }).then(() => {
-              setUpdate(true);
-              setModal(false);
-            })
-          }
+          // onClick={() =>
+          //   deleteItemFromCart({
+          //     product_id: id,
+          //   }).then(() => {
+          //     setUpdate(true);
+          //     setModal(false);
+          //   })
+          // }
         >
           <Button
             text="Confirmar"

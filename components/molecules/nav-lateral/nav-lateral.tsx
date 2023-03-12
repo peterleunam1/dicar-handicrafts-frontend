@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import Link from "next/link";
+import { redirect } from "next/dist/server/api-utils";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 import { NavLateralProps } from "../../../interfaces";
@@ -70,24 +71,24 @@ const ListItem = styled.li<{ color?: string }>`
       font-weight: bolder;
     }
   }
-  `;
+`;
 
 const LogoContainer = styled.div`
-text-align: center;
-width: 100%;
-@media (max-width: 500px) {
-  display: none;
-}
-`
+  text-align: center;
+  width: 100%;
+  @media (max-width: 500px) {
+    display: none;
+  }
+`;
 const SocialContainer2 = styled.div`
-width: 100%;
-display: none;
+  width: 100%;
+  display: none;
   @media (max-width: 500px) {
     display: block;
     width: min-content;
-    margin-left:20%;
+    margin-left: 20%;
   }
-`
+`;
 const NavLateral: FC<NavLateralProps> = ({
   transform,
   display_items,
@@ -99,10 +100,9 @@ const NavLateral: FC<NavLateralProps> = ({
 }) => {
   const { user } = useUser();
 
-  const handleClick = () => {
-    localStorage.removeItem("userAuth");
-    Cookies.remove("token");
-    window.location.reload();
+  const handleClick = ({ href }: { href: string }) => {
+    setIsOpen(false);
+    window.location.href = href;
   };
 
   return (
@@ -152,34 +152,48 @@ const NavLateral: FC<NavLateralProps> = ({
         </>
       )} */}
       <ul>
-      <ListItem>  <strong>Categorías</strong></ListItem>
-        <Link href="/productos/mochilas">
-          <ListItem>
-            <Icon fill="fa-solid fa-bag-shopping" margin="0px" />
-            <p>Mochilas</p>
-          </ListItem>
+        <ListItem>
+          {" "}
+          <strong>Categorías</strong>
+        </ListItem>
+        <Link href="#">
+          <a onClick={() => handleClick({ href: "/productos/mochilas" })}>
+            <ListItem>
+              <Icon fill="fa-solid fa-bag-shopping" margin="0px"></Icon>
+              <p>Mocilas</p>
+            </ListItem>
+          </a>
         </Link>
-        <Link href="/productos/sandalias">
-          <ListItem>
-            <Icon fill="fa-solid fa-shoe-prints" margin="0px"></Icon>
-            <p>Sandalias</p>
-          </ListItem>
+        <Link href="#">
+          <a onClick={() => handleClick({ href: "/productos/sandalias" })}>
+            <ListItem>
+              <Icon fill="fa-solid fa-shoe-prints" margin="0px"></Icon>
+              <p>Sandalias</p>
+            </ListItem>
+          </a>
         </Link>
-        <Link href="/productos/sombreros">
-          <ListItem>
-            <Icon fill="fa-brands fa-redhat" margin="0px" />
-            <p>Sombreros</p>
-          </ListItem>
+        <Link href="#">
+          <a onClick={() => handleClick({ href: "/productos/sombreros" })}>
+            <ListItem>
+              <Icon fill="fa-brands fa-redhat" margin="0px" />
+              <p>Sombreros</p>
+            </ListItem>
+          </a>
         </Link>
-        <Link href="/productos/accesorios">
-          <ListItem>
-            <Icon fill="fa-solid fa-burst" margin="0px" />
-            <p>Accesorios</p>
-          </ListItem>
+        <Link href="#">
+          <a onClick={() => handleClick({ href: "/productos/accesorios" })}>
+            <ListItem>
+              <Icon fill="fa-solid fa-burst" margin="0px" />
+              <p>Accesorios</p>
+            </ListItem>
+          </a>
         </Link>
       </ul>
       <ul>
-       <ListItem> <strong>Contácto</strong></ListItem>
+        <ListItem>
+          {" "}
+          <strong>Contácto</strong>
+        </ListItem>
         <ListItem>+57 300 7529260</ListItem>
         <ListItem>
           Centro Comercial Parque Heredia Local 154 Cartagena de Indias.{" "}
@@ -187,12 +201,9 @@ const NavLateral: FC<NavLateralProps> = ({
       </ul>
       <ul>
         <ListItem>
-        <LogoContainer>
-        <Logo/>
-        </LogoContainer>
-        <SocialContainer2>
-          <SocialBar/>
-        </SocialContainer2>
+          <SocialContainer2>
+            <SocialBar />
+          </SocialContainer2>
         </ListItem>
       </ul>
       {/* {EmptyObject(user) ? (

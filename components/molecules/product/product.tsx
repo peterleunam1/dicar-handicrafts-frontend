@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -6,9 +6,9 @@ import { CardCircular, Icon, Modal, Button } from "../../../components";
 import { IProduct } from "../../../interfaces";
 import { EmptyObject } from "../../../helpers";
 import useUser from "../../../hooks/useUser";
-import CartGif from "../../../public/assets/shopping-cart.gif"
+import CartGif from "../../../public/assets/shopping-cart.gif";
 import { IProductComponent } from "../../../interfaces/helpers/products";
-import addProductToCart from "../../../services/cart/addToCart";
+import ContextCart from "../../../context/CartContext";
 
 const ProductContainer = styled.article`
   width: max-content;
@@ -42,53 +42,26 @@ const Text = styled.div<{ size: string; bold: number; aling?: string }>`
 const ButtonC = styled.div`
   width: 200px;
 `;
-const Product: FC<IProductComponent> = ({ product, setInCart }) => {
+const Product: FC<IProductComponent> = ({ product }) => {
   const { image, category, id, name, price, type } = product;
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
-  const { user } = useUser();
-  const [cart, setCart] = useState<IProduct[]>([]);
-
-  // const handleCart = () => {
-  //   if (EmptyObject(user)) {
-  //     return setModal(true);
-  //   } else {
-  //     setModal2(true);
-  //   }
-  // };
-
-  useEffect(() => {
-    let data = localStorage.getItem("cart_dicar") || "[]";
-    if (!data) {
-      setCart(JSON.parse(data));
-    }
-  }, []);
+  const { setInCart, inCart, setCount } = useContext(ContextCart);
 
   const handleConfirmCart = (product: IProduct) => {
-    if (cart.find((item) => item.id === product.id)) {
+    if (inCart?.find((item) => item.id === product.id)) {
       alert("Este producto ya se encuentra en el carrito");
-    }else {
-      setCart([...cart, product]);
+    } else {
+      if (inCart) {
+        setInCart([...inCart, product]);
+        setCount(inCart.length + 1);
+      } else {
+        setInCart([product]);
+        setCount(1);
+      }
     }
   };
-  useEffect(() => {
-    localStorage.setItem("cart_dicar", JSON.stringify(cart));
-  }, [cart]);
-
-console.log(cart)
-  // const handleConfirmCart = async (product: IProduct) => {
-  //   const result = await addProductToCart({
-  //     product_id: product.id
-  //   })
-
-  //   if (result?.status === 201 || result?.status === 200) {
-  //     alert("Producto agregado al carrito con exito");
-  //   } else {
-  //     alert("Error al agregar el producto al carrito");
-  //   }
-  //   setModal2(false);
-  // };
-
+  console.log(inCart)
   return (
     <ProductContainer>
       <div onClick={() => setModal2(true)}>
@@ -108,7 +81,7 @@ console.log(cart)
           <Text size="16px" bold={500}>
             {name}
           </Text>
-          </Link>
+        </Link>
       </InfoContent>
       <Modal status={modal} setStatus={setModal}>
         <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
@@ -117,20 +90,21 @@ console.log(cart)
       <Modal status={modal2} setStatus={setModal2}>
         <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
         <p>
-          ¿Desea agregar el producto <strong>{name?.toLocaleLowerCase()}</strong>{" "}
-          al carrito?
+          ¿Desea agregar el producto{" "}
+          <strong>{name?.toLocaleLowerCase()}</strong> al carrito?
         </p>
         <ButtonC
-          onClick={() =>
+          onClick={() => {
             handleConfirmCart({
               id,
               name,
               image,
               price,
               category,
-              type
-            })
-          }
+              type,
+            });
+            setModal2(false);
+          }}
         >
           <Button
             text="Confirmar"

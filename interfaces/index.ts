@@ -1,5 +1,3 @@
-import { type } from "os";
-
 export type { ThemeIconsProps } from "./atoms/theme-icon";
 export type { ThemeContextUi } from "./context/themeContextUI";
 export type { IconProps } from "./atoms/icon";
@@ -32,8 +30,6 @@ export type { CartListProps } from "./organisms/cart-list";
 export type { CardLargeProps } from "./atoms/card-large";
 export type { DataAddress } from "./pages/address";
 export type { AlertProps } from "./atoms/alert";
-export type { CounterCartProviderProps } from "./context/CounterCart";
-export type { CounterCart } from "./context/CounterCart";
 export type { SummaryProps } from "./molecules/summary";
 export type {CartContextProviderProps} from "./context/CartContext";
 export type {CartContextProps} from "./context/CartContext";

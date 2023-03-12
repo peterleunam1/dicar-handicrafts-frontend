@@ -2,15 +2,18 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import Script from 'next/script';
-import { useCallback, useContext, useEffect, useState } from "react";
+import { Component, useCallback, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { CartList, Input, InputFull, ShopLayout, Button } from "../../components";
+import { CartList, Input, InputFull, ShopLayout, Button, Select } from "../../components";
 import ContextAdress from "../../context/AddressContext";
 import { EmptyObject } from "../../helpers";
 import useAdress from "../../hooks/useAdress";
 import useToCart from "../../hooks/useToCart";
 import useUser from "../../hooks/useUser";
 import { useEpayco } from 'react-epayco';
+import getState from "../../services/address/getStates";
+import getCitiesByState from "../../services/address/getCitiesbyState";
+
 
 const Main = styled.div`
   width: 100%;
@@ -18,9 +21,16 @@ const Main = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  @media (max-width: 500px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `;
 const UserInformation = styled.section`
   width: 65%;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 const TitleSection = styled.p`
   font-weight: bolder;
@@ -31,12 +41,21 @@ const TitleSection = styled.p`
 `;
 const HalfInput = styled.div`
   width: 45%;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 const InLineInput = styled.div`
   width: 94%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+  }
 `;
 const ConfirmText = styled.p`
   font-size: 13px;
@@ -53,8 +72,21 @@ const ConfirmText = styled.p`
     }
   }
 `;
+const SelectStyled = styled.select`
+  width: 100%;
+  height: 33px;
+  border-radius: 5px;
+  color: #606066;
+  border: 1px solid rgb(202, 199, 199);
+  margin-top: 25px;
+  margin-bottom: 10px;
+`;
 const ButtonC = styled.div`
   width: 25%;
+  @media (max-width: 500px) {
+    width: 100%;
+    margin-top: 10px;
+  }
 `;
 
 const ConfirmaDatos: NextPage = () => {
@@ -71,6 +103,11 @@ const ConfirmaDatos: NextPage = () => {
   let cityCampare;
   let departmentCompare
 
+  
+  const [state, setState] = useState<string>("");
+  const [cityNow, setCityNow] = useState<string>("");
+  const { states } = getState() as any;
+  const { cities } = getCitiesByState(state) as any;
   if (address) {
     domicilio = address;
     cityCampare = city;
@@ -85,6 +122,18 @@ const ConfirmaDatos: NextPage = () => {
     cityCampare = "No establecido";
     departmentCompare = "No establecido"
   }
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setState(e.target.value);
+  };
+  const handleChange2 = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCityNow(e.target.value);
+  };
+
+ useEffect(() => {
+  window.onbeforeunload = function() {
+    return "¿Desea recargar la página web?";
+  };
+}, [state])
 
   return (
     <ShopLayout
@@ -97,74 +146,72 @@ const ConfirmaDatos: NextPage = () => {
             <UserInformation>
               <div>
                 <TitleSection>Datos de usuario</TitleSection>
-                <InputFull
+                <Input
                   type="text"
                   bradius="5px"
                   fSize="15px"
                   py="7px"
                   label="Nombre completo"
                   mb="10px"
-                  value={`${user.firstname} ${user.lastname}`}
+                  placeholder="ej: Juan Perez Lorem"
                 />
-                <InputFull
+                <Input
                   type="email"
                   bradius="5px"
                   fSize="15px"
                   py="7px"
                   label="Email"
                   mb="10px"
-                  value={user.email}
+                  placeholder="usuario@lorem.com"
                 />
                 <HalfInput>
-                  <InputFull
+                  <Input
                     type="number"
                     bradius="5px"
                     fSize="15px"
                     py="7px"
                     label="Celular"
                     mb="10px"
-                    value={user.phone_number}
+                    placeholder="ej: +57 307 6784509"
                   />
                 </HalfInput>
               </div>
               <div>
                 <TitleSection>Datos de envío</TitleSection>
-                <InputFull
+                <Input
                   type="text"
                   bradius="5px"
                   fSize="15px"
                   py="7px"
                   label="Dirección"
                   mb="10px"
-                  value={domicilio}
+                  placeholder="ej: Centro, Getsemaní, Calle de las Maravillas No. 30-45"
                 />
-                <ConfirmText>
-                  <Link href="/direccion/selecciona-domicilio">
-                    Editar o registrar un dirección
-                  </Link>
-                </ConfirmText>
                 <InLineInput>
                   <HalfInput>
-                    <InputFull
-                      type="text"
-                      bradius="5px"
-                      fSize="15px"
-                      py="7px"
-                      label="Ciudad"
-                      mb="12px"
-                      value={cityCampare}
-                    />
+                  <Select
+                array={states || []}
+                name="department_name"
+                arg="departamento"
+                label="Seleccione un departamento"
+                onChange={handleChange}
+              />
                   </HalfInput>
                   <HalfInput>
-                    <InputFull
-                      type="text"
-                      bradius="5px"
-                      fSize="15px"
-                      py="7px"
-                      label="Departamento"
-                      mb="12px"
-                      value={departmentCompare}
-                    />
+                <SelectStyled>
+                <option value="">---</option>
+                {cities ? (
+                  cities.map((cities: any, index: number) => {
+                    return (
+                      <option value={cities[1].municipio} key={index++}>
+                        {cities[1].municipio}
+                      </option>
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+                </SelectStyled>
                   </HalfInput>
                 </InLineInput>
                 <Input

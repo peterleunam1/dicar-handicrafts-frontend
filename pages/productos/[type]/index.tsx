@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { Banner, Icon, ProductList, ShopLayout } from "../../../components";
+import { Banner, Icon, ProductList, ShopLayout, Skeleton } from "../../../components";
 import {
   getBannerImage,
   toCapitalize,
@@ -93,7 +93,7 @@ const ProductType: NextPage = () => {
   const { type } = useRouter().query;
   const [productsFiltered, setProductsFiltered] = useState<Array<IProduct>>([]);
   const [filterActive, setFilterActive] = useState('todas');
-  const { products } = useProducts(type);
+  const { products, loading } = useProducts(type);
   const options = toSubcategories(type);
 
   useEffect(() => {
@@ -144,7 +144,11 @@ const ProductType: NextPage = () => {
         </HeaderFilter>
         <ProductsContainer>
           {filterActive === 'todas' ? (
-            <ProductList products={products} />
+           <>
+            {
+              loading ? <Skeleton/> : <ProductList products={products} />
+            }
+           </>
           ) : (
             <ProductList products={productsFiltered} />
           )}

@@ -5,7 +5,6 @@ import { Icon, ThemeIcon, Modal, CardCircular } from "../../../components";
 import ContextTheme from "../../../context/ThemeContextUI";
 import { EmptyObject } from "../../../helpers";
 import useUser from "../../../hooks/useUser";
-import useQuantity from "../../../hooks/useQuantity";
 
 const NavBarStyled = styled.nav`
   display: flex;
@@ -23,32 +22,16 @@ const CounterText = styled.p`
 
 const NavBar: FC = () => {
   const { toggleTheme } = useContext(ContextTheme) as any;
-  const [noUserLogged, setNoUserLogged] = useState(false);
-  const { user } = useUser();
-  const [status, setStatus] = useState(true)
   const route = useRouter();
-  const { quantity } = useQuantity();
   const handleClick = (path: string) => {
-    console.log({ user, isEmppty: EmptyObject(user) });
-    EmptyObject(user) ? (
-      setNoUserLogged(true)
-    ) : (
       route.push(path)
-    );
   };
   return (
     <NavBarStyled>
-      {
-        noUserLogged && (
-          <Modal status={status} setStatus={setStatus}>
-            No hay un usuario logeado, logeate para ingresar productos al carrito!
-          </Modal>
-        )
-      }
       <CartContainer onClick={() => { handleClick("/cart") }}>
         <Icon fill="fa-solid fa-cart-shopping" mr="0"></Icon>
         <CardCircular bg="#f6d1bc" top="-8px" left="30px" size="13px">
-          <CounterText>{quantity}</CounterText>
+          <CounterText>0</CounterText>
         </CardCircular>
       </CartContainer>
       <ThemeIcon onClick={toggleTheme}>

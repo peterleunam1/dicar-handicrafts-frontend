@@ -181,7 +181,7 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
 const CartItem: FC<CartItemProps> = ({ item, mode }) => {
   const { image, category, price, id, name, type, qty_in_stock } = item;
   let {quantity} = item;
-  const {inCart, setUpdate, update, setTotalCart, setQty, qty} = useCart()
+  const {inCart, setUpdate, update, setQty, qty} = useCart()
   const [modal, setModal] = useState(false);
   const [counter, setCounter] = useState(1);
   const [priceWithCounter, setPriceWithCounter] = useState(0);

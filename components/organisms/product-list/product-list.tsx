@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { IProduct, ProductListProps } from "../../../interfaces";
 import Product from "../../molecules/product/product";
 
-
 const ProducListStyled = styled.section`
   margin: 22px auto 0px auto;
   display: grid;
@@ -17,40 +16,44 @@ const ProducListStyled = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    }
+  }
 `;
 
 const ProductList: FC<ProductListProps> = ({ products }) => {
-    const [cart, setCart] = useState<IProduct[]>([]);
+  const [cart, setCart] = useState<IProduct[]>([]);
 
-    useEffect(() => {
-        const currentCart = JSON.parse(localStorage.getItem('cart') || "[]");
-        setCart(currentCart);
-    }, []);
+  useEffect(() => {
+    const currentCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCart(currentCart);
+  }, []);
 
-    const handleSaveOnCart = (product: IProduct) => {
-        const productInCart = cart.find(item => item.id === product.id);
+  const handleSaveOnCart = (product: IProduct) => {
+    const productInCart = cart.find((item) => item.id === product.id);
 
-        if (productInCart) {
-            productInCart.qty! += 1;
-            setCart([...cart, { ...productInCart }])
-            window.localStorage.setItem('cart', JSON.stringify([...cart, { ...productInCart }]));
-        }
-        else {
-            setCart([...cart, { ...product, qty: 1 }]);
-            const productsInCart = [...cart, { ...product, qty: 1 }];
-            window.localStorage.setItem('cart', JSON.stringify(productsInCart));
-        }
-    };
+    if (productInCart) {
+      // productInCart.qty! += 1;
+      setCart([...cart, { ...productInCart }]);
+      window.localStorage.setItem(
+        "cart",
+        JSON.stringify([...cart, { ...productInCart }])
+      );
+    } else {
+      // setCart([...cart, { ...product, qty: 1 }]);
+      const productsInCart = [...cart, { ...product, qty: 1 }];
+      window.localStorage.setItem("cart", JSON.stringify(productsInCart));
+    }
+  };
 
-    return (
-        <ProducListStyled>
-            {
-                products.map((product, index = 0) => (
-                    <Product key={product.id} product={product} setInCart={handleSaveOnCart} />
-                ))
-            }
-        </ProducListStyled>
-    )
-}
-export default ProductList
+  return (
+    <ProducListStyled>
+      {products.map((product, index = 0) => (
+        <Product
+          key={product.id}
+          product={product}
+          setInCart={handleSaveOnCart}
+        />
+      ))}
+    </ProducListStyled>
+  );
+};
+export default ProductList;

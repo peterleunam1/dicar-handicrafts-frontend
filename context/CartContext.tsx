@@ -3,7 +3,6 @@ import {
   CartContextProps,
   CartContextProviderProps,
   IProduct,
-  UserContextProviderProps,
 } from "../interfaces";
 
 const ContextCart = React.createContext<CartContextProps>({

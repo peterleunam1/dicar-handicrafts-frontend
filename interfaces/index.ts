@@ -20,7 +20,6 @@ export type { ProductListProps } from "./organisms/product-list";
 export type { OffersProps } from "./organisms/offers";
 export type { CounterProps } from "./atoms/counter";
 export type { SelectProps } from "./atoms/select";
-export type { AddressContextProps } from "./context/userContext";
 export type { IUser } from "./context/userContext";
 export type { UserContextProviderProps } from "./context/userContext";
 export type { ModalProps } from "./molecules/modal";

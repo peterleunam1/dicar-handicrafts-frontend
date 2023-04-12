@@ -18,7 +18,7 @@ const ShopLayout: FC<ShopLayoutProps> = ({
   children,
 }) => {
   return (
-    <CartContextProvider>
+    <>
       <Head>
         <title>{title} - Dicar</title>
         <meta name="description" content={descriptionPage} />
@@ -28,7 +28,7 @@ const ShopLayout: FC<ShopLayoutProps> = ({
       <Header />
       <Main>{children}</Main>
       <Footer />
-    </CartContextProvider>
+    </>
   );
 };
 export default ShopLayout;

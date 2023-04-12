@@ -4,11 +4,10 @@ import Link from "next/link";
 import styled from "styled-components";
 import { CardCircular, Icon, Modal, Button } from "../../../components";
 import { IProduct } from "../../../interfaces";
-import { EmptyObject } from "../../../helpers";
-import useUser from "../../../hooks/useUser";
 import CartGif from "../../../public/assets/shopping-cart.gif";
 import { IProductComponent } from "../../../interfaces/helpers/products";
 import ContextCart from "../../../context/CartContext";
+import useCart from "../../../hooks/useCart";
 
 const ProductContainer = styled.article`
   width: max-content;
@@ -46,7 +45,7 @@ const Product: FC<IProductComponent> = ({ product }) => {
   const { image, category, id, name, price, type } = product;
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
-  const { setInCart, inCart, setCount } = useContext(ContextCart);
+  const {inCart, setInCart, setUpdate, update } = useCart()
 
   const handleConfirmCart = (product: IProduct) => {
     if (inCart?.find((item) => item.id === product.id)) {
@@ -54,14 +53,16 @@ const Product: FC<IProductComponent> = ({ product }) => {
     } else {
       if (inCart) {
         setInCart([...inCart, product]);
-        setCount(inCart.length + 1);
+        localStorage.setItem("cartDicar", JSON.stringify([...inCart, {
+          ...product,
+          quantity: 1,
+        }]));
+        setUpdate(!update)
       } else {
         setInCart([product]);
-        setCount(1);
       }
     }
   };
-  console.log(inCart)
   return (
     <ProductContainer>
       <div onClick={() => setModal2(true)}>

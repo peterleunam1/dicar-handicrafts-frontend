@@ -62,7 +62,6 @@ const Title = styled.h2`
     font-size: 20px;
   }
 `;
-// https://i.imgur.com/GjxYwv6.mp4
 
 const Offers: FC<OffersProps> = ({ type, urlMultimedia, children }) => {
   return (

@@ -29,6 +29,9 @@ const Container = styled.section<{ width?: string; height?: string }>`
   align-items: center;
   border: 0.5px solid #000;
   padding: 0px 30px;
+  @media (max-width: 500px) {
+    width: 80%;
+  }
 `;
 
 const Close = styled.article`

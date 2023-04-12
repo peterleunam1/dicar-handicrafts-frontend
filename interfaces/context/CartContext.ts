@@ -11,4 +11,6 @@ export interface CartContextProps{
     setInCart: (value: IProduct[]) => void
     count?: number
     setCount: (value: number) => void
+    qty?: boolean
+    setQty: (value: boolean) => void
 }

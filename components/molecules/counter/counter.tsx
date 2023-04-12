@@ -24,43 +24,24 @@ const CircularCard = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid #606060;
-  border-radius: 50%;
+  border-radius: 8px;
   cursor: pointer;
+  &:hover{
+    background-color: #606060;
+    transition: ease 1s background-color;
+  }
 `;
 
-const Counter: FC<CounterProps> = ({id, onAction, qty}) => {
-  const [counter, setCounter] = useState(qty);
-const {setUpdate} = useContext(ContextCart)
-  // const subtract = async () => {
-  //   await deleteItemFromCart({
-  //     product_id: id,
-  //   }).then((res) => { 
-  //     setUpdate(true)
-  //   });
-  //   counter > 0
-  //     ? setCounter((prev:number) => {
-  //         onAction(prev - 1);
-  //         return prev - 1;
-  //       })
-  //     : setCounter(0);
-  // };
-
-  // const Add = async() => {
-  //   await addProductToCart({
-  //     product_id: id,
-  //   }).then((res) => {
-  //     setUpdate(true)
-  //   });
-  //   setCounter((prev:number) => {
-  //     onAction(prev + 1);
-  //     return prev + 1;
-  //   });
-  // };
-
-
+const Counter: FC<CounterProps> = ({counter, setCounter}) => {
   return (
     <Container>
-      {/* <CircularCard onClick={()=>subtract()}>
+      <CircularCard onClick={
+        () => {
+          counter > 1
+            ? setCounter( counter - 1)
+            : setCounter(1);
+        }
+      } >
         <Icon
           fill="fa-solid fa-minus"
           margin="0px"
@@ -69,15 +50,18 @@ const {setUpdate} = useContext(ContextCart)
         />
       </CircularCard>
       <span>{`${counter}`}</span>
-      <CircularCard onClick={()=>Add()}>
+      <CircularCard onClick={
+        () => {
+          setCounter(counter + 1);
+        }
+      } >
         <Icon
           fill="fa-solid fa-plus"
           margin="0px"
           size="13px"
           color="rgb(202, 199, 199)"
         />
-      </CircularCard> */}
-      counter
+      </CircularCard>
     </Container>
   );
 };

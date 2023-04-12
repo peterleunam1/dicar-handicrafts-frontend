@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import { Counter, Icon, Item, Modal, Button } from "../../../components";
 import { CartItemProps, CounterProps, IProduct } from "../../../interfaces";
 import { toCapitalize } from "../../../helpers";
 import ContextCart from "../../../context/CartContext";
+import useCart from "../../../hooks/useCart";
 
 const ListItem = styled.article`
   width: calc(100%-20px);
@@ -37,7 +38,7 @@ const ContentRigth = styled.div`
   @media (max-width: 500px) {
     width: 92%;
     margin-bottom: 20px;
-    background-color: #f5f5f5;
+    background-color: ${(props) => props.theme.card};
     padding: 15px;
     border-radius: 10px;
   }
@@ -178,21 +179,37 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
 `;
 
 const CartItem: FC<CartItemProps> = ({ item, mode }) => {
-  const [qty, setQty] = useState(1);
-  const { image, category, price, id, name, type, qty_in_stock, qty: quantity } = item;
-  const { setUpdate } = useContext(ContextCart);
+  const { image, category, price, id, name, type, qty_in_stock } = item;
+  let {quantity} = item;
+  const {inCart, setUpdate, update, setTotalCart, setQty, qty} = useCart()
   const [modal, setModal] = useState(false);
+  const [counter, setCounter] = useState(1);
+  const [priceWithCounter, setPriceWithCounter] = useState(0);
 
 
-  function handleAdd(qty: number) {
-    if (qty === 0) handleRemove();
-    setQty(() => qty);
-  }
+  useEffect(() => {
+      setPriceWithCounter(price! * counter);    
+  }, [counter, price]);
 
-  const handleRemove = async () => {
+ const handleRemove = async () => {
     setModal(true);
   };
-
+  const handleConfirmDelete = (product: IProduct)  => {
+    const newCart = inCart?.filter (item => item.id !== product.id) 
+    localStorage.setItem("cartDicar", JSON.stringify(newCart));
+    setUpdate(!update)
+    setModal(false);
+  };
+  useEffect(() => {
+    const newProductWithQty = inCart?.map((item) => {
+      if (item.id === id) {
+        return { ...item, quantity: counter };
+      }
+      return item;
+    });
+    localStorage.setItem("cartDicar", JSON.stringify(newProductWithQty));
+    setQty(!qty)
+  }, [counter, inCart])
   return (
     <>
       {mode === "complete" ? (
@@ -239,12 +256,12 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
                   <strong>Categoria: </strong>
                   {` ${toCapitalize(category || "")}`}
                 </p>
-                <Counter id={item?.id} onAction={handleAdd} qty={quantity} />
+                <Counter counter={counter} setCounter={setCounter}/>
               </Numbers>
             </SubContainer>
           </ContentRigth>
           <ContentLeft>
-            <span><Counter id={item?.id} onAction={handleAdd} qty={quantity} /></span>
+            <span><Counter  counter={counter} setCounter={setCounter} /></span>
             <Prices border="1.5px solid #e8e8e8;" margin="20px">
               
                 <strong>Precio unitario:</strong> <p> ${item.price}</p>
@@ -252,7 +269,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
             </Prices>
             <Prices>
               {" "}
-              <strong>Precio:</strong> <h3>{`$${price! * quantity!}`}</h3>
+              <strong>Precio:</strong> <h3>{priceWithCounter}</h3>
             </Prices>
           </ContentLeft>
         </ListItem>
@@ -262,14 +279,9 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
       <Modal status={modal} setStatus={setModal}>
         <p>¿Estás seguro que deseas eliminar este producto?</p>
         <ButtonC
-          // onClick={() =>
-          //   deleteItemFromCart({
-          //     product_id: id,
-          //   }).then(() => {
-          //     setUpdate(true);
-          //     setModal(false);
-          //   })
-          // }
+          onClick={() =>
+          handleConfirmDelete(item)
+          }
         >
           <Button
             text="Confirmar"

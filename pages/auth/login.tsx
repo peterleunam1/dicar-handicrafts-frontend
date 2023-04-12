@@ -39,7 +39,7 @@ const Login: NextPage = () => {
     setAuth({
       ...auth,
       [e.target.name]: e.target.value,
-    });
+    }); 
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

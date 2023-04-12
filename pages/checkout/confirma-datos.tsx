@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import { NextPage } from "next";
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import {
   CartList,
@@ -11,9 +10,7 @@ import {
   Button,
   Select,
 } from "../../components";
-import ContextAdress from "../../context/AddressContext";
-import { EmptyObject, products_combo } from "../../helpers";
-import useAdress from "../../hooks/useAdress";
+import { products_combo } from "../../helpers";
 import useUser from "../../hooks/useUser";
 import getState from "../../services/address/getStates";
 import getCitiesByState from "../../services/address/getCitiesbyState";
@@ -60,21 +57,7 @@ const InLineInput = styled.div`
     width: 100%;
   }
 `;
-const ConfirmText = styled.p`
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 94%;
-  text-align: right;
-  padding-right: 10px;
-  a {
-    color: #606060;
-    font-weight: 400;
-    &:hover {
-      font-weight: 600;
-    }
-  }
-`;
+
 const SelectStyled = styled.select`
   width: 100%;
   height: 33px;
@@ -93,140 +76,156 @@ const ButtonC = styled.div`
 `;
 
 const ConfirmaDatos: NextPage = () => {
-  const { address, city, department } = useContext(ContextAdress);
-  const { user } = useUser();
-
-  let domicilio;
-  let cityCampare;
-  let departmentCompare;
-
   const [state, setState] = useState<string>("");
   const [cityNow, setCityNow] = useState<string>("");
   const { states } = getState() as any;
   const { cities } = getCitiesByState(state) as any;
-
+  const [data, setData] = useState<Record<string, string>>({});
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setState(e.target.value);
   };
   const handleChange2 = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCityNow(e.target.value);
   };
+  const handleChangeResume = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+  console.log(data);
+  const searchParams = Object.keys(data)
+    .map((key) => {
+      return encodeURIComponent(key) + ":%20" + encodeURIComponent(data[key]);
+    })
+    .join(`%0A`);
 
-  useEffect(() => {
-    window.onbeforeunload = function () {
-      return "¿Desea recargar la página web?";
-    };
-  }, [state]);
-
+  const produsct = products_combo.map((product) => {
+    return (
+      encodeURIComponent(product.name!) +
+      ":%0A %20" +
+      "%0A %20 Miralo en: *" +
+      encodeURIComponent(`https://dicar-handicrafts-frontend.vercel.app/productos/${product.category}/${product.id}%0A`) 
+    );
+  });
   return (
     <ShopLayout
       title="Confirma tus datos"
       descriptionPage="Verifica tus datos para comprar"
     >
-      {EmptyObject(user) ? (
-        <p>Contenido no disponible</p>
-      ) : (
-        <>
-          <h2>Verifica tus datos</h2>
-          <Main>
-            <UserInformation>
-              <div>
-                <TitleSection>Datos de usuario</TitleSection>
-                <Input
-                  type="text"
-                  bradius="5px"
-                  fSize="15px"
-                  py="7px"
-                  label="Nombre completo"
-                  mb="10px"
-                  placeholder="ej: Juan Perez Lorem"
-                />
-                <Input
-                  type="email"
-                  bradius="5px"
-                  fSize="15px"
-                  py="7px"
-                  label="Email"
-                  mb="10px"
-                  placeholder="usuario@lorem.com"
-                />
-                <HalfInput>
-                  <Input
-                    type="number"
-                    bradius="5px"
-                    fSize="15px"
-                    py="7px"
-                    label="Celular"
-                    mb="10px"
-                    placeholder="ej: +57 307 6784509"
-                  />
-                </HalfInput>
-              </div>
-              <div>
-                <TitleSection>Datos de envío</TitleSection>
-                <Input
-                  type="text"
-                  bradius="5px"
-                  fSize="15px"
-                  py="7px"
-                  label="Dirección"
-                  mb="10px"
-                  placeholder="ej: Centro, Getsemaní, Calle de las Maravillas No. 30-45"
-                />
-                <InLineInput>
-                  <HalfInput>
-                    <Select
-                      array={states || []}
-                      name="department_name"
-                      arg="departamento"
-                      label="Seleccione un departamento"
-                      onChange={handleChange}
-                    />
-                  </HalfInput>
-                  <HalfInput>
-                    <SelectStyled>
-                      <option value="">---</option>
-                      {cities ? (
-                        cities.map((cities: any, index: number) => {
-                          return (
-                            <option value={cities[1].municipio} key={index++}>
-                              {cities[1].municipio}
-                            </option>
-                          );
-                        })
-                      ) : (
-                        <></>
-                      )}
-                    </SelectStyled>
-                  </HalfInput>
-                </InLineInput>
-                <Input
-                  type="text"
-                  label="Punto de referencia"
-                  placeholder="Ingrese guía"
-                  bradius="5px"
-                  fSize="15px"
-                  py="7px"
-                  mb="10px"
-                  name="reference"
-                />
-              </div>
-            </UserInformation>
-
-            <CartList mode="summary" array={products_combo} />
-          </Main>
-
-          <ButtonC>
-            <Button
-              text="Continuar"
-              bg="#f6d1bc"
-              hover="rgba(246, 209, 188, 0.637)"
-              mt="25px"
+      <h2>Verifica tus datos</h2>
+      <Main>
+        <UserInformation>
+          <div>
+            <TitleSection>Datos de usuario</TitleSection>
+            <Input
+              type="text"
+              bradius="5px"
+              fSize="15px"
+              py="7px"
+              label="Nombre completo"
               mb="10px"
+              placeholder="ej: Juan Perez Lorem"
+              onChange={handleChangeResume}
+              name="*👤 Nombre*"
             />
-          </ButtonC>
-        </>
-      )}
+            <Input
+              type="email"
+              bradius="5px"
+              fSize="15px"
+              py="7px"
+              label="Email"
+              mb="10px"
+              placeholder="usuario@lorem.com"
+              onChange={handleChangeResume}
+              name="*📨 Correo electrónico*"
+            />
+            <HalfInput>
+              <Input
+                type="number"
+                bradius="5px"
+                fSize="15px"
+                py="7px"
+                label="Celular"
+                mb="10px"
+                placeholder="ej: +57 307 6784509"
+                onChange={handleChangeResume}
+                name="*📲 Telefono*"
+              />
+            </HalfInput>
+          </div>
+          <div>
+            <TitleSection>Datos de envío</TitleSection>
+            <Input
+              type="text"
+              bradius="5px"
+              fSize="15px"
+              py="7px"
+              label="Dirección"
+              mb="10px"
+              placeholder="ej: Centro, Getsemaní, Calle de las Maravillas No. 30-45"
+              onChange={handleChangeResume}
+              name="*📍➡️ Dirección*"
+            />
+            <InLineInput>
+              <HalfInput>
+                <Select
+                  array={states || []}
+                  name="department_name"
+                  arg="departamento"
+                  label="Seleccione un departamento"
+                  onChange={handleChange}
+                />
+              </HalfInput>
+              <HalfInput>
+                <SelectStyled onChange={handleChange2}>
+                  <option value="">---</option>
+                  {cities ? (
+                    cities.map((cities: any, index: number) => {
+                      return (
+                        <option value={cities[1].municipio} key={index++}>
+                          {cities[1].municipio}
+                        </option>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </SelectStyled>
+              </HalfInput>
+            </InLineInput>
+            <Input
+              type="text"
+              label="Punto de referencia"
+              placeholder="Ingrese guía"
+              bradius="5px"
+              fSize="15px"
+              py="7px"
+              mb="10px"
+              name="*🗒️ Datos de guía*"
+              onChange={handleChangeResume}
+            />
+          </div>
+        </UserInformation>
+
+        <CartList mode="summary"/>
+      </Main>
+
+      <ButtonC onClick={() => {}}>
+        <a
+          href={`https://api.whatsapp.com/send?phone=573007529260&text=*¡Saludoos!%0AEstoy interesado en alguno de tus productos, estos son mis datos*%0A${searchParams}%0A*🏙️ Departamento*: ${state}%0A*📍 Ciudad*: ${cityNow}%0A%20${produsct}%0A`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Button
+            text="Continuar"
+            bg="#f6d1bc"
+            hover="rgba(246, 209, 188, 0.637)"
+            mt="25px"
+            mb="10px"
+          />
+        </a>
+      </ButtonC>
     </ShopLayout>
   );
 };

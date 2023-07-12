@@ -26,7 +26,7 @@ export type { ModalProps } from "./molecules/modal";
 export type { UserInfoProps } from "./atoms/user-info";
 export type { CartItemProps } from "./molecules/cartItem";
 export type { CartListProps } from "./organisms/cart-list";
-export type { CardLargeProps } from "./atoms/card-large";
+export type { TopCardProps } from "./atoms/top-card";
 export type { DataAddress } from "./pages/address";
 export type { AlertProps } from "./atoms/alert";
 export type { SummaryProps } from "./molecules/summary";

@@ -1,9 +1,8 @@
-import { NextPage } from "next";
+import { FC } from "react"
 import Image from "next/image";
-import NextLink from "next/link";
+import CartEmpty from "../../../public/assets/cart.png";
 import styled from "styled-components";
-import { Button, ShopLayout } from "../../components";
-import CartEmpty from "../../public/assets/cart.png";
+
 
 const Container = styled.div`
   width: 100%;
@@ -28,16 +27,9 @@ width: 30%;
     text-align: center;
   }
 `;
-const ButtonContainer = styled.div`
-    width: 25%;
-`;
-const EmptyPage: NextPage = () => {
-  return (
-    <ShopLayout
-      title="Carrito vació"
-      descriptionPage="No hay artículos en el carrito de compras"
-    >
-      <Container>
+const EmptyCart: FC = () => {
+    return (
+        <Container>
         <ImageContainer>
           <Image
             src={CartEmpty}
@@ -50,8 +42,6 @@ const EmptyPage: NextPage = () => {
             <h2>No hay productos dentro del carrito</h2>
         </Info>
       </Container>
-    </ShopLayout>
-  );
-};
-
-export default EmptyPage;
+    )
+  }
+  export default EmptyCart

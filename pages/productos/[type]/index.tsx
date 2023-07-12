@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { Banner, Icon, ProductList, ShopLayout, Skeleton } from "../../../components";
+import {
+  Banner,
+  Icon,
+  ProductList,
+  ShopLayout,
+  Skeleton,
+} from "../../../components";
 import {
   getBannerImage,
   toCapitalize,
@@ -18,7 +24,6 @@ const FilterContainer = styled.section`
   justify-content: flex-start;
   margin-top: 35px;
   @media (max-width: 500px) {
-    
   }
 `;
 const HeaderFilter = styled.header`
@@ -41,9 +46,6 @@ const FilterOptions = styled.ul`
     justify-content: flex-start;
     margin-top: 10px;
     overflow: scroll;
-    /* flex-wrap: wrap; */
-    /* flex-direction: column;
-    align-items: flex-start; */
   }
 `;
 const Text = styled.div`
@@ -72,14 +74,13 @@ const FilterOption = styled.li<{ isActive?: boolean }>`
   height: 22px;
   background-color: ${(props) =>
     props.isActive ? "#f6d1bc" : props.theme.card};
-  font-weight: ${(props) => props.isActive ? '600' : 'normal'};
+  font-weight: ${(props) => (props.isActive ? "600" : "normal")};
   &:hover {
     background-color: #f6d1bc;
     font-weight: 600;
   }
   @media (max-width: 500px) {
     margin-bottom: 5px;
-    /* margin-right: 10px; */
   }
 `;
 const ProductsContainer = styled.div`
@@ -90,30 +91,31 @@ const ProductsContainer = styled.div`
   }
 `;
 const ProductType: NextPage = () => {
-  const { type } = useRouter().query;
-  const [productsFiltered, setProductsFiltered] = useState<Array<IProduct>>([]);
-  const [filterActive, setFilterActive] = useState('todas');
-  const { products, loading } = useProducts(type);
-  const options = toSubcategories(type);
+  const { type:category } = useRouter().query as { type: string };
+  const [productsFiltered, setProductsFiltered] = useState<IProduct[]>();
+  const [filterActive, setFilterActive] = useState("todas");
+  const { products, loading } = useProducts(category || "");
+  const options = toSubcategories(category);
+
 
   useEffect(() => {
-    setFilterActive('todas');
-  }, [type])
+    setFilterActive("todas");
+  }, [category]);
 
   const handleClick = (name: string) => {
-    const filtered = products.filter((x: IProduct) => x.type === name);
+    const filtered = products?.filter((x: IProduct) => x.type === name);
     setProductsFiltered(filtered);
     setFilterActive(name);
   };
 
   return (
     <ShopLayout
-      title={toCapitalize(`${type}`)}
-      descriptionPage={`${type} de tipo artesanal de gran calidad`}
+      title={toCapitalize(`${category}`)}
+      descriptionPage={`${category} de tipo artesanal de gran calidad`}
     >
       <Banner
-        title={toCapitalize(`${type}`)}
-        image={getBannerImage(type as BannerOptions)}
+        title={toCapitalize(`${category}`)}
+        image={getBannerImage(category as BannerOptions)}
       />
 
       <FilterContainer>
@@ -124,7 +126,10 @@ const ProductType: NextPage = () => {
             <p>Filtrar las opciones</p>{" "}
           </Text>
           <FilterOptions>
-            <FilterOption isActive={filterActive === 'todas'} onClick={() => setFilterActive('todas')}>
+            <FilterOption
+              isActive={filterActive === "todas"}
+              onClick={() => setFilterActive("todas")}
+            >
               Todas
             </FilterOption>
             {options?.map(({ name, id }) => {
@@ -143,14 +148,16 @@ const ProductType: NextPage = () => {
           </FilterOptions>
         </HeaderFilter>
         <ProductsContainer>
-          {filterActive === 'todas' ? (
-           <>
-            {
-              loading ? <Skeleton/> : <ProductList products={products} />
-            }
-           </>
+          {filterActive === "todas" ? (
+            <>
+              {loading ? (
+                <Skeleton />
+              ) : (
+                <ProductList products={products || []} />
+              )}
+            </>
           ) : (
-            <ProductList products={productsFiltered} />
+            <ProductList products={productsFiltered || []} />
           )}
         </ProductsContainer>
       </FilterContainer>

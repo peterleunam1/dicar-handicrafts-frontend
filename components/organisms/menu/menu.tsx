@@ -19,12 +19,12 @@ const MenuStyled = styled.section`
 `;
 
 const Menu: FC<MenuProps> = ({ images }) => {
-  const titles = ["mochilas", "sandalias", "sombreros", "accesorios"];
+  const categories = ["mochilas", "sandalias", "sombreros", "accesorios"];
   return (
     <MenuStyled>
-      {images.map((element, indx) => {
+      {images.map((element, index) => {
         return (
-          <CardMenu key={element.blurDataURL} src={element} title={titles[indx]} />
+          <CardMenu key={element.blurDataURL} src={element} title={categories[index]} />
         )
       })}
     </MenuStyled>

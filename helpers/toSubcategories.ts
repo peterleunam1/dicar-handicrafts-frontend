@@ -1,4 +1,4 @@
-export const toSubcategories = (tipo: any = "") => {
+export const toSubcategories = (tipo: string = "") => {
   let options;
   switch (tipo) {
     case "mochilas":
@@ -35,7 +35,6 @@ export const toSubcategories = (tipo: any = "") => {
 
       break;
     case "sombreros":
-      // product = products_sombreros;
       options = [
         {
           id: 1,
@@ -67,7 +66,7 @@ export const toSubcategories = (tipo: any = "") => {
         },
       ];
       break;
-    default:
+    default  :
       break;
   }
   return options;

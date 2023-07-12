@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { CartItem, Button, Summary } from "../../../components";
 import { useRouter } from "next/router";
 import { CartListProps, IProduct } from "../../../interfaces";
-import EmptyPage from "../../../pages/cart/empty";
 import useCart from "../../../hooks/useCart";
+import EmptyCart from "../../molecules/empty-cart/empty-cart";
 
 const HeaderList = styled.header`
   width: 100%;
@@ -167,7 +167,7 @@ const TotalContainer = styled.div`
 const CartList: FC<CartListProps> = ({ mode }) => {
   const route = useRouter().push;
   const { count, inCart, setInCart, setCount, update, qty } = useCart();
-  const [total, setTotal] = useState(1);
+  const [total, setTotal] = useState(0);
   const handleClick = () => {
     route("/checkout/confirma-datos");
   };
@@ -181,10 +181,12 @@ const CartList: FC<CartListProps> = ({ mode }) => {
   useEffect(() => {
     let totalx = 0;
     inCart?.forEach((item) => {
-      totalx = total + item.price! * item.quantity!;
+      totalx = total + item.price * (item.quantity || 1);
     });
     setTotal(totalx);
   }, [inCart, qty, update]);
+
+  console.log(inCart)
 
   return (
     <>
@@ -255,7 +257,7 @@ const CartList: FC<CartListProps> = ({ mode }) => {
                 </TotalComplete>
               </div>
             ) : (
-              <EmptyPage></EmptyPage>
+              <EmptyCart />
             )
           ) : null}
         </>

@@ -40,6 +40,8 @@ const Counter: FC<CounterProps> = ({counter, setCounter}) => {
           counter > 1
             ? setCounter( counter - 1)
             : setCounter(1);
+          
+            
         }
       } >
         <Icon

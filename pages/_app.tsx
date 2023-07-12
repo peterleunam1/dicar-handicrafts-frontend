@@ -8,7 +8,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeContextProvider>
       <CartContextProvider>
         <GlobalStyle />
-
           <Component {...pageProps} />
       </CartContextProvider>
     </ThemeContextProvider>

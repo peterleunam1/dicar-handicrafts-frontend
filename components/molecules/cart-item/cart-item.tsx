@@ -7,6 +7,7 @@ import { CartItemProps, CounterProps, IProduct } from "../../../interfaces";
 import { toCapitalize } from "../../../helpers";
 import ContextCart from "../../../context/CartContext";
 import useCart from "../../../hooks/useCart";
+import { convertPrice } from "../../../helpers/convert-price";
 
 const ListItem = styled.article`
   width: calc(100%-20px);
@@ -21,7 +22,6 @@ const ListItem = styled.article`
     justify-content: center;
     padding: 30px 0px 50px 0px;
   }
-
 `;
 const ContentRigth = styled.div`
   width: 75%;
@@ -42,7 +42,6 @@ const ContentRigth = styled.div`
     padding: 15px;
     border-radius: 10px;
   }
-
 `;
 const ContentLeft = styled.div`
   width: 25%;
@@ -52,7 +51,7 @@ const ContentLeft = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  span{
+  span {
     display: none;
     @media (max-width: 500px) {
       display: block;
@@ -65,9 +64,7 @@ const ContentLeft = styled.div`
   @media (max-width: 500px) {
     width: 100%;
     margin-top: 0px;
-
   }
-
 `;
 const ImageC = styled.figure`
   width: 100px;
@@ -81,7 +78,6 @@ const ImageC = styled.figure`
     width: 80px;
     height: 100px;
   }
-
 `;
 const SubContainer = styled.div`
   display: flex;
@@ -94,7 +90,6 @@ const SubContainer = styled.div`
     align-items: flex-start;
     justify-content: center;
   }
-  
 `;
 const Info = styled.div`
   display: flex;
@@ -158,7 +153,7 @@ const Numbers = styled.div`
   strong {
     font-weight: 550;
   }
-  @media (max-width: 500px){
+  @media (max-width: 500px) {
     display: none;
   }
 `;
@@ -172,7 +167,7 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
     font-size: 14px;
   }
   @media (max-width: 500px) {
-    &:first-of-type{
+    &:first-of-type {
       margin-top: 10px;
     }
   }
@@ -180,26 +175,26 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
 
 const CartItem: FC<CartItemProps> = ({ item, mode }) => {
   const { image, category, price, id, name, type, qty_in_stock } = item;
-  let {quantity} = item;
-  const {inCart, setUpdate, update, setQty, qty} = useCart()
+  let { quantity } = item;
+  const { inCart, setUpdate, update, setQty, qty } = useCart();
   const [modal, setModal] = useState(false);
   const [counter, setCounter] = useState(1);
   const [priceWithCounter, setPriceWithCounter] = useState(0);
 
-
   useEffect(() => {
-      setPriceWithCounter(price! * counter);    
+    setPriceWithCounter(price! * counter);
   }, [counter, price]);
 
- const handleRemove = async () => {
+  const handleRemove = async () => {
     setModal(true);
   };
-  const handleConfirmDelete = (product: IProduct)  => {
-    const newCart = inCart?.filter (item => item.id !== product.id) 
+  const handleConfirmDelete = (product: IProduct) => {
+    const newCart = inCart?.filter((item) => item.id !== product.id);
     localStorage.setItem("cartDicar", JSON.stringify(newCart));
-    setUpdate(!update)
+    setUpdate(!update);
     setModal(false);
   };
+
   useEffect(() => {
     const newProductWithQty = inCart?.map((item) => {
       if (item.id === id) {
@@ -208,8 +203,10 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
       return item;
     });
     localStorage.setItem("cartDicar", JSON.stringify(newProductWithQty));
-    setQty(!qty)
-  }, [counter, inCart])
+    setQty(qty!);
+  }, [counter, inCart]);
+  
+
   return (
     <>
       {mode === "complete" ? (
@@ -256,20 +253,21 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
                   <strong>Categoria: </strong>
                   {` ${toCapitalize(category || "")}`}
                 </p>
-                <Counter counter={counter} setCounter={setCounter}/>
+                <Counter counter={counter} setCounter={setCounter} />
               </Numbers>
             </SubContainer>
           </ContentRigth>
           <ContentLeft>
-            <span><Counter  counter={counter} setCounter={setCounter} /></span>
+            <span>
+              <Counter counter={counter} setCounter={setCounter} />
+            </span>
             <Prices border="1.5px solid #e8e8e8;" margin="20px">
-              
-                <strong>Precio unitario:</strong> <p> ${item.price}</p>
-              
+              <strong>Precio unitario:</strong>{" "}
+              <p>{convertPrice(item.price)}</p>
             </Prices>
             <Prices>
               {" "}
-              <strong>Precio:</strong> <h3>{priceWithCounter}</h3>
+              <strong>Precio:</strong> <h3>{convertPrice(priceWithCounter)}</h3>
             </Prices>
           </ContentLeft>
         </ListItem>
@@ -278,11 +276,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
       )}
       <Modal status={modal} setStatus={setModal}>
         <p>¿Estás seguro que deseas eliminar este producto?</p>
-        <ButtonC
-          onClick={() =>
-          handleConfirmDelete(item)
-          }
-        >
+        <ButtonC onClick={() => handleConfirmDelete(item)}>
           <Button
             text="Confirmar"
             bg="#f6d1bc"

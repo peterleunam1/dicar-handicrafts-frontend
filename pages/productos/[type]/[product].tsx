@@ -6,12 +6,11 @@ import InnerImageZoom from "react-inner-image-zoom";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.min.css";
 import { Button, Modal, ShopLayout } from "../../../components";
 import InterRapidisimo from "../../../public/assets/interapisidisimo.png";
-import { EmptyObject } from "../../../helpers";
-import useUser from "../../../hooks/useUser";
-import { useState } from "react";
-import CartGif from "../../../public/assets/shopping-cart.gif";
 import useProducts from "../../../hooks/useProducts";
 import { IProduct } from "../../../interfaces";
+import { convertPrice } from "../../../helpers/convert-price";
+import useAddToCart from "../../../hooks/useAddToCart";
+import CartGif from "../../../public/assets/shopping-cart.gif";
 
 const Container = styled.section`
   display: flex;
@@ -21,7 +20,7 @@ const Container = styled.section`
   @media (max-width: 500px) {
     flex-direction: column;
     height: auto;
-    }
+  }
 `;
 const ImageContainer = styled.figure`
   width: 350px;
@@ -38,6 +37,9 @@ const ImageContainer = styled.figure`
     margin-right: 0;
     margin-bottom: 20px;
   }
+`;
+const ButtonC = styled.div`
+  width: 200px;
 `;
 
 const InfoContainer = styled.aside`
@@ -116,100 +118,110 @@ const FigCaption = styled.figcaption`
 
 const Type: NextPage = () => {
   const { product: param, type } = useRouter().query;
-  const y = Number(param);
-  const { user } = useUser();
-  const [modal, setModal] = useState(true);
-  const route = useRouter().push;
-  const {products} = useProducts(type)
-  let product: any;
-  product = products.find((x:IProduct) => x.id === y);
+  const { products } = useProducts(type as string);
 
-  // const handleClick = async() => {
-  //   EmptyObject(user) ? (
-  //     <Modal status={modal} setStatus={setModal}>
-  //       <Image src={CartGif} width="60px" height="50px" alt="Imagen de carrito" />
-  //       <p>Para agregar productos al carrito necesita iniciar sesión</p>
-  //     </Modal>
-  //   ) : (
-  //     (
-  //       await addProductToCart({
-  //         product_id: product.id,
-  //       }).then((res) => {
-  //         alert("Producto agregado al carrito");
-  //       })
-  //     )
-  //   );
-  // };
+  const product: IProduct = products?.find((x) => x.id === Number(param)) as IProduct;
 
-  const Desc = (price: number) => {
-    let newPrice = 0;
-    newPrice = price * 0.3 + price;
-    return newPrice;
+  const { handleConfirmCart, modal, setModal } = useAddToCart(product);
+
+  const Desc = (price: number): string => {
+    const desc: number = price * 0.3;
+    const newPrice: number = price++ + desc;
+    return convertPrice(newPrice);
   };
-
- 
 
   return (
     <ShopLayout
       title={`${type}`}
       descriptionPage="Mejores mochilas artesanales de la ciudad"
     >
-      <Container>
-        <ImageContainer>
-          <InnerImageZoom
-            src={product?.image || ""}
-            zoomSrc={product?.image || ""}
-            zoomType="hover"
-            zoomScale={0.7}
-          />
-        </ImageContainer>
-        <InfoContainer>
-          <h2>{product?.name}</h2>
-          <p>{product?.description}</p>
-          <Text>
-            Vendido y entregado por <AccentTex>Artesanías Dicar</AccentTex>
-          </Text>
-          <StrikeText>{`$ ${Desc(product?.price || 0)}`}</StrikeText>
-          <Price>
-            {`$${product?.price}`}{" "}
-            <AccentTex size="15px" ml="8px">
-              {" "}
-              -30%
-            </AccentTex>
-          </Price>
-          {product?.qty_in_stock !== 0 ? (
-            <AccentTex color="lightgreen">Disponible</AccentTex>
-          ) : (
-            <AccentTex color="#ff4142">Agotado</AccentTex>
-          )}
-        
-         <Button
-            text="Agregar al carrito"
-            bg="#f6d1bc"
-            hover="rgba(246, 209, 188, 0.637)"
-            mt="25px"
-            mb="10px"
-          />
-         
-          <div>
-            <Button
-              text="Comprar rápida"
-              bg="#fff"
-              hover="rgba(246, 209, 188, 0.637)"
-              border=" 1.5px solid #f6d1bc"
+      {product.image ? (
+        <Container>
+          <ImageContainer>
+            <InnerImageZoom
+              src={product.image}
+              zoomSrc={product.image}
+              zoomType="hover"
+              zoomScale={0.7}
             />
-          </div>
-          <SendType>
-            <FigCaption>Envios a través de:</FigCaption>
-            <a
-              href="https://www.interrapidisimo.com/sigue-tu-envio/"
-              target={"_blank"} rel="noreferrer"
+          </ImageContainer>
+          <InfoContainer>
+            <h2>{product?.name}</h2>
+            <p>{product?.description}</p>
+            <Text>
+              Vendido y entregado por <AccentTex>Artesanías Dicar</AccentTex>
+            </Text>
+            <StrikeText>{`${Desc(product.price)}`}</StrikeText>
+            <Price>
+              {convertPrice(product.price)}{" "}
+              <AccentTex size="15px" ml="8px">
+                -30%
+              </AccentTex>
+            </Price>
+            {product.qty_in_stock !== 0 ? (
+              <AccentTex color="lightgreen">Disponible</AccentTex>
+            ) : (
+              <AccentTex color="#ff4142">Agotado</AccentTex>
+            )}
+
+            <div onClick={() => setModal(true)}>
+              <Button
+                text="Agregar al carrito"
+                bg="#f6d1bc"
+                hover="rgba(246, 209, 188, 0.637)"
+                mt="25px"
+                mb="10px"
+              />
+            </div>
+
+            <div>
+              <Button
+                text="Comprar rápida"
+                bg="#fff"
+                hover="rgba(246, 209, 188, 0.637)"
+                border=" 1.5px solid #f6d1bc"
+              />
+            </div>
+            <SendType>
+              <FigCaption>Envios a través de:</FigCaption>
+              <a
+                href="https://www.interrapidisimo.com/sigue-tu-envio/"
+                target={"_blank"}
+                rel="noreferrer"
+              >
+                <Image
+                  src={InterRapidisimo}
+                  width="135x"
+                  height="30px"
+                  alt="Product image"
+                />
+              </a>
+            </SendType>
+          </InfoContainer>
+          <Modal status={modal} setStatus={setModal}>
+            <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
+            <p>
+              ¿Desea agregar el producto{" "}
+              <strong>{product.name.toLocaleLowerCase()}</strong> al carrito?
+            </p>
+            <ButtonC
+              onClick={() => {
+                handleConfirmCart();
+                setModal(false);
+              }}
             >
-              <Image src={InterRapidisimo} width="135x" height="30px" alt="Product image" />
-            </a>
-          </SendType>
-        </InfoContainer>
-      </Container>
+              <Button
+                text="Confirmar"
+                bg="#f6d1bc"
+                hover="rgba(246, 209, 188, 0.637)"
+                mt="20px"
+              />
+            </ButtonC>
+          </Modal>
+        </Container>
+      ) : (
+        <p>Cargando...</p>
+      )}
     </ShopLayout>
   );
 };

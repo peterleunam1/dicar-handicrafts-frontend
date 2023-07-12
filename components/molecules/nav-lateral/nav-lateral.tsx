@@ -1,12 +1,9 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import Link from "next/link";
-import { redirect } from "next/dist/server/api-utils";
 import styled from "styled-components";
-import Cookies from "js-cookie";
 import { NavLateralProps } from "../../../interfaces";
 import useUser from "../../../hooks/useUser";
-import { Input, Icon, Logo, Button, SocialBar } from "../../../components";
-import { EmptyObject } from "../../../helpers";
+import {  Icon, Logo, Button, SocialBar } from "../../../components";
 
 const AsideMenu = styled.aside<{
   transform: string;
@@ -73,13 +70,6 @@ const ListItem = styled.li<{ color?: string }>`
   }
 `;
 
-const LogoContainer = styled.div`
-  text-align: center;
-  width: 100%;
-  @media (max-width: 500px) {
-    display: none;
-  }
-`;
 const SocialContainer2 = styled.div`
   width: 100%;
   display: none;
@@ -98,7 +88,6 @@ const NavLateral: FC<NavLateralProps> = ({
   setIsOpen,
   logo = false,
 }) => {
-  const { user } = useUser();
 
   const handleClick = ({ href }: { href: string }) => {
     setIsOpen(false);
@@ -125,42 +114,15 @@ const NavLateral: FC<NavLateralProps> = ({
       ) : (
         <></>
       )}
-      {/* <Form display={display_items || "block"}>
-        <Input
-          type="text"
-          placeholder="Busque un producto aquí"
-          name="search"
-          bradius="5px"
-          fSize="14px"
-        />
-      </Form> */}
-      {/* {user.rol_id === 4 || EmptyObject(user) ? (
-        <></>
-      ) : (
-        <>
-          <ul>
-            <ListItem color="lightgreen">
-              <p>--- Admin ---</p>
-            </ListItem>
-            <Link href="/admin/home">
-              <ListItem>
-                <Icon fill="fa-solid fa-crown" margin="0" />
-                <p>Agregar productos</p>
-              </ListItem>
-            </Link>
-          </ul>
-        </>
-      )} */}
       <ul>
         <ListItem>
-          {" "}
           <strong>Categorías</strong>
         </ListItem>
         <Link href="#">
           <a onClick={() => handleClick({ href: "/productos/mochilas" })}>
             <ListItem>
               <Icon fill="fa-solid fa-bag-shopping" margin="0px"></Icon>
-              <p>Mocilas</p>
+              <p>Mochilas</p>
             </ListItem>
           </a>
         </Link>
@@ -191,7 +153,6 @@ const NavLateral: FC<NavLateralProps> = ({
       </ul>
       <ul>
         <ListItem>
-          {" "}
           <strong>Contácto</strong>
         </ListItem>
         <ListItem>+57 300 7529260</ListItem>
@@ -206,53 +167,6 @@ const NavLateral: FC<NavLateralProps> = ({
           </SocialContainer2>
         </ListItem>
       </ul>
-      {/* {EmptyObject(user) ? (
-        <>
-          <Link href="/auth/login">
-            <div>
-              <Button
-                text="Iniciar sesión"
-                bg="#f6d1bc"
-                hover="rgba(246, 209, 188, 0.637)"
-                mt="100px"
-                mb="10px"
-              />
-            </div>
-          </Link>
-          <Link href="/auth/registro">
-            <div>
-              <Button text="Registrarse" bg="#e8e8e8" hover="#cececec3" />
-            </div>
-          </Link>
-        </>
-      ) : (
-        <>
-          <ul>
-            <Link href="/usuario">
-              <ListItem>
-                <Icon fill="fa-solid fa-user" margin="0" />
-                <p>Perfil</p>
-              </ListItem>
-            </Link>
-            <Link href="/direccion/agregar-domicilio">
-              <ListItem>
-                <Icon fill=" fa-regular fa-address-book" margin="0" />
-                <p>Agregar dirección</p>
-              </ListItem>
-            </Link>
-            <Link href={""}>
-              <ListItem>
-                <Icon fill="fa-solid fa-tags" margin="0" />
-                <p>Mis compras</p>
-              </ListItem>
-            </Link>
-            <ListItem onClick={handleClick}>
-              <Icon fill="fa-solid fa-arrow-right-from-bracket" margin="0" />
-              <p>Cerrar sesión</p>
-            </ListItem>
-          </ul>
-        </>
-      )} */}
     </AsideMenu>
   );
 };

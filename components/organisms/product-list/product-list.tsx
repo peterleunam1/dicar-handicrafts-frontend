@@ -20,37 +20,36 @@ const ProducListStyled = styled.section`
 `;
 
 const ProductList: FC<ProductListProps> = ({ products }) => {
-  const [cart, setCart] = useState<IProduct[]>([]);
+  // const [cart, setCart] = useState<IProduct[]>([]);
 
-  useEffect(() => {
-    const currentCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCart(currentCart);
-  }, []);
+  // useEffect(() => {
+  //   const currentCart = JSON.parse(localStorage.getItem("cart") || "[]");
+  //   setCart(currentCart);
+  // }, []);
 
-  const handleSaveOnCart = (product: IProduct) => {
-    const productInCart = cart.find((item) => item.id === product.id);
+  // const handleSaveInCart = (product: IProduct) => {
+  //   const productInCart = cart.find((item) => item.id === product.id);
 
-    if (productInCart) {
-      // productInCart.qty! += 1;
-      setCart([...cart, { ...productInCart }]);
-      window.localStorage.setItem(
-        "cart",
-        JSON.stringify([...cart, { ...productInCart }])
-      );
-    } else {
-      // setCart([...cart, { ...product, qty: 1 }]);
-      const productsInCart = [...cart, { ...product, qty: 1 }];
-      window.localStorage.setItem("cart", JSON.stringify(productsInCart));
-    }
-  };
+  //   if (productInCart) {
+  //     // productInCart.qty! += 1;
+  //     setCart([...cart, { ...productInCart }]);
+  //     window.localStorage.setItem(
+  //       "cart",
+  //       JSON.stringify([...cart, { ...productInCart }])
+  //     );
+  //   } else {
+  //     // setCart([...cart, { ...product, qty: 1 }]);
+  //     const productsInCart = [...cart, { ...product, qty: 1 }];
+  //     window.localStorage.setItem("cart", JSON.stringify(productsInCart));
+  //   }
+  // };
 
   return (
     <ProducListStyled>
-      {products.map((product, index = 0) => (
+      {products?.map((product) => (
         <Product
           key={product.id}
           product={product}
-          setInCart={handleSaveOnCart}
         />
       ))}
     </ProducListStyled>

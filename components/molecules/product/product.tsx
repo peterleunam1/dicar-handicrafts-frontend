@@ -8,6 +8,8 @@ import CartGif from "../../../public/assets/shopping-cart.gif";
 import { IProductComponent } from "../../../interfaces/helpers/products";
 import ContextCart from "../../../context/CartContext";
 import useCart from "../../../hooks/useCart";
+import { convertPrice } from "../../../helpers/convert-price";
+import useAddToCart from "../../../hooks/useAddToCart";
 
 const ProductContainer = styled.article`
   width: max-content;
@@ -42,30 +44,12 @@ const ButtonC = styled.div`
   width: 200px;
 `;
 const Product: FC<IProductComponent> = ({ product }) => {
-  const { image, category, id, name, price, type } = product;
-  const [modal, setModal] = useState(false);
-  const [modal2, setModal2] = useState(false);
-  const {inCart, setInCart, setUpdate, update } = useCart()
+  const { image, category, id, name, price } = product;
+  const { handleConfirmCart, modal, setModal } = useAddToCart(product);
 
-  const handleConfirmCart = (product: IProduct) => {
-    if (inCart?.find((item) => item.id === product.id)) {
-      alert("Este producto ya se encuentra en el carrito");
-    } else {
-      if (inCart) {
-        setInCart([...inCart, product]);
-        localStorage.setItem("cartDicar", JSON.stringify([...inCart, {
-          ...product,
-          quantity: 1,
-        }]));
-        setUpdate(!update)
-      } else {
-        setInCart([product]);
-      }
-    }
-  };
   return (
     <ProductContainer>
-      <div onClick={() => setModal2(true)}>
+      <div onClick={() => setModal(true)}>
         <CardCircular bg="#F6D1BC" size="33px" top="10px" left="78%">
           <Icon fill="fa-solid fa-cart-shopping" margin="0px" size="14px" />
         </CardCircular>
@@ -75,8 +59,7 @@ const Product: FC<IProductComponent> = ({ product }) => {
       </ImageContainer>
       <InfoContent>
         <Text size="11px" bold={700} aling="end">
-          {" "}
-          ${price} COP
+          {convertPrice(price)} COP
         </Text>
         <Link href={`/productos/${category}/${id}`}>
           <Text size="16px" bold={500}>
@@ -86,25 +69,14 @@ const Product: FC<IProductComponent> = ({ product }) => {
       </InfoContent>
       <Modal status={modal} setStatus={setModal}>
         <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
-        <p>Para agregar productos al carrito necesita iniciar sesión</p>
-      </Modal>
-      <Modal status={modal2} setStatus={setModal2}>
-        <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
         <p>
           ¿Desea agregar el producto{" "}
           <strong>{name?.toLocaleLowerCase()}</strong> al carrito?
         </p>
         <ButtonC
           onClick={() => {
-            handleConfirmCart({
-              id,
-              name,
-              image,
-              price,
-              category,
-              type,
-            });
-            setModal2(false);
+            handleConfirmCart();
+            setModal(false);
           }}
         >
           <Button

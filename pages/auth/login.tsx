@@ -58,6 +58,7 @@ const Login: NextPage = () => {
       }
     } catch (error: any) { }
   };
+  
   return (
     <AuthLayout title="Inicio de sesión">
       {message !== "empty" ? (

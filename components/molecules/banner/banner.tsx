@@ -11,7 +11,7 @@ const BannerContainer = styled.section<{ img: string }>`
   background-position: center;
   background-size: cover;
   border-radius: 10px;
-  
+
   &::after {
     content: "";
     position: absolute;
@@ -21,7 +21,6 @@ const BannerContainer = styled.section<{ img: string }>`
     height: 100%;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.4);
-
   }
 `;
 const Title = styled.h1`
@@ -42,11 +41,9 @@ const Title = styled.h1`
 
 const Banner: FC<BannerProps> = ({ title, image }) => {
   return (
-    <>
-      <BannerContainer img={image}>
-        <Title>{title.toUpperCase()}</Title>
-      </BannerContainer>
-    </>
-  )
-}
-export default Banner
+    <BannerContainer img={image}>
+      <Title>{title.toUpperCase()}</Title>
+    </BannerContainer>
+  );
+};
+export default Banner;

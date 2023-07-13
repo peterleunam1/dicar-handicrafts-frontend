@@ -12,7 +12,7 @@ import Sandalia from "../public/assets/sandalias.png";
 import Sombrero from "../public/assets/sombreros.png";
 import Accesorio from "../public/assets/accesorios.png";
 import { products_combo, slideImages } from "../helpers";
-import useUser from "../hooks/useUser";
+
 
 const SliderContainer = styled.div`
   width: 60%;
@@ -65,10 +65,7 @@ const StrongText = styled.strong<{ size?: string }>`
     font-size: 15px;
   }
 `;
-const UserName = styled.p`
-  width: 95%;
-  margin: 0 auto;
-`;
+
 const Text = styled.p`
   font-size: 18px;
   margin: 20px 0px;
@@ -120,7 +117,6 @@ const Divisor = styled.div`
 
 const Home: NextPage = () => {
   const images = [Mochila, Sandalia, Sombrero, Accesorio];
-  const { user } = useUser();
 
   return (
     <ShopLayout

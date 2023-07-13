@@ -1,8 +1,8 @@
-.each-slide{
-    display: flex;
-    justify-content: center;
-    background-size: contain;
-    background-position: center;
-    height: 650px;
-    width: 50%;
+.each-slide {
+  display: flex;
+  justify-content: center;
+  background-size: contain;
+  background-position: center;
+  height: 650px;
+  width: 50%;
 }

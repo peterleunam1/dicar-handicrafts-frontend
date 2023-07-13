@@ -3,9 +3,7 @@ import { FC, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Icon, ThemeIcon, Modal, CardCircular } from "../../../components";
 import ContextTheme from "../../../context/ThemeContextUI";
-import { EmptyObject } from "../../../helpers";
 import useCart from "../../../hooks/useCart";
-import useUser from "../../../hooks/useUser";
 
 const NavBarStyled = styled.nav`
   display: flex;

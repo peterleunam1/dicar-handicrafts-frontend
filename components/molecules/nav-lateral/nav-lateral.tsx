@@ -2,8 +2,7 @@ import { FC } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { NavLateralProps } from "../../../interfaces";
-import useUser from "../../../hooks/useUser";
-import {  Icon, Logo, Button, SocialBar } from "../../../components";
+import {  Icon, Logo, SocialBar } from "../../../components";
 
 const AsideMenu = styled.aside<{
   transform: string;
@@ -35,6 +34,10 @@ const AsideMenu = styled.aside<{
     width: 100%;
     display: flex;
     justify-content: center;
+  }
+  a{
+    color: inherit;
+    text-decoration: none;
   }
 `;
 const Close = styled.span<{ display: string }>`

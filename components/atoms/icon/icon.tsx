@@ -17,19 +17,19 @@ const IconStyled = styled.i<{
   cursor: pointer;
   &:hover {
     color: ${(props) => props.hover};
-    transition:.5s ease color ;
+    transition: 0.5s ease color;
   }
 `;
 const Icon: FC<IconProps> = ({ fill, size, color, margin, mr, hover }) => {
   return (
-        <IconStyled
-        mr={mr||"0px"}
-          margin={margin || "15px"}
-          className={fill}
-          size={size || "18px"}
-          color={color || "#606060"}
-          hover={hover || "#000"}
-        ></IconStyled>
+    <IconStyled
+      mr={mr || "0px"}
+      margin={margin || "15px"}
+      className={fill}
+      size={size || "18px"}
+      color={color || "#606060"}
+      hover={hover || "#000"}
+    ></IconStyled>
   );
 };
 export default Icon;

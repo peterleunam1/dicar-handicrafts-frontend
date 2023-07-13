@@ -5,13 +5,11 @@ import styled from "styled-components";
 import {
   CartList,
   Input,
-  InputFull,
   ShopLayout,
   Button,
   Select,
 } from "../../components";
 import { products_combo } from "../../helpers";
-import useUser from "../../hooks/useUser";
 import getState from "../../services/address/getStates";
 import getCitiesByState from "../../services/address/getCitiesbyState";
 
@@ -28,6 +26,7 @@ const Main = styled.div`
 `;
 const UserInformation = styled.section`
   width: 65%;
+  /* padding: 0px 7%; */
   @media (max-width: 500px) {
     width: 100%;
   }
@@ -94,6 +93,7 @@ const ConfirmaDatos: NextPage = () => {
     });
   };
   console.log(data);
+  
   const searchParams = Object.keys(data)
     .map((key) => {
       return encodeURIComponent(key) + ":%20" + encodeURIComponent(data[key]);
@@ -105,7 +105,9 @@ const ConfirmaDatos: NextPage = () => {
       encodeURIComponent(product.name!) +
       ":%0A %20" +
       "%0A %20 Miralo en: *" +
-      encodeURIComponent(`https://dicar-handicrafts-frontend.vercel.app/productos/${product.category}/${product.id}%0A`) 
+      encodeURIComponent(
+        `https://dicar-handicrafts-frontend.vercel.app/productos/${product.category}/${product.id}%0A`
+      )
     );
   });
   return (
@@ -116,7 +118,6 @@ const ConfirmaDatos: NextPage = () => {
       <h2>Verifica tus datos</h2>
       <Main>
         <UserInformation>
-          <div>
             <TitleSection>Datos de usuario</TitleSection>
             <Input
               type="text"
@@ -153,8 +154,6 @@ const ConfirmaDatos: NextPage = () => {
                 name="*📲 Telefono*"
               />
             </HalfInput>
-          </div>
-          <div>
             <TitleSection>Datos de envío</TitleSection>
             <Input
               type="text"
@@ -205,10 +204,8 @@ const ConfirmaDatos: NextPage = () => {
               name="*🗒️ Datos de guía*"
               onChange={handleChangeResume}
             />
-          </div>
         </UserInformation>
-
-        <CartList mode="summary"/>
+        <CartList mode="summary" />
       </Main>
 
       <ButtonC onClick={() => {}}>

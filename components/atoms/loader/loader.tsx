@@ -44,13 +44,6 @@ const Inside = styled.div`
   }
 `;
 
-
-// @keyframes ldio-qk7rp6otajq {
-//   0% { transform: translate(-50%,-50%) rotate(0deg); }
-//   100% { transform: translate(-50%,-50%) rotate(360deg); }
-// }
-
-
 const Loader: FC = () => {
   return (
     <Overlay>

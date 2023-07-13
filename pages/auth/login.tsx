@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { NextPage } from "next";
 import Link from "next/link";
 import styled from "styled-components";
-import { AuthBox, AuthLayout, Input, Button, Alert } from "../../components";
+import { AuthBox, AuthLayout, Input, Button } from "../../components";
 import { useRouter } from "next/router";
 import singIn from "../../services/sign-in";
 import Cookies from "js-cookie";
@@ -62,7 +62,7 @@ const Login: NextPage = () => {
   return (
     <AuthLayout title="Inicio de sesión">
       {message !== "empty" ? (
-        <Alert visibility={visibility} type="error" message={message} />
+        <p>error al iniciar sesión</p>
       ) : (
         <Load>
           <Loader />

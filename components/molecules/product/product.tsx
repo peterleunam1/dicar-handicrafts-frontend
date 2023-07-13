@@ -1,13 +1,10 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { CardCircular, Icon, Modal, Button } from "../../../components";
-import { IProduct } from "../../../interfaces";
 import CartGif from "../../../public/assets/shopping-cart.gif";
 import { IProductComponent } from "../../../interfaces/helpers/products";
-import ContextCart from "../../../context/CartContext";
-import useCart from "../../../hooks/useCart";
 import { convertPrice } from "../../../helpers/convert-price";
 import useAddToCart from "../../../hooks/useAddToCart";
 

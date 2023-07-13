@@ -1,4 +1,4 @@
-export { default as ThemeIcon } from "./atoms/theme-icon";
+export { default as ThemeIcon } from "./atoms/theme-icon/theme-icon";
 export { default as Icon } from "./atoms/icon/icon";
 export { default as ShopLayout } from "./templates/shop-layout";
 export { default as AuthLayout } from "./templates/auth-layout";
@@ -21,18 +21,13 @@ export { default as SlideShow } from "./organisms/slide-show/slide-show";
 export { default as AuthBox } from "./organisms/auth-box/auth-box";
 export { default as Button } from "./atoms/button/button";
 export { default as Offers } from "./organisms/offers/offers";
-export { default as RowList } from "./molecules/row-lis/row-list";
 export { default as CartItem } from "./molecules/cart-item/cart-item";
 export { default as CartList } from "./organisms/cart-list/cart-list";
 export { default as Modal } from "./molecules/modal/modal";
-export { default as UserInfo } from "./atoms/user-info/user-info";
-export { default as InputFull } from "./atoms/input-full/input-full";
 export { default as TopCard } from "./atoms/top-card/top-card";
 export { default as loader } from "./atoms/loader/loader";
-export { default as Alert } from "./atoms/alert/alert";
 export { default as Summary } from "./molecules/summary/summary";
 export { default as Item } from "./atoms/item/item";
-export { default as AdminLayout } from "./templates/admin-layout";
 export { default as Skeleton } from "./organisms/skeleton/skeleton";
 
 

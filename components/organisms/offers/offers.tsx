@@ -72,7 +72,7 @@ const Offers: FC<OffersProps> = ({ type, urlMultimedia, children }) => {
             <source src={urlMultimedia} type="video/mp4" />
           </video>
         ) : (
-          <Image width={"auto"} src={urlMultimedia} height="500px" />
+          <Image width={"auto"} src={urlMultimedia} height="500px" alt="offer"/>
         )}
       </span>
       <SubContainer width="85%" sizeText="12px">

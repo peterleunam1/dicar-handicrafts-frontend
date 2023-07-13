@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { SummaryProps } from "../../../interfaces";
 
 const Card = styled.article`
-  width: 30%;
+  width: 90%;
   height: auto;
   display: flex;
   flex-direction: column;

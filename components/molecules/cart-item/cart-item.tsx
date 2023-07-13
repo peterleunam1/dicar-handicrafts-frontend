@@ -183,11 +183,14 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
 
   useEffect(() => {
     setPriceWithCounter(price! * counter);
-  }, [counter, price]);
+    setUpdate(!update);
+    setQty(!qty)
+  }, [counter]);
 
   const handleRemove = async () => {
     setModal(true);
   };
+  
   const handleConfirmDelete = (product: IProduct) => {
     const newCart = inCart?.filter((item) => item.id !== product.id);
     localStorage.setItem("cartDicar", JSON.stringify(newCart));
@@ -203,7 +206,6 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
       return item;
     });
     localStorage.setItem("cartDicar", JSON.stringify(newProductWithQty));
-    setQty(qty!);
   }, [counter, inCart]);
   
 

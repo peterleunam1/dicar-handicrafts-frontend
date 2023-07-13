@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { CartListProps, IProduct } from "../../../interfaces";
 import useCart from "../../../hooks/useCart";
 import EmptyCart from "../../molecules/empty-cart/empty-cart";
+import { convertPrice } from "../../../helpers/convert-price";
 
 const HeaderList = styled.header`
   width: 100%;
@@ -168,6 +169,7 @@ const CartList: FC<CartListProps> = ({ mode }) => {
   const route = useRouter().push;
   const { count, inCart, setInCart, setCount, update, qty } = useCart();
   const [total, setTotal] = useState(0);
+
   const handleClick = () => {
     route("/checkout/confirma-datos");
   };
@@ -179,87 +181,80 @@ const CartList: FC<CartListProps> = ({ mode }) => {
   };
 
   useEffect(() => {
-    let totalx = 0;
+    let total = 0;
     inCart?.forEach((item) => {
-      totalx = total + item.price * (item.quantity || 1);
+      total = total + item.price * (item.quantity || 1);
     });
-    setTotal(totalx);
-  }, [inCart, qty, update]);
-
-  console.log(inCart)
+    setTotal(total);
+  }, [update, qty, inCart]);
 
   return (
-    <>
+    <div>
       {mode === "complete" ? (
         <>
-          {inCart ? (
-            inCart?.length > 0 ? (
-              <div>
-                <ButtonC width="15%" onClick={ClearCart}>
+          {inCart && inCart?.length > 0 ? (
+            <>
+              <ButtonC width="15%" onClick={ClearCart}>
+                <Button
+                  text="Limpiar carrito"
+                  bg="#e8e8e8"
+                  hover="#cececec3"
+                  mt="0px"
+                  mb="15px"
+                />
+              </ButtonC>
+              <HeaderList>
+                <Info>
+                  <strong>carrito de compras - artesanías dicar</strong>
+                  <p>
+                    {count} {count === 1 ? "producto" : "productos"}
+                  </p>
+                </Info>
+                <ButtonC onClick={handleClick} width="25%">
                   <Button
-                    text="Limpiar carrito"
-                    bg="#e8e8e8"
-                    hover="#cececec3"
-                    mt="0px"
-                    mb="15px"
+                    text="Proceder al pago"
+                    bg="#f6d1bc"
+                    hover="rgba(246, 209, 188, 0.637)"
                   />
                 </ButtonC>
-                <HeaderList>
-                  <Info>
-                    <strong>carrito de compras - artesanías dicar</strong>
-                    <p>
-                      {count} {count === 1 ? "producto" : "productos"}
-                    </p>
-                  </Info>
-                  <ButtonC onClick={handleClick} width="25%">
+              </HeaderList>
+
+              {inCart &&
+                inCart?.map((element) => {
+                  return (
+                    <CartItem mode="complete" item={element} key={element.id} />
+                  );
+                })}
+
+              <TotalComplete>
+                <TotalRight>total</TotalRight>
+                <TotalLeft>
+                  <SubTotalComplete>
+                    <span>
+                      subtotal:
+                      <strong>{convertPrice(total)}</strong>
+                    </span>
+                    <span>
+                      costo de envío:
+                      <p>{convertPrice(10000)}</p>
+                    </span>
+                  </SubTotalComplete>
+                  <TotalContainer>
+                    Total: <span>{convertPrice(total + 10000)}</span>
+                  </TotalContainer>
+                  <ButtonC onClick={handleClick} width="100%">
                     <Button
                       text="Proceder al pago"
                       bg="#f6d1bc"
                       hover="rgba(246, 209, 188, 0.637)"
                     />
                   </ButtonC>
-                </HeaderList>
-
-                {inCart &&
-                  inCart?.map((element: IProduct) => {
-                    return (
-                      <CartItem
-                        mode="complete"
-                        item={element}
-                        key={element.id}
-                      />
-                    );
-                  })}
-                <TotalComplete>
-                  <TotalRight>total</TotalRight>
-                  <TotalLeft>
-                    <SubTotalComplete>
-                      <span>
-                        subtotal:
-                        <strong>{total}</strong>
-                      </span>
-                      <span>
-                        costo de envío:
-                        <strong>$ 10000</strong>
-                      </span>
-                    </SubTotalComplete>
-                    <TotalContainer>
-                      Total: <span>$ {total + 10000}</span>
-                    </TotalContainer>
-                    <ButtonC onClick={handleClick} width="100%">
-                      <Button
-                        text="Proceder al pago"
-                        bg="#f6d1bc"
-                        hover="rgba(246, 209, 188, 0.637)"
-                      />
-                    </ButtonC>
-                  </TotalLeft>
-                </TotalComplete>
-              </div>
-            ) : (
-              <EmptyCart />
-            )
-          ) : null}
+                </TotalLeft>
+              </TotalComplete>
+            </>
+          ) : (
+            <EmptyCart />
+          )}
         </>
       ) : (
         <Summary>
@@ -268,18 +263,18 @@ const CartList: FC<CartListProps> = ({ mode }) => {
           })}
           <SubTotal>
             <p>
-              Subtotal<strong>$ {total}</strong>
+              Subtotal<strong>{convertPrice(total)}</strong>
             </p>
             <p>
-              Envio <strong>$ 10000</strong>
+              Envio <strong>{convertPrice(10000)}</strong>
             </p>
           </SubTotal>
           <Total>
-            total <strong>$ {total + 10000}</strong>
+            total <strong>{convertPrice(total + 10000)}</strong>
           </Total>
         </Summary>
       )}
-    </>
+    </div>
   );
 };
 

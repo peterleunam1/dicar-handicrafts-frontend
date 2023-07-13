@@ -135,7 +135,7 @@ const Type: NextPage = () => {
       title={`${type}`}
       descriptionPage="Mejores mochilas artesanales de la ciudad"
     >
-      {product.image ? (
+      {product ? (
         <Container>
           <ImageContainer>
             <InnerImageZoom

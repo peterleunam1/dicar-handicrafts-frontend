@@ -91,12 +91,11 @@ const ProductsContainer = styled.div`
   }
 `;
 const ProductType: NextPage = () => {
-  const { type:category } = useRouter().query as { type: string };
+  const { type: category } = useRouter().query as { type: string };
   const [productsFiltered, setProductsFiltered] = useState<IProduct[]>();
   const [filterActive, setFilterActive] = useState("todas");
-  const { products, loading } = useProducts(category || "");
+  const { products, loading } = useProducts({ category });
   const options = toSubcategories(category);
-
 
   useEffect(() => {
     setFilterActive("todas");
@@ -135,11 +134,11 @@ const ProductType: NextPage = () => {
             {options?.map(({ name, id }) => {
               return (
                 <FilterOption
+                  key={id}
                   isActive={filterActive === name}
                   onClick={() => {
                     handleClick(name);
                   }}
-                  key={id}
                 >
                   {`${toCapitalize(name)}s`}
                 </FilterOption>

@@ -11,8 +11,9 @@ import Mochila from "../public/assets/mochilas.png";
 import Sandalia from "../public/assets/sandalias.png";
 import Sombrero from "../public/assets/sombreros.png";
 import Accesorio from "../public/assets/accesorios.png";
-import { products_combo, slideImages } from "../helpers";
-
+import { products_combo, slideImages } from "../constants";
+import useDepartments from "../hooks/useDepartments";
+import useMunicipalities from "../hooks/useMunicipalities";
 
 const SliderContainer = styled.div`
   width: 60%;
@@ -117,6 +118,11 @@ const Divisor = styled.div`
 
 const Home: NextPage = () => {
   const images = [Mochila, Sandalia, Sombrero, Accesorio];
+  const { departments } = useDepartments();
+  const {municipalities, error} = useMunicipalities({ department: "Casanare"});
+  console.log(departments);
+  console.log(municipalities);
+  console.log(error);
 
   return (
     <ShopLayout

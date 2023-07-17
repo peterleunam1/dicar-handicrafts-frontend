@@ -36,6 +36,7 @@ const EmptyCart: FC = () => {
             width="64px"
             height="64px"
             layout="responsive"
+            alt="empty-cart"
           />
         </ImageContainer>
         <Info>

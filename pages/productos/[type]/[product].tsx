@@ -118,7 +118,7 @@ const FigCaption = styled.figcaption`
 
 const Type: NextPage = () => {
   const { product: param, type } = useRouter().query;
-  const { products } = useProducts(type as string);
+  const { products } = useProducts({ category: type as string });
 
   const product: IProduct = products?.find((x) => x.id === Number(param)) as IProduct;
 

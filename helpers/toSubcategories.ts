@@ -12,11 +12,11 @@ export const toSubcategories = (tipo: string = "") => {
           name: "wayuu",
         },
         {
-          id: 1,
+          id: 3,
           name: "kankuama",
         },
         {
-          id: 1,
+          id: 4,
           name: "iraca",
         },
       ];

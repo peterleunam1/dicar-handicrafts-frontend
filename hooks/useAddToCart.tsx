@@ -4,7 +4,7 @@ import useCart from "./useCart";
 
 export default function useAddToCart(product: IProduct) {
   const { inCart, setInCart, setUpdate, update } = useCart();
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState<boolean>(false);
 
   const handleConfirmCart = () => {
     if (inCart?.find((item) => item.id === product.id)) {

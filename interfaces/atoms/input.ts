@@ -1,3 +1,5 @@
+import { regexsModel } from "../constants/regexs";
+
 export interface InputProps {
     type: string;
     placeholder?: string;
@@ -10,5 +12,6 @@ export interface InputProps {
     bradius?: string
     value?: any
     label?:string
+    regexs?: regexsModel
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

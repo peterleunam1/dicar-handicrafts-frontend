@@ -1,19 +1,18 @@
 import { useState } from "react";
+import { themeMode } from "../constants";
 
-const useThemeMode = () => {
-  const [theme, setTheme] = useState("light");
+export default function useThemeMode() {
+  const [theme, setTheme] = useState<string>(themeMode.light);
 
   const toggleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
+    if (theme === themeMode.light) {
+      setTheme(themeMode.dark);
     } else {
-      setTheme("light");
+      setTheme(themeMode.light);
     }
   };
   return {
     theme,
     toggleTheme,
   };
-};
-
-export default useThemeMode;
+}

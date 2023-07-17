@@ -30,7 +30,9 @@ export type { TopCardProps } from "./atoms/top-card";
 export type { DataAddress } from "./pages/address";
 export type { AlertProps } from "./atoms/alert";
 export type { SummaryProps } from "./molecules/summary";
-export type {CartContextProviderProps} from "./context/CartContext";
-export type {CartContextProps} from "./context/CartContext";
-export type {AccordionProps} from "./atoms/accordion";
+export type { CartContextProviderProps } from "./context/CartContext";
+export type { CartContextProps } from "./context/CartContext";
+export type { AccordionProps } from "./atoms/accordion";
 
+export * from "./services";
+export * from "./constants";

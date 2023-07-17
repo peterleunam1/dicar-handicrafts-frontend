@@ -1,4 +1,4 @@
-import { BASE_URL } from "../helpers";
+import { BASE_URL } from "../constants";
 
 const addUser = async (object: any) => {
   const apiUrl = `${BASE_URL}/auth/sign-up`;

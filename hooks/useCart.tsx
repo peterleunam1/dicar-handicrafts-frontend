@@ -11,7 +11,7 @@ export default function useCart() {
       setInCart(JSON.parse(cart));
       setCount(JSON.parse(cart).length);
     }
-  }, [update]);
+  }, [update, setCount, setInCart]);
 
   return {
     setInCart,

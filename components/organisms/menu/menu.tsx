@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { CardMenu } from "../../../components";
 import { MenuProps } from "../../../interfaces";
-
+import { categories } from "../../../constants";
 
 const MenuStyled = styled.section`
   width: 95%;
@@ -19,13 +19,16 @@ const MenuStyled = styled.section`
 `;
 
 const Menu: FC<MenuProps> = ({ images }) => {
-  const categories = ["mochilas", "sandalias", "sombreros", "accesorios"];
   return (
     <MenuStyled>
       {images.map((element, index) => {
         return (
-          <CardMenu key={element.blurDataURL} src={element} title={categories[index]} />
-        )
+          <CardMenu
+            key={element.blurDataURL}
+            src={element}
+            title={categories[index].name}
+          />
+        );
       })}
     </MenuStyled>
   );

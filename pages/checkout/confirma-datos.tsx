@@ -9,9 +9,10 @@ import {
   Button,
   Select,
 } from "../../components";
-import { products_combo } from "../../helpers";
-import getState from "../../services/address/getStates";
-import getCitiesByState from "../../services/address/getCitiesbyState";
+import { products_combo } from "../../constants";
+// import getState from "../../services/address/get-state";
+// import getCitiesByState from "../../services/address/get-current-municipality";
+import { regexs } from "../../constants/regexs";
 
 const Main = styled.div`
   width: 100%;
@@ -77,9 +78,11 @@ const ButtonC = styled.div`
 const ConfirmaDatos: NextPage = () => {
   const [state, setState] = useState<string>("");
   const [cityNow, setCityNow] = useState<string>("");
-  const { states } = getState() as any;
-  const { cities } = getCitiesByState(state) as any;
+  // const { states } = getState() as any;
+  // const { cities } = getCitiesByState("Tolima") as any;
   const [data, setData] = useState<Record<string, string>>({});
+  // console.log(cities);
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setState(e.target.value);
   };
@@ -92,6 +95,7 @@ const ConfirmaDatos: NextPage = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   console.log(data);
   
   const searchParams = Object.keys(data)
@@ -129,6 +133,7 @@ const ConfirmaDatos: NextPage = () => {
               placeholder="ej: Juan Perez Lorem"
               onChange={handleChangeResume}
               name="*👤 Nombre*"
+              regexs={regexs.fullName}
             />
             <Input
               type="email"
@@ -140,6 +145,7 @@ const ConfirmaDatos: NextPage = () => {
               placeholder="usuario@lorem.com"
               onChange={handleChangeResume}
               name="*📨 Correo electrónico*"
+              regexs={regexs.email}
             />
             <HalfInput>
               <Input
@@ -152,6 +158,7 @@ const ConfirmaDatos: NextPage = () => {
                 placeholder="ej: +57 307 6784509"
                 onChange={handleChangeResume}
                 name="*📲 Telefono*"
+                regexs={regexs.phone}
               />
             </HalfInput>
             <TitleSection>Datos de envío</TitleSection>
@@ -165,18 +172,19 @@ const ConfirmaDatos: NextPage = () => {
               placeholder="ej: Centro, Getsemaní, Calle de las Maravillas No. 30-45"
               onChange={handleChangeResume}
               name="*📍➡️ Dirección*"
+              regexs={regexs.address}
             />
             <InLineInput>
               <HalfInput>
-                <Select
+                {/* <Select
                   array={states || []}
                   name="department_name"
                   arg="departamento"
                   label="Seleccione un departamento"
                   onChange={handleChange}
-                />
+                /> */}
               </HalfInput>
-              <HalfInput>
+              {/* <HalfInput>
                 <SelectStyled onChange={handleChange2}>
                   <option value="">---</option>
                   {cities ? (
@@ -191,7 +199,7 @@ const ConfirmaDatos: NextPage = () => {
                     <></>
                   )}
                 </SelectStyled>
-              </HalfInput>
+              </HalfInput> */}
             </InLineInput>
             <Input
               type="text"
@@ -203,6 +211,7 @@ const ConfirmaDatos: NextPage = () => {
               mb="10px"
               name="*🗒️ Datos de guía*"
               onChange={handleChangeResume}
+              regexs={regexs.referencePoint}
             />
         </UserInformation>
         <CartList mode="summary" />

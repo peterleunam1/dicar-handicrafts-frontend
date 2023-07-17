@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { BASE_URL } from "../../helpers";
+import { BASE_URL } from "../../constants";
 
 const sendIdToServer = async (id: string, amount: number) => {
   try {

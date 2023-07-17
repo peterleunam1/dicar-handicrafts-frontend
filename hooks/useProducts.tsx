@@ -1,34 +1,40 @@
 import { useCallback, useEffect, useState } from "react";
-import getProductByCatgory from "../services/products/getProductByCategory";
-import { IProduct } from "../interfaces";
+import getProductByCatgory from "../services/products/get-product-by-category";
+import { GetProductByCategoryParams, ProductsModel } from "../interfaces";
 
-const useProducts = (category: string) => {
-  const [products, setProducts] = useState<IProduct[]>();
+export default function useProducts ({ category }: GetProductByCategoryParams) {
+
+  const [products, setProducts] = useState<ProductsModel>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const getProducts = useCallback(async () => {
     try {
       setLoading(true);
       if (category) {
-        const response = await getProductByCatgory(category);
+        const response = await getProductByCatgory({ category });
         setLoading(false);
         return response;
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      setError("An error has ocurred!");
     }
   }, [category]);
 
   useEffect(() => {
     getProducts().then((response) => {
-      setProducts(response);
+      if (!response) {
+        setError("Products not found!");
+      } else {
+        setProducts(response);
+      }
     });
   }, [category, getProducts]);
 
   return {
-    products,
+    products: products?.data,
     loading,
+    error
   };
 };
 
-export default useProducts;

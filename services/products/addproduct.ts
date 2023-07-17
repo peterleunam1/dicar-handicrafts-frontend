@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { BASE_URL } from "../../helpers";
+import { BASE_URL } from "../../constants";
 
 const addProduct = async (object: any) => {
   const apiUrl = `${BASE_URL}/private/products/create`;
@@ -16,10 +16,11 @@ const addProduct = async (object: any) => {
     const data = response.json;
 
     return {
-      ...data,
+      data,
       status: response.status
     }
   } catch (error) {
+    throw new Error("Don't was possible to add the product");
   }
 };
-export default addProduct;
+export default addProduct; 

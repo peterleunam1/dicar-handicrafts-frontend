@@ -1,4 +1,4 @@
-import { BASE_URL } from "../helpers";
+import { BASE_URL } from "../constants";
 
 const singIn = async (object: any) => {
   try {

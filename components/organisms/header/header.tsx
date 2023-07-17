@@ -1,6 +1,13 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
-import { Icon, SocialBar, NavBar, NavLateral, Logo, TopCard } from "../../../components";
+import {
+  Icon,
+  SocialBar,
+  NavBar,
+  NavLateral,
+  Logo,
+  TopCard,
+} from "../../../components";
 
 const OptionsLeft = styled.div`
   display: flex;
@@ -11,7 +18,7 @@ const SocialContainer = styled.div`
   @media (max-width: 500px) {
     display: none;
   }
-`
+`;
 
 const Header: FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -22,12 +29,15 @@ const Header: FC = () => {
           <Icon fill="fa-solid fa-bars" margin="0px" />
         </span>
         <SocialContainer>
-        <SocialBar />
+          <SocialBar />
         </SocialContainer>
         {isOpenMenu ? (
-          <NavLateral transform="translateX(0px)" setIsOpen={setIsOpenMenu}/>
+          <NavLateral transform="translateX(0px)" setIsOpen={setIsOpenMenu} />
         ) : (
-          <NavLateral transform="translateX(-350px)" setIsOpen={setIsOpenMenu}/>
+          <NavLateral
+            transform="translateX(-350px)"
+            setIsOpen={setIsOpenMenu}
+          />
         )}
       </OptionsLeft>
       <Logo route="/" />

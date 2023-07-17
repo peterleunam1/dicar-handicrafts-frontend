@@ -23,7 +23,7 @@ const ProductList: FC<ProductListProps> = ({ products }) => {
 
   return (
     <ProducListStyled>
-      {products?.map((product) => (
+      {products?.map((product, index) => (
         <Product
           key={product.id}
           product={product}

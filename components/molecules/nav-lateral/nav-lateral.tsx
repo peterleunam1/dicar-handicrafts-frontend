@@ -2,7 +2,8 @@ import { FC } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { NavLateralProps } from "../../../interfaces";
-import {  Icon, Logo, SocialBar } from "../../../components";
+import { Icon, Logo, SocialBar } from "../../../components";
+import { categories, about } from "../../../constants";
 
 const AsideMenu = styled.aside<{
   transform: string;
@@ -35,7 +36,7 @@ const AsideMenu = styled.aside<{
     display: flex;
     justify-content: center;
   }
-  a{
+  a {
     color: inherit;
     text-decoration: none;
   }
@@ -91,7 +92,6 @@ const NavLateral: FC<NavLateralProps> = ({
   setIsOpen,
   logo = false,
 }) => {
-
   const handleClick = ({ href }: { href: string }) => {
     setIsOpen(false);
     window.location.href = href;
@@ -110,58 +110,35 @@ const NavLateral: FC<NavLateralProps> = ({
       >
         <Icon fill="fa-solid fa-xmark" />
       </Close>
-      {logo ? (
+      {logo && (
         <figure>
           <Logo route="/" />
         </figure>
-      ) : (
-        <></>
       )}
       <ul>
         <ListItem>
           <strong>Categorías</strong>
         </ListItem>
-        <Link href="#">
-          <a onClick={() => handleClick({ href: "/productos/mochilas" })}>
-            <ListItem>
-              <Icon fill="fa-solid fa-bag-shopping" margin="0px"></Icon>
-              <p>Mochilas</p>
-            </ListItem>
-          </a>
-        </Link>
-        <Link href="#">
-          <a onClick={() => handleClick({ href: "/productos/sandalias" })}>
-            <ListItem>
-              <Icon fill="fa-solid fa-shoe-prints" margin="0px"></Icon>
-              <p>Sandalias</p>
-            </ListItem>
-          </a>
-        </Link>
-        <Link href="#">
-          <a onClick={() => handleClick({ href: "/productos/sombreros" })}>
-            <ListItem>
-              <Icon fill="fa-brands fa-redhat" margin="0px" />
-              <p>Sombreros</p>
-            </ListItem>
-          </a>
-        </Link>
-        <Link href="#">
-          <a onClick={() => handleClick({ href: "/productos/accesorios" })}>
-            <ListItem>
-              <Icon fill="fa-solid fa-burst" margin="0px" />
-              <p>Accesorios</p>
-            </ListItem>
-          </a>
-        </Link>
+
+        {categories.map(({ id, name, href, icon }) => {
+          return (
+            <Link href="#" key={id}>
+              <a onClick={() => handleClick({ href })}>
+                <ListItem>
+                  <Icon fill={icon} margin="0px"></Icon>
+                  <p>{name}</p>
+                </ListItem>
+              </a>
+            </Link>
+          );
+        })}
       </ul>
       <ul>
         <ListItem>
-          <strong>Contácto</strong>
+          <strong>{about.title}</strong>
         </ListItem>
-        <ListItem>+57 300 7529260</ListItem>
-        <ListItem>
-          Centro Comercial Parque Heredia Local 154 Cartagena de Indias.{" "}
-        </ListItem>
+        <ListItem>{about.contact}</ListItem>
+        <ListItem>{about.description}</ListItem>
       </ul>
       <ul>
         <ListItem>

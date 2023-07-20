@@ -11,6 +11,7 @@ export default function useThemeMode() {
       setTheme(themeMode.light);
     }
   };
+
   return {
     theme,
     toggleTheme,

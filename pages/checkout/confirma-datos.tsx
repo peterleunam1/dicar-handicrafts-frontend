@@ -126,8 +126,6 @@ const ConfirmaDatos: NextPage = () => {
             <Input
               type="text"
               bradius="5px"
-              fSize="15px"
-              py="7px"
               label="Nombre completo"
               mb="10px"
               placeholder="ej: Juan Perez Lorem"
@@ -138,8 +136,6 @@ const ConfirmaDatos: NextPage = () => {
             <Input
               type="email"
               bradius="5px"
-              fSize="15px"
-              py="7px"
               label="Email"
               mb="10px"
               placeholder="usuario@lorem.com"
@@ -151,8 +147,6 @@ const ConfirmaDatos: NextPage = () => {
               <Input
                 type="number"
                 bradius="5px"
-                fSize="15px"
-                py="7px"
                 label="Celular"
                 mb="10px"
                 placeholder="ej: +57 307 6784509"
@@ -165,8 +159,6 @@ const ConfirmaDatos: NextPage = () => {
             <Input
               type="text"
               bradius="5px"
-              fSize="15px"
-              py="7px"
               label="Dirección"
               mb="10px"
               placeholder="ej: Centro, Getsemaní, Calle de las Maravillas No. 30-45"
@@ -206,8 +198,6 @@ const ConfirmaDatos: NextPage = () => {
               label="Punto de referencia"
               placeholder="Ingrese guía"
               bradius="5px"
-              fSize="15px"
-              py="7px"
               mb="10px"
               name="*🗒️ Datos de guía*"
               onChange={handleChangeResume}

@@ -6,7 +6,7 @@ import { AuthBox, AuthLayout, Input, Button } from "../../components";
 import { useRouter } from "next/router";
 import singIn from "../../services/sign-in";
 import Cookies from "js-cookie";
-import Loader from "../../components/atoms/loader/loader";
+import Loader from "../../components/atoms/loader/loader.component";
 
 const FormContainer = styled.form`
   height: 75%;

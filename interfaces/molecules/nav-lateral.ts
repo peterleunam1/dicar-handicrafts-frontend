@@ -5,5 +5,4 @@ export interface NavLateralProps {
     mg?: string
     pt?: string
     setIsOpen: (value: boolean) => void
-    logo?: boolean
 }

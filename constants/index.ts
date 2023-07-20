@@ -1,6 +1,5 @@
 export * from './about';
 export * from './api-routes';
-// export * from './baseUrl';
 export * from './categories';
 export * from './products';
 export * from './regexs';

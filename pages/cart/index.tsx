@@ -19,7 +19,7 @@ const Cart: NextPage = () => {
       descriptionPage="Gestiona tus productos para la compra"
     >
       <Container>
-        <CartList mode="complete" />
+        <CartList />
       </Container>
     </ShopLayout>
   );

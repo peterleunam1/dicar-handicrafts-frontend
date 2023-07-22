@@ -3,6 +3,12 @@ import { ApiRoutesModel, RoleApiModel } from "../interfaces";
 export const BASE_URL: string =
   "https://dicard-handicraft-backend-withenv.onrender.com/api/v1/";
 
+export const BASE_URL_DEPLOY: string =
+  "https://dicar-handicrafts-frontend.vercel.app";
+
+export const WHATSAPP_ROUTE: string =
+  " https://api.whatsapp.com/send?phone=573008824913 &text=*¡Saludoos!%0AEstoy interesado en alguno de tus productos, estos son mis datos";
+
 const roleApi: RoleApiModel = {
   public: `${BASE_URL}public/`,
   private: `${BASE_URL}private/`,

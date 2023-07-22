@@ -1,8 +1,8 @@
 export interface DepartmentsModel {
-  data: returnDepartments[];
+  data: returnedDepartments[];
   message: string;
 }
 
-export interface returnDepartments {
+export interface returnedDepartments {
   department: string;
 }

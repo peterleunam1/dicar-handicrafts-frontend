@@ -14,7 +14,7 @@ const TitleChildren: FC<TitleChildrenProps> = ({ title, children }) => {
   return (
     <Paragraph>
       <strong>{toCapitalize(title)}:</strong>
-      <div>{children}</div>
+      <span>{children}</span>
     </Paragraph>
   );
 };

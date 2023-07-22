@@ -7,7 +7,7 @@ import useTotalCart from "../../../hooks/useTotalCart";
 import { cart } from "../../../constants";
 
 const Card = styled.article`
-  width: 90%;
+  width: 30%;
   height: auto;
   display: flex;
   flex-direction: column;

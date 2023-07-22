@@ -2,6 +2,7 @@ import Image from "next/image";
 import { FC } from "react";
 import styled from "styled-components";
 import { CartItemProps } from "../../../interfaces";
+import { convertPrice } from "../../../helpers/convert-price";
 
 const Row = styled.div`
   width: 100%;
@@ -49,7 +50,7 @@ const Item: FC<CartItemProps> = ({ item, qt }) => {
       </Images>
       <Info>
         <Title>{name}</Title>
-        <Price>${price}</Price>
+        <Price>{convertPrice(price)}</Price>
       </Info>
       <Count>x {qt}</Count>
     </Row>

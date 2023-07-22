@@ -92,20 +92,21 @@ const ProductsContainer = styled.div`
 `;
 const ProductType: NextPage = () => {
   const { type: category } = useRouter().query as { type: string };
-  const [productsFiltered, setProductsFiltered] = useState<IProduct[]>();
-  const [filterActive, setFilterActive] = useState("todas");
+  const [filter, setFilter] = useState<string>("todas");
   const { products, loading } = useProducts({ category });
   const options = toSubcategories(category);
 
-  useEffect(() => {
-    setFilterActive("todas");
-  }, [category]);
-
-  const handleClick = (name: string) => {
-    const filtered = products?.filter((x: IProduct) => x.type === name);
-    setProductsFiltered(filtered);
-    setFilterActive(name);
+  const filterProducts = (products: IProduct[], filter:string) => {
+    return products?.filter((product) => {
+      if (filter === "todas") {
+        return products;
+      } else {
+        return product.type === filter;
+      }
+    });
   };
+
+  const filteredProducts = filterProducts(products, filter);
 
   return (
     <ShopLayout
@@ -120,14 +121,13 @@ const ProductType: NextPage = () => {
       <FilterContainer>
         <HeaderFilter>
           <Text>
-            {" "}
             <Icon fill="fa-solid fa-arrow-down-wide-short" margin="0px" />
             <p>Filtrar las opciones</p>{" "}
           </Text>
           <FilterOptions>
             <FilterOption
-              isActive={filterActive === "todas"}
-              onClick={() => setFilterActive("todas")}
+              isActive={filter === "todas"}
+              onClick={() => setFilter("todas")}
             >
               Todas
             </FilterOption>
@@ -135,9 +135,9 @@ const ProductType: NextPage = () => {
               return (
                 <FilterOption
                   key={id}
-                  isActive={filterActive === name}
+                  isActive={filter === name}
                   onClick={() => {
-                    handleClick(name);
+                    setFilter(name);
                   }}
                 >
                   {`${toCapitalize(name)}s`}
@@ -147,17 +147,8 @@ const ProductType: NextPage = () => {
           </FilterOptions>
         </HeaderFilter>
         <ProductsContainer>
-          {filterActive === "todas" ? (
-            <>
-              {loading ? (
-                <Skeleton />
-              ) : (
-                <ProductList products={products || []} />
-              )}
-            </>
-          ) : (
-            <ProductList products={productsFiltered || []} />
-          )}
+          {loading && <Skeleton />}
+          <ProductList products={filteredProducts} />
         </ProductsContainer>
       </FilterContainer>
     </ShopLayout>

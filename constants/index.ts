@@ -1,5 +1,5 @@
 export * from './about';
-export * from './api-routes';
+export * from './all-routes';
 export * from './categories';
 export * from './products';
 export * from './regexs';

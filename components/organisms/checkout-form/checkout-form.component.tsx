@@ -3,6 +3,10 @@ import styled from "styled-components";
 import Input from "../../atoms/input/input.component";
 import { regexs } from "../../../constants";
 import Select from "../../atoms/select/select.component";
+import { returnedDepartments } from "../../../interfaces/services/address/get-state";
+import { CheckoutFormProps, ReturnedMunicipality } from "../../../interfaces";
+import { sortArray } from "../../../helpers";
+import Button from "../../atoms/button/button.component";
 
 const TitleSection = styled.p`
   font-weight: bolder;
@@ -22,6 +26,7 @@ const InLineInput = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 15px 0;
   @media (max-width: 500px) {
     flex-direction: column;
     align-items: flex-start;
@@ -31,31 +36,46 @@ const InLineInput = styled.div`
 `;
 const SelectStyled = styled.select`
   width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
   height: 33px;
   border-radius: 5px;
   color: #606066;
   border: 1px solid rgb(202, 199, 199);
-  margin-top: 25px;
-  margin-bottom: 10px;
+  padding-left: 15px;
+  position: relative;
 `;
-interface CheckoutFormProps {
-  handleChangeResume: (e: any) => void;
-  handleChange: (e: any) => void;
-  handleChange2: (e: any) => void;
-  cities: any;
-  states: any;
-  state: string;
-  city: string;
-}
+const LabelInput = styled.label`
+  font-size: 13px;
+  font-weight: 500;
+  position: relative;
+  small {
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    color: red;
+  }
+`;
+const ButtonContainer = styled.div`
+  width: 25%;
+  @media (max-width: 500px) {
+    width: 100%;
+    margin-top: 10px;
+  }
+`;
+
+
 const CheckoutForm: FC<CheckoutFormProps> = ({
   handleChange,
-  handleChange2,
-  handleChangeResume,
+  handleSelect,
+  handleSubmit,
+  handleClick,
   states,
   cities,
+  error,
 }) => {
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <TitleSection>Datos de usuario</TitleSection>
       <Input
         type="text"
@@ -63,7 +83,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
         label="Nombre completo"
         mb="10px"
         placeholder="ej: Juan Perez Lorem"
-        onChange={handleChangeResume}
+        onChange={handleChange}
         name="*👤 Nombre*"
         regexs={regexs.fullName}
       />
@@ -73,7 +93,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
         label="Email"
         mb="10px"
         placeholder="usuario@lorem.com"
-        onChange={handleChangeResume}
+        onChange={handleChange}
         name="*📨 Correo electrónico*"
         regexs={regexs.email}
       />
@@ -84,7 +104,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
           label="Celular"
           mb="10px"
           placeholder="ej: +57 307 6784509"
-          onChange={handleChangeResume}
+          onChange={handleChange}
           name="*📲 Telefono*"
           regexs={regexs.phone}
         />
@@ -96,35 +116,38 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
         label="Dirección"
         mb="10px"
         placeholder="ej: Centro, Getsemaní, Calle de las Maravillas No. 30-45"
-        onChange={handleChangeResume}
+        onChange={handleChange}
         name="*📍➡️ Dirección*"
         regexs={regexs.address}
       />
       <InLineInput>
         <HalfInput>
           <Select
-            array={states || []}
-            name="department_name"
+            array={sortArray(states, "departamento")}
+            name="Departamento"
             arg="departamento"
             label="Seleccione un departamento"
-            onChange={handleChange}
+            onChange={handleSelect}
           />
         </HalfInput>
         <HalfInput>
-          <SelectStyled onChange={handleChange2}>
-            <option value="">---</option>
-            {cities ? (
-              cities.map((cities: any, index: number) => {
-                return (
-                  <option value={cities[1].municipio} key={index++}>
-                    {cities[1].municipio}
+          <LabelInput>
+            Seleccione ciudad o municipio
+            <SelectStyled
+              onChange={handleSelect}
+              disabled={error ? true : false}
+              name="Municipio"
+            >
+              <option value="">Seleccione un municipio</option>
+              {cities &&
+                Object.entries(cities).map((city, index) => (
+                  <option key={index} value={city[1].municipio}>
+                    {city[1].municipio}
                   </option>
-                );
-              })
-            ) : (
-              <></>
-            )}
-          </SelectStyled>
+                ))}
+            </SelectStyled>
+            <small>{error && "Por favor elija un departamento antes"}</small>
+          </LabelInput>
         </HalfInput>
       </InLineInput>
       <Input
@@ -134,9 +157,21 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
         bradius="5px"
         mb="10px"
         name="*🗒️ Datos de guía*"
-        onChange={handleChangeResume}
+        onChange={handleChange}
         regexs={regexs.referencePoint}
       />
+      <ButtonContainer>
+        <Button
+          text="Continuar"
+          bg="#f6d1bc"
+          hover="rgba(246, 209, 188, 0.637)"
+          mt="25px"
+          mb="10px"
+          onClick={() => {
+            handleClick();
+          }}
+        />
+      </ButtonContainer>
     </form>
   );
 };

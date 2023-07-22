@@ -5,12 +5,12 @@ export interface CartContextProviderProps{
 }
 
 export interface CartContextProps{
-    update?: boolean,
+    update: boolean,
     setUpdate: (value: boolean) => void
-    inCart?: IProduct[]
+    inCart: IProduct[]
     setInCart: (value: IProduct[]) => void
-    count?: number
+    count: number
     setCount: (value: number) => void
-    qty?: boolean
+    qty: boolean
     setQty: (value: boolean) => void
 }

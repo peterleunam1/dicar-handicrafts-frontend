@@ -38,9 +38,6 @@ const ImageContainer = styled.figure`
     margin-bottom: 20px;
   }
 `;
-const ButtonC = styled.div`
-  width: 200px;
-`;
 
 const InfoContainer = styled.aside`
   height: 450px;
@@ -120,7 +117,9 @@ const Type: NextPage = () => {
   const { product: param, type } = useRouter().query;
   const { products } = useProducts({ category: type as string });
 
-  const product: IProduct = products?.find((x) => x.id === Number(param)) as IProduct;
+  const product: IProduct = products?.find(
+    (x) => x.id === Number(param)
+  ) as IProduct;
 
   const { handleConfirmCart, modal, setModal } = useAddToCart(product);
 
@@ -164,24 +163,23 @@ const Type: NextPage = () => {
               <AccentTex color="#ff4142">Agotado</AccentTex>
             )}
 
-            <div onClick={() => setModal(true)}>
-              <Button
-                text="Agregar al carrito"
-                bg="#f6d1bc"
-                hover="rgba(246, 209, 188, 0.637)"
-                mt="25px"
-                mb="10px"
-              />
-            </div>
+            <Button
+              text="Agregar al carrito"
+              bg="#f6d1bc"
+              hover="rgba(246, 209, 188, 0.637)"
+              mt="25px"
+              mb="10px"
+              onClick={() => setModal(true)}
+            />
 
-            <div>
-              <Button
-                text="Comprar rápida"
-                bg="#fff"
-                hover="rgba(246, 209, 188, 0.637)"
-                border=" 1.5px solid #f6d1bc"
-              />
-            </div>
+            <Button
+              text="Comprar rápida"
+              bg="#fff"
+              hover="rgba(246, 209, 188, 0.637)"
+              border=" 1.5px solid #f6d1bc"
+              onClick={() => {}}
+            />
+
             <SendType>
               <FigCaption>Envios a través de:</FigCaption>
               <a
@@ -201,22 +199,21 @@ const Type: NextPage = () => {
           <Modal status={modal} setStatus={setModal}>
             <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
             <p>
-              ¿Desea agregar el producto{" "}
+              ¿Desea agregar el producto
               <strong>{product.name.toLocaleLowerCase()}</strong> al carrito?
             </p>
-            <ButtonC
+
+            <Button
+              text="Confirmar"
+              bg="#f6d1bc"
+              hover="rgba(246, 209, 188, 0.637)"
+              mt="20px"
+              width="200px"
               onClick={() => {
                 handleConfirmCart();
                 setModal(false);
               }}
-            >
-              <Button
-                text="Confirmar"
-                bg="#f6d1bc"
-                hover="rgba(246, 209, 188, 0.637)"
-                mt="20px"
-              />
-            </ButtonC>
+            />
           </Modal>
         </Container>
       ) : (

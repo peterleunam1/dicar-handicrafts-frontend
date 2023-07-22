@@ -17,9 +17,7 @@ const FormContainer = styled.form`
   align-items: center;
   justify-content: flex-start;
 `;
-const ButtonContainer = styled.div`
-  width: 50%;
-`;
+
 const Load = styled.div`
   position: absolute;
   top: 15px;
@@ -39,7 +37,7 @@ const Login: NextPage = () => {
     setAuth({
       ...auth,
       [e.target.name]: e.target.value,
-    }); 
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -56,9 +54,9 @@ const Login: NextPage = () => {
         setVisibility("visible");
         setMessage("Correo electrónico o contraseña incorrecto");
       }
-    } catch (error: any) { }
+    } catch (error: any) {}
   };
-  
+
   return (
     <AuthLayout title="Inicio de sesión">
       {message !== "empty" ? (
@@ -74,7 +72,6 @@ const Login: NextPage = () => {
             type="email"
             placeholder="Ingrese correo electrónico"
             name="email"
-            py="10px"
             mb="15px"
             onChange={handleChange}
           />
@@ -82,17 +79,16 @@ const Login: NextPage = () => {
             type="password"
             placeholder="Ingrese su contraseña"
             name="password"
-            py="10px"
             mb="45px"
             onChange={handleChange}
           />
-          <ButtonContainer>
-            <Button
-              text="Ingresar"
-              bg="#f6d1bc"
-              hover="rgba(246, 209, 188, 0.637)"
-            />
-          </ButtonContainer>
+          <Button
+            text="Ingresar"
+            bg="#f6d1bc"
+            hover="rgba(246, 209, 188, 0.637)"
+            width="50%"
+            onClick={() => {}}
+          />
         </FormContainer>
         <p>
           ¿Todavía no tienes una cuenta?

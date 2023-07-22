@@ -12,7 +12,7 @@ export default function usePricePerQty({ id, price }: UsePricePerQtyProps) {
     setPriceWithCounter(price! * counter);
     setUpdate(!update);
     setQty(!qty);
-  }, [counter, price, update, qty, setQty, setUpdate]);
+  }, [counter]);
 
   useEffect(() => {
     const newProductWithQty = inCart?.map((item) => {

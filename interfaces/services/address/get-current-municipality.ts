@@ -1,5 +1,5 @@
 export interface MunicipalityModel {
-  data: { [key: string]: ReturnedMunicipality };
+  data: ReturnedMunicipality ;
   message: string;
 }
 

@@ -6,9 +6,13 @@ import {
 } from "../interfaces";
 
 const ContextCart = React.createContext<CartContextProps>({
+  update: false,
   setUpdate(value) {},
+  inCart: [],
   setInCart(value) {},
+  count: 0,
   setCount(value) {},
+  qty: false,
   setQty(value) {},
 });
 

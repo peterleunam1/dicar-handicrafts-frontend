@@ -12,6 +12,7 @@ const SelectStyled = styled.select`
   color: #606066;
   border: 1px solid rgb(202, 199, 199);
   padding-left: 15px;
+  font-size: 13px;
 `;
 const LabelInput = styled.label`
   font-size: 13px;
@@ -27,9 +28,9 @@ const Select: FC<SelectProps> = ({ onChange, array, name, arg, label }) => {
         <option value="DEFAULT" disabled>
           Seleccione
         </option>
-        {array?.map((element) => {
+        {array?.map((element, index) => {
           return (
-            <option value={element[`${arg}`]} key={element.id}>
+            <option value={element[`${arg}`]} key={index}>
               {toCapitalize(element[`${arg}`])}
             </option>
           );

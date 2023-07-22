@@ -32,7 +32,7 @@ export default function useProducts ({ category }: GetProductByCategoryParams) {
   }, [category, getProducts]);
 
   return {
-    products: products?.data,
+    products: products?.data || [],
     loading,
     error
   };

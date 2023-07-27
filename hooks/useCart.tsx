@@ -1,26 +1,11 @@
-import { useContext, useEffect } from "react";
-import ContextCart from "../context/CartContext";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
-export default function useCart() {
-  const { setInCart, inCart, setCount, count, update, setUpdate, setQty, qty } =
-    useContext(ContextCart);
+export function useCart() {
+  const context = useContext(CartContext);
+  if (context === undefined) {
+    throw new Error("useCart must be used within a CartProvider");
+  }
 
-  useEffect(() => {
-    const cart = localStorage.getItem("cartDicar");
-    if (cart) {
-      setInCart(JSON.parse(cart));
-      setCount(JSON.parse(cart).length);
-    }
-  }, [update, setCount, setInCart]);
-
-  return {
-    setInCart,
-    inCart,
-    setCount,
-    count,
-    update,
-    setUpdate,
-    setQty,
-    qty,
-  };
+  return context;
 }

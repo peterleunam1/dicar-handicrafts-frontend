@@ -1,4 +1,4 @@
-export type { DepartmentsModel, returnDepartments } from "./address/get-state";
+export type { DepartmentsModel, returnedDepartments } from "./address/get-state";
 export type {
   MunicipalityModel,
   ReturnedMunicipality,

@@ -1,12 +1,12 @@
 import { useState } from "react";
+import { UseModalProps } from "../interfaces";
 
-const useModal = () => {
-  const [status, setStatus] = useState(false);
+export function useModal({ initialMode }: UseModalProps) {
+  const [status, setStatus] = useState(initialMode);
+  const toggle = () => setStatus(!status);
 
   return {
     status,
-    setStatus,
+    toggle,
   };
-};
-
-export default useModal;
+}

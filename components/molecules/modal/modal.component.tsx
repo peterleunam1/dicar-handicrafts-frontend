@@ -54,12 +54,15 @@ const Modal: FC<ModalProps> = ({
   width,
   height,
 }) => {
+  const handleClose = () => {
+    setStatus(false);
+  };
   return (
     <>
       {status && (
         <Overlay>
           <Container width={width} height={height}>
-            <Close onClick={() => setStatus(false)}>
+            <Close onClick={handleClose}>
               <Icon margin="0px" fill="fa-solid fa-xmark" />
             </Close>
             {children}

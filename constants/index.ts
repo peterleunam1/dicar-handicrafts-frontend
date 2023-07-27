@@ -1,4 +1,5 @@
 export * from './about';
+export * from './actions-types';
 export * from './all-routes';
 export * from './categories';
 export * from './products';

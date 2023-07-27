@@ -46,7 +46,7 @@ const Item: FC<CartItemProps> = ({ item, qt }) => {
   return (
     <Row>
       <Images>
-        <Image src={image} width="50px" height="60px" layout="responsive" alt="item"/>
+        <Image src={image} width="50px" height="60px" layout="responsive" alt={name}/>
       </Images>
       <Info>
         <Title>{name}</Title>

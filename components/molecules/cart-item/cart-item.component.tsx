@@ -11,12 +11,12 @@ import {
   DeleteItem,
   TitleChildren,
 } from "../..";
-import { CartItemProps, IProduct } from "../../../interfaces";
+import { CartItemProps } from "../../../interfaces";
 import { getStateOfProduct, toCapitalize } from "../../../helpers";
-import useCart from "../../../hooks/useCart";
 import { convertPrice } from "../../../helpers/convert-price";
-import usePricePerQty from "../../../hooks/usePricePerQty";
-import { cart } from "../../../constants";
+import { cart, textToHandleCart } from "../../../constants";
+import { useCart } from "../../../hooks/useCart";
+import { useModal } from "../../../hooks/useModal";
 
 const ListItem = styled.article`
   width: calc(100%-20px);
@@ -181,24 +181,13 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
 `;
 
 const CartItem: FC<CartItemProps> = ({ item, mode }) => {
-  const { image, category, price, id, name, type, qty_in_stock } = item;
-  let { quantity } = item;
-  const { inCart, setUpdate, update } = useCart();
-  const [modal, setModal] = useState(false);
-  const { priceWithCounter, setCounter, counter } = usePricePerQty({
-    id,
-    price,
-  });
-
-  const handleRemove = () => {
-    setModal(true);
-  };
-
-  const handleConfirmDelete = (product: IProduct) => {
-    const newCart = inCart?.filter((item) => item.id !== product.id);
-    localStorage.setItem("cartDicar", JSON.stringify(newCart));
-    setUpdate(!update);
-    setModal(false);
+  const { image, category, price, id, name, type, qty_in_stock, quantity } =
+    item;
+  const { removeItem } = useCart();
+  const { status, toggle } = useModal({ initialMode: false });
+  const texts = textToHandleCart(name);
+  const handleRemoveItem = (id: number) => {
+    removeItem(id);
   };
 
   return (
@@ -226,7 +215,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
                 <Text>
                   Vendido y entragado por <Strong>Dicar.</Strong>
                 </Text>
-                <DeleteItem onDelete={handleRemove}>
+                <DeleteItem onDelete={toggle}>
                   <Icon
                     fill="fa-solid fa-xmark"
                     margin="0px"
@@ -242,36 +231,36 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
                 <TitleChildren title="categoria">
                   {toCapitalize(category)}
                 </TitleChildren>
-                <Counter counter={counter} setCounter={setCounter} />
+                <Counter product={item} />
               </Numbers>
             </SubContainer>
           </ContentRigth>
           <ContentLeft>
             <span>
-              <Counter counter={counter} setCounter={setCounter} />
+              <Counter product={item} />
             </span>
             <Prices border="1.5px solid #e8e8e8;" margin="20px">
               <strong>{cart.unit_price}:</strong>
-              <p>{convertPrice(item.price)}</p>
+              <p>{convertPrice(price)}</p>
             </Prices>
             <Prices>
               <strong>{cart.price}:</strong>
-              <h3>{convertPrice(priceWithCounter)}</h3>
+              <h3>{convertPrice(price * quantity!)}</h3>
             </Prices>
           </ContentLeft>
         </ListItem>
       ) : (
         <Item item={item} qt={quantity}></Item>
       )}
-      <Modal status={modal} setStatus={setModal}>
-        <p>¿Estás seguro que deseas eliminar este producto?</p>
+      <Modal status={status} setStatus={toggle}>
+        <p>{texts.remove}</p>
         <Button
           text="Confirmar"
           bg="#f6d1bc"
           hover="rgba(246, 209, 188, 0.637)"
           mt="20px"
           width="200px"
-          onClick={() => handleConfirmDelete(item)}
+          onClick={() => handleRemoveItem(id)}
         />
       </Modal>
     </>

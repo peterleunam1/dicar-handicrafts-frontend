@@ -2,11 +2,10 @@ import { FC } from "react";
 import styled from "styled-components";
 import { CartItem, Button, TotalPanel } from "../..";
 import { useRouter } from "next/router";
-import useCart from "../../../hooks/useCart";
-import EmptyCart from "../../molecules/empty-cart/empty-cart.component";
-import useTotalCart from "../../../hooks/useTotalCart";
-import { getPlural } from "../../../helpers";
+import { getPlural, getTotalPrice } from "../../../helpers";
 import { cart } from "../../../constants";
+import { useCart } from "../../../hooks/useCart";
+import EmptyCart from "../../molecules/empty-cart/empty-cart.component";
 
 const HeaderList = styled.header`
   width: 100%;
@@ -62,34 +61,23 @@ const ButtonContainer = styled.div<{ width?: string }>`
     @media (max-width: 500px) {
       display: none;
     }
-  `}/* ${(props) =>
-    props.width === "100%" &&
-    `
-    @media (max-width: 500px) {
-      width: 100%;
-    }
-  `} */
+  `}
 `;
 
 const CartList: FC = () => {
   const route = useRouter().push;
-  const { count, inCart, setInCart, setCount } = useCart();
-  const { total } = useTotalCart();
+  const { cart: products, clearCart } = useCart();
+  const lengthProducts: number = products.length;
+  const totalPrice = getTotalPrice(products);
 
   const handleClick = () => {
     route("/checkout/confirma-datos");
   };
 
-  const ClearCart = () => {
-    localStorage.removeItem("cartDicar");
-    setInCart([]);
-    setCount(0);
-  };
-
   return (
-    <div>
-      {inCart && inCart.length > 0 ? (
-        <>
+    <>
+      {products.length ? (
+        <section>
           <ButtonContainer width="15%">
             <Button
               text="Limpiar carrito"
@@ -97,16 +85,18 @@ const CartList: FC = () => {
               hover="#cececec3"
               mt="0px"
               mb="15px"
-              onClick={ClearCart}
+              onClick={() => {
+                clearCart();
+              }}
             />
           </ButtonContainer>
           <HeaderList>
             <Info>
               <strong>{cart.title}</strong>
               <p>
-                {count + " "}
+                {lengthProducts}{" "}
                 {getPlural({
-                  qty: count as number,
+                  qty: lengthProducts,
                   word: "producto",
                 })}
               </p>
@@ -121,15 +111,15 @@ const CartList: FC = () => {
             </ButtonContainer>
           </HeaderList>
 
-          {inCart.map((element) => {
+          {products.map((element) => {
             return <CartItem mode="complete" item={element} key={element.id} />;
           })}
-          <TotalPanel total={total} onClick={handleClick} />
-        </>
+          <TotalPanel total={totalPrice} onClick={handleClick} />
+        </section>
       ) : (
         <EmptyCart />
       )}
-    </div>
+    </>
   );
 };
 

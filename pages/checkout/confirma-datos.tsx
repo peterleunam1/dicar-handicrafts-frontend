@@ -8,7 +8,7 @@ import useDepartments from "../../hooks/useDepartments";
 import useMunicipalities from "../../hooks/useMunicipalities";
 import { AddressCheckoutModel, ReturnedMunicipality } from "../../interfaces";
 import { getUrlEncoded } from "../../helpers/get-url-encode-from-object";
-import useCart from "../../hooks/useCart";
+// import useCart from "../../hooks/useCart";
 import { WHATSAPP_ROUTE } from "../../constants";
 
 const Main = styled.div`
@@ -32,14 +32,14 @@ const UserInformation = styled.section`
 const ConfirmaDatos: NextPage = () => {
   const [address, setAddress] = useState<AddressCheckoutModel>({});
   const [data, setData] = useState<Record<string, string>>({});
-  const {inCart} =  useCart();
+  // const {inCart} =  useCart();
   const { departments } = useDepartments();
   const { municipalities, error } = useMunicipalities({
     department: address.Departamento,
   });
   const { personalData, products } = getUrlEncoded({
     data,
-    productsInCart: inCart,
+    productsInCart: [],
   });
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {

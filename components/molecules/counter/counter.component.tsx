@@ -1,7 +1,8 @@
-import { FC, useContext, useState } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import { Icon } from "../..";
 import { CounterProps } from "../../../interfaces";
+import { useCart } from "../../../hooks/useCart";
 
 const Container = styled.span`
   width: 85px;
@@ -30,14 +31,22 @@ const CircularCard = styled.div`
   }
 `;
 
-const Counter: FC<CounterProps> = ({ counter, setCounter }) => {
+const Counter: FC<CounterProps> = ({ product }) => {
+  const { quantity } = product;
+  const { addToCart, substractCounterFromCart } =
+    useCart();
+
+  const handleIncrement = () => {
+    addToCart(product);
+  };
+
+  const handleDecrement = () => {
+    substractCounterFromCart(product);
+  };
+
   return (
     <Container>
-      <CircularCard
-        onClick={() => {
-          counter > 1 ? setCounter(counter - 1) : setCounter(1);
-        }}
-      >
+      <CircularCard onClick={handleDecrement}>
         <Icon
           fill="fa-solid fa-minus"
           margin="0px"
@@ -45,12 +54,8 @@ const Counter: FC<CounterProps> = ({ counter, setCounter }) => {
           color="rgb(202, 199, 199)"
         />
       </CircularCard>
-      <span>{counter}</span>
-      <CircularCard
-        onClick={() => {
-          setCounter(counter + 1);
-        }}
-      >
+      <span>{quantity}</span>
+      <CircularCard onClick={handleIncrement}>
         <Icon
           fill="fa-solid fa-plus"
           margin="0px"

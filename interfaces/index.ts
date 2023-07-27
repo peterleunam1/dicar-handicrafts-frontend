@@ -19,7 +19,6 @@ export type { BannerOptions } from "./helpers/banner-images";
 export type { IProduct } from "./helpers/products";
 export type { ProductListProps } from "./organisms/product-list";
 export type { OffersProps } from "./organisms/offers";
-export type { CounterProps } from "./atoms/counter";
 export type { SelectProps } from "./atoms/select";
 export type { IUser } from "./context/userContext";
 export type { UserContextProviderProps } from "./context/userContext";
@@ -27,9 +26,9 @@ export type { ModalProps } from "./molecules/modal";
 export type { CartItemProps } from "./molecules/cartItem";
 export type { CartListProps } from "./organisms/cart-list";
 export type { TopCardProps } from "./atoms/top-card";
-export type { CartContextProviderProps } from "./context/CartContext";
-export type { CartContextProps } from "./context/CartContext";
+export type { CartContextProviderProps, CartContextParams } from "./context/CartContext";
 export type { DeleteItemProps } from "./atoms/delete-item";
+export type { CounterProps } from "./molecules/counter";
 export type { TitleChildrenProps } from "./atoms/title-children";
 export type { TotalPanelProps } from "./molecules/total-panel";
 export type { GetPluralParams } from "./helpers/get-plural";
@@ -44,4 +43,5 @@ export type {
 
 export * from "./services";
 export * from "./constants";
+export * from "./reducers";
 export * from "./hooks";

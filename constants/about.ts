@@ -38,3 +38,14 @@ export const socialMediaIcons = [
     hover: "#2f477a",
   },
 ];
+
+export const textToHandleCart = (text: string) => {
+  text = text.toLowerCase();
+  return {
+    add: `Añadir ${text} al carrito`,
+    updateQuantity: `El producto ${text} ya se
+    encuentra en el carrito.
+    ¿Desea agregar otro?`,
+    remove: "¿Estás seguro que deseas eliminar este producto?",
+  };
+};

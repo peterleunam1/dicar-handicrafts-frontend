@@ -15,3 +15,14 @@ const useUser = (): { user: IUser } => {
 };
 
 export default useUser;
+
+const useLocalStorage = (key: string) => {
+  const [value, setValue] = useState([])
+  useEffect(() => {
+    JSON.parse(localStorage.getItem(key) || "");
+    setValue(value);
+  }, [key, value]);
+  return {
+    value,
+  }
+}

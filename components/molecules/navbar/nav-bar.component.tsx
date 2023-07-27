@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext } from "react";
 import styled from "styled-components";
-import { Icon, ThemeIcon, Modal, CardCircular } from "../..";
+import { Icon, ThemeIcon, CardCircular } from "../..";
 import ContextTheme from "../../../context/ThemeContextUI";
-import useCart from "../../../hooks/useCart";
+import { useCart } from "../../../hooks/useCart";
 
 const NavBarStyled = styled.nav`
   display: flex;
@@ -23,8 +23,8 @@ const CounterText = styled.p`
 
 const NavBar: FC = () => {
   const { toggleTheme } = useContext(ContextTheme);
+  const { cart } = useCart();
   const route = useRouter();
-  const { count } = useCart();
 
   const handleClick = (path: string) => {
     route.push(path);
@@ -35,7 +35,7 @@ const NavBar: FC = () => {
       <CartContainer onClick={() => handleClick("/cart")}>
         <Icon fill="fa-solid fa-cart-shopping" mr="0"></Icon>
         <CardCircular top="-8px" left="30px" size="13px">
-          <CounterText>{count}</CounterText>
+          <CounterText>{cart.length}</CounterText>
         </CardCircular>
       </CartContainer>
       <ThemeIcon onClick={toggleTheme}>

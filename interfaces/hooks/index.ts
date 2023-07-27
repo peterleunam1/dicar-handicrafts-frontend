@@ -1,1 +1,1 @@
-export type { UsePricePerQtyProps } from "./usePricePerQty";
+export type { UseModalProps } from './useModal';

@@ -2,9 +2,11 @@ import { FC } from "react";
 import styled from "styled-components";
 import { CartItem } from "../..";
 import { convertPrice } from "../../../helpers/convert-price";
-import useCart from "../../../hooks/useCart";
-import useTotalCart from "../../../hooks/useTotalCart";
+// import useCart from "../../../hooks/useCart";
+// import useTotalCart from "../../../hooks/useTotalCart";
 import { cart } from "../../../constants";
+import { useCart } from "../../../hooks/useCart";
+import { getTotalPrice } from "../../../helpers";
 
 const Card = styled.article`
   width: 30%;
@@ -68,13 +70,13 @@ const Total = styled.p`
 `;
 
 const Summary: FC = () => {
-  const { inCart } = useCart();
-  const { total } = useTotalCart();
+  const { cart: products } = useCart();
+  const total = getTotalPrice(products);
   return (
     <Card>
       <h3>Resumen</h3>
       <Content>
-        {inCart?.map((element) => {
+        {products.map((element) => {
           return <CartItem mode="summary" item={element} key={element.id} />;
         })}
         <SubTotal>

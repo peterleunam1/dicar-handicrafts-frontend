@@ -5,3 +5,5 @@ export { default as EmptyObject } from './empty-object';
 export * from './sorts';
 export * from './get-state-of-product';
 export * from './get-plural';
+export * from './get-total-price';
+export * from './update-local-storage';

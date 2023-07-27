@@ -6,7 +6,12 @@ import { CardCircular, Icon, Modal, Button } from "../..";
 import CartGif from "../../../public/assets/shopping-cart.gif";
 import { IProductComponent } from "../../../interfaces/helpers/products";
 import { convertPrice } from "../../../helpers/convert-price";
-import useAddToCart from "../../../hooks/useAddToCart";
+import useProducts from "../../../hooks/useProducts";
+import { useCart } from "../../../hooks/useCart";
+import { useModal } from "../../../hooks/useModal";
+import { textToHandleCart } from "../../../constants";
+import { text } from "stream/consumers";
+// import useAddToCart from "../../../hooks/useAddToCart";
 
 const ProductContainer = styled.article`
   width: max-content;
@@ -40,11 +45,15 @@ const Text = styled.div<{ size: string; bold: number; aling?: string }>`
 
 const Product: FC<IProductComponent> = ({ product }) => {
   const { image, category, id, name, price } = product;
-  const { handleConfirmCart, modal, setModal } = useAddToCart(product);
-
+  const { cart, addToCart } = useCart();
+  const { status, toggle } = useModal({ initialMode: false });
+const texts = textToHandleCart(name);
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
   return (
     <ProductContainer>
-      <div onClick={() => setModal(true)}>
+      <div onClick={toggle}>
         <CardCircular size="33px" top="10px" left="78%">
           <Icon fill="fa-solid fa-cart-shopping" margin="0px" size="14px" />
         </CardCircular>
@@ -63,12 +72,13 @@ const Product: FC<IProductComponent> = ({ product }) => {
         </Link>
       </InfoContent>
 
-      <Modal status={modal} setStatus={setModal}>
+      <Modal status={status} setStatus={toggle}>
         <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
-        <p>
-          ¿Desea agregar el producto
-          <strong>{name?.toLocaleLowerCase()}</strong> al carrito?
-        </p>
+        {cart.find((item) => item.id === id) ? (
+          <p>{texts.updateQuantity}</p>
+        ) : (
+          <p>{texts.add}</p>
+        )}
         <Button
           text="Confirmar"
           bg="#f6d1bc"
@@ -76,12 +86,11 @@ const Product: FC<IProductComponent> = ({ product }) => {
           mt="20px"
           width="200px"
           onClick={() => {
-            handleConfirmCart();
-            setModal(false);
+            handleAddToCart();
+            toggle();
           }}
         />
       </Modal>
-      
     </ProductContainer>
   );
 };

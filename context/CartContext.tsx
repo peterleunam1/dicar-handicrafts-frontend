@@ -1,42 +1,29 @@
-import React, { useState } from "react";
-import {
-  CartContextProps,
-  CartContextProviderProps,
-  IProduct,
-} from "../interfaces";
+import { createContext } from "react";
+import { CartContextParams, CartContextProviderProps } from "../interfaces";
+import { useCartReducer } from "../hooks/useCartReducer";
 
-const ContextCart = React.createContext<CartContextProps>({
-  update: false,
-  setUpdate(value) {},
-  inCart: [],
-  setInCart(value) {},
-  count: 0,
-  setCount(value) {},
-  qty: false,
-  setQty(value) {},
+export const CartContext = createContext<CartContextParams>({
+  cart: [],
+  addToCart: () => {},
+  clearCart: () => {},
+  removeItem: () => {},
+  substractCounterFromCart: () => {},
 });
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [update, setUpdate] = useState(false);
-  const [inCart, setInCart] = useState<IProduct[]>([]);
-  const [count, setCount] = useState(0);
-  const [qty, setQty] = useState(false);
+  const { state, addToCart, clearCart, removeItem, substractCounterFromCart } =
+    useCartReducer();
   return (
-    <ContextCart.Provider
+    <CartContext.Provider
       value={{
-        update,
-        setUpdate,
-        inCart,
-        setInCart,
-        count,
-        setCount,
-        qty, 
-        setQty
+        cart: state,
+        addToCart,
+        clearCart,
+        removeItem,
+        substractCounterFromCart,
       }}
     >
       {children}
-    </ContextCart.Provider>
+    </CartContext.Provider>
   );
 }
-
-export default ContextCart;

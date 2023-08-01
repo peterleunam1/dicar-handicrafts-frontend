@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface ButtonProps{
-    text: string
+    text?: string
     bg: string
     width?: string
     hover: string
@@ -9,5 +9,6 @@ export interface ButtonProps{
     border?: string
     mb?: string
     mt?: string
+    children?: React.ReactNode
     onClick: () => void
 }

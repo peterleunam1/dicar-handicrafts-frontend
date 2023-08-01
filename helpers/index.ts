@@ -7,3 +7,6 @@ export * from './get-state-of-product';
 export * from './get-plural';
 export * from './get-total-price';
 export * from './update-local-storage';
+export * from './get-discount';
+export * from './find-item'
+export * from './get-filtered-products';

@@ -25,6 +25,7 @@ export function useCartReducer() {
     dispatch({ type: "CLEAR_CART", payload: null });
   };
 
+
   return {
     state,
     addToCart,

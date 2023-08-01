@@ -1,12 +1,18 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styled from "styled-components";
 import Input from "../../atoms/input/input.component";
 import { regexs } from "../../../constants";
 import Select from "../../atoms/select/select.component";
 import { returnedDepartments } from "../../../interfaces/services/address/get-state";
-import { CheckoutFormProps, ReturnedMunicipality } from "../../../interfaces";
+import {
+  AddressCheckoutModel,
+  CheckoutFormProps,
+  ReturnedMunicipality,
+} from "../../../interfaces";
 import { sortArray } from "../../../helpers";
 import Button from "../../atoms/button/button.component";
+import useDepartments from "../../../hooks/useDepartments";
+import useMunicipalities from "../../../hooks/useMunicipalities";
 
 const TitleSection = styled.p`
   font-weight: bolder;
@@ -64,16 +70,38 @@ const ButtonContainer = styled.div`
   }
 `;
 
-
 const CheckoutForm: FC<CheckoutFormProps> = ({
-  handleChange,
-  handleSelect,
-  handleSubmit,
+  data,
+  setData,
   handleClick,
-  states,
-  cities,
-  error,
 }) => {
+  const [address, setAddress] = useState<AddressCheckoutModel>({});
+  const { departments } = useDepartments();
+  const { municipalities: cities, error } = useMunicipalities({
+    department: address.Departamento,
+  });
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAddress({
+      ...address,
+      [e.target.name]: e.target.value,
+    });
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <TitleSection>Datos de usuario</TitleSection>
@@ -123,7 +151,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
       <InLineInput>
         <HalfInput>
           <Select
-            array={sortArray(states, "departamento")}
+            array={sortArray(departments || [], "departamento")}
             name="Departamento"
             arg="departamento"
             label="Seleccione un departamento"

@@ -2,7 +2,7 @@ import { IProduct } from "../interfaces";
 
 export const products_combo: IProduct[] = [
   {
-    id: 4,
+    id: 5,
     category: "mochilas",
     type: "wayuu",
     name: "Mochila Wayuu Recamada",

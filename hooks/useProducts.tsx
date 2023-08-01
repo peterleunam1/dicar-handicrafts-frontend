@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import getProductByCatgory from "../services/products/get-product-by-category";
 import { GetProductByCategoryParams, ProductsModel } from "../interfaces";
+import { findItem } from "../helpers";
 
-export default function useProducts ({ category }: GetProductByCategoryParams) {
+export default function useProducts ({ category, filterById = 0 }: GetProductByCategoryParams) {
 
   const [products, setProducts] = useState<ProductsModel>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,8 +32,11 @@ export default function useProducts ({ category }: GetProductByCategoryParams) {
     });
   }, [category, getProducts]);
 
+  const filteredProduct = findItem({id: filterById, items: products?.data || []});
+
   return {
     products: products?.data || [],
+    filteredProduct,
     loading,
     error
   };

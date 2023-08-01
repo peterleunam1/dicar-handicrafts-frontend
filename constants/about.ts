@@ -47,5 +47,8 @@ export const textToHandleCart = (text: string) => {
     encuentra en el carrito.
     ¿Desea agregar otro?`,
     remove: "¿Estás seguro que deseas eliminar este producto?",
+    cart: "Agregar al carrito",
+    buy: "Compra rápida",
+    other: "Añadir otro al carrito"
   };
 };

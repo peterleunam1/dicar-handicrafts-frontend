@@ -40,7 +40,8 @@ const Button: FC<ButtonProps> = ({
   mb,
   mt,
   width,
-  onClick
+  onClick,
+  children
 }) => {
 
   return (
@@ -55,6 +56,7 @@ const Button: FC<ButtonProps> = ({
       onClick={onClick}
     >
       <p>{text}</p>
+      {children}
     </ButtonStyled>
   );
 };

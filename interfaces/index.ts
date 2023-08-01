@@ -26,12 +26,21 @@ export type { ModalProps } from "./molecules/modal";
 export type { CartItemProps } from "./molecules/cartItem";
 export type { CartListProps } from "./organisms/cart-list";
 export type { TopCardProps } from "./atoms/top-card";
-export type { CartContextProviderProps, CartContextParams } from "./context/CartContext";
+export type {
+  CartContextProviderProps,
+  CartContextParams,
+} from "./context/CartContext";
 export type { DeleteItemProps } from "./atoms/delete-item";
 export type { CounterProps } from "./molecules/counter";
 export type { TitleChildrenProps } from "./atoms/title-children";
 export type { TotalPanelProps } from "./molecules/total-panel";
+export type { ProductSpecificationProps } from "./molecules/product-specification";
 export type { GetPluralParams } from "./helpers/get-plural";
+export type { FindItemProps } from "./helpers/find-item";
+export type { ProductInfoProps } from "./organisms/product-info";
+export type { StrikeProps } from "./atoms/strike";
+export type { ZoonImageProps } from "./atoms/zoon-image";
+
 export type {
   CheckoutFormProps,
   AddressCheckoutModel,

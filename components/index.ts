@@ -32,3 +32,9 @@ export { default as Skeleton } from "./organisms/skeleton/skeleton.component";
 export { default as DeleteItem } from "./atoms/delete-item/delete-item.component";
 export { default as TitleChildren } from "./atoms/title-children/title-children.component";
 export { default as TotalPanel } from "./molecules/total-panel/total-panel.component";
+export { default as ProductSpecification } from "./molecules/product-specification/product-specification.component";
+export { default as Strike } from "./atoms/strike/strike.component";
+export { default as ZoomImage } from "./atoms/zoom-image/zoom-image.component";
+export { default as FilterCategories } from "./molecules/filter-categories/filter-cartegories.component";
+export { default as ProductDetails } from "./organisms/product-details/product-details.component";
+

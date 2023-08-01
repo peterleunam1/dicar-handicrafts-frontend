@@ -27,6 +27,7 @@ export const cartReducer = (state: typeof initialCart, action: ActionType) => {
         {
           ...payload,
           quantity: 1,
+          isAdded: true,
         },
       ];
       updateLocalStorage(newState);
@@ -57,6 +58,7 @@ export const cartReducer = (state: typeof initialCart, action: ActionType) => {
       updateLocalStorage([]);
       return [];
     }
+
     default:
       return state;
   }

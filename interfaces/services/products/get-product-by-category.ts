@@ -6,4 +6,5 @@ export interface ProductsModel {
 }
 export interface GetProductByCategoryParams {
   category: string;
+  filterById?: number;
 }

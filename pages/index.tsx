@@ -118,12 +118,6 @@ const Divisor = styled.div`
 
 const Home: NextPage = () => {
   const images = [Mochila, Sandalia, Sombrero, Accesorio];
-  const { departments } = useDepartments();
-  const {municipalities, error} = useMunicipalities({ department: "Casanare"});
-  console.log(departments);
-  console.log(municipalities);
-  console.log(error);
-
   return (
     <ShopLayout
       title={"Home"}

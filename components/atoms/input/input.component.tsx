@@ -54,10 +54,9 @@ const Input: FC<InputProps> = ({
   regexs,
 }) => {
   const [isError, setIsError] = useState(false);
-  const { regex, message } = regexs as RegexsModel;
 
   const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (regex.test(e.target.value)) {
+    if (regexs?.regex.test(e.target.value)) {
       setIsError(false);
     } else {
       setIsError(true);
@@ -74,7 +73,7 @@ const Input: FC<InputProps> = ({
         isError={isError}
       >
         <InputStyled
-          pattern={regex && regex.toString()}
+          pattern={regexs?.regex.toString() || ""}
           onChange={onChange}
           type={type}
           placeholder={placeholder}
@@ -82,7 +81,7 @@ const Input: FC<InputProps> = ({
           required
           onBlur={handleBlur}
         />
-        {isError && <ErrorText>{message}</ErrorText>}
+        {isError && <ErrorText>{regexs?.message}</ErrorText>}
       </ContainerStyled>
     </div>
   );

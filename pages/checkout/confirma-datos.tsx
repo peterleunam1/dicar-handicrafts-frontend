@@ -28,7 +28,6 @@ const UserInformation = styled.section`
 `;
 
 const ConfirmaDatos: NextPage = () => {
-  const { navigateTo } = useNavigate();
   const [data, setData] = useState<Record<string, string>>({});
   const { cart } = useCart();
   const { personalData, products } = getUrlEncoded({
@@ -36,9 +35,9 @@ const ConfirmaDatos: NextPage = () => {
     productsInCart: [],
   });
 
-  if (!cart.length) {
-    navigateTo("/");
-  }
+  // if (!cart.length) {
+  //   navigateTo("/");
+  // }
 
   const handleClick = () => {
     window.location.href = `${WHATSAPP_ROUTE}*%0A${personalData}*%0A%20${products}%0A`;

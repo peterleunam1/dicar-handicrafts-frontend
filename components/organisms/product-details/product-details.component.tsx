@@ -64,7 +64,8 @@ const FigCaption = styled.figcaption`
 `;
 
 const ProductDetails: FC<ProductInfoProps> = ({ product }) => {
-  const {navigateTo} = useNavigate()
+  // const {navigateTo} = useNavigate()
+  const navigateTo = useRouter().push
   const { status, toggle } = useModal({ initialMode: false });
   const texts = textToHandleCart(product?.name || "");
   const { cart, addToCart } = useCart();

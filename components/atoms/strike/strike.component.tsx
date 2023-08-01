@@ -2,7 +2,6 @@ import { FC } from "react";
 import styled from "styled-components";
 import { StrikeProps } from "../../../interfaces";
 
-
 const StrikeText = styled.span`
   position: relative;
   width: max-content;

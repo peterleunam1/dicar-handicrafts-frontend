@@ -7,6 +7,7 @@ import { convertPrice } from "../../../helpers/convert-price";
 import { cart } from "../../../constants";
 import { useCart } from "../../../hooks/useCart";
 import { getTotalPrice } from "../../../helpers";
+import { SummaryProps } from "../../../interfaces/organisms/summary";
 
 const Card = styled.article`
   width: 30%;
@@ -69,9 +70,8 @@ const Total = styled.p`
   font-weight: bolder;
 `;
 
-const Summary: FC = () => {
-  const { cart: products } = useCart();
-  const total = getTotalPrice(products);
+const Summary: FC<SummaryProps> = ({ products, type }) => {
+  const total = getTotalPrice({ products, type });
   return (
     <Card>
       <h3>Resumen</h3>
@@ -89,7 +89,7 @@ const Summary: FC = () => {
           </p>
         </SubTotal>
         <Total>
-          {cart.total.toLocaleLowerCase()}{" "}
+          {cart.total.toLocaleLowerCase()}
           <strong>{convertPrice(total + 10000)}</strong>
         </Total>
       </Content>

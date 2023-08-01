@@ -186,6 +186,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
   const { removeItem } = useCart();
   const { status, toggle } = useModal({ initialMode: false });
   const texts = textToHandleCart(name);
+
   const handleRemoveItem = (id: number) => {
     removeItem(id);
   };
@@ -250,7 +251,7 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
           </ContentLeft>
         </ListItem>
       ) : (
-        <Item item={item} qt={quantity}></Item>
+        <Item item={item}></Item>
       )}
       <Modal status={status} setStatus={toggle}>
         <p>{texts.remove}</p>

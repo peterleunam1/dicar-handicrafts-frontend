@@ -2,7 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { IProduct, ProductInfoProps } from "../../../interfaces";
-import { findItem } from "../../../helpers";
+import { findItem, updateLocalStorage } from "../../../helpers";
 import Button from "../../atoms/button/button.component";
 import { useModal } from "../../../hooks/useModal";
 import { textToHandleCart } from "../../../constants";
@@ -12,6 +12,8 @@ import CartGif from "../../../public/assets/shopping-cart.gif";
 import { useCart } from "../../../hooks/useCart";
 import ProductSpecification from "../../molecules/product-specification/product-specification.component";
 import Icon from "../../atoms/icon/icon.component";
+import { useRouter } from "next/router";
+import { useNavigate } from "../../../hooks/useNavigate";
 
 const InfoContainer = styled.aside`
   height: 450px;
@@ -62,6 +64,7 @@ const FigCaption = styled.figcaption`
 `;
 
 const ProductDetails: FC<ProductInfoProps> = ({ product }) => {
+  const {navigateTo} = useNavigate()
   const { status, toggle } = useModal({ initialMode: false });
   const texts = textToHandleCart(product?.name || "");
   const { cart, addToCart } = useCart();
@@ -70,6 +73,11 @@ const ProductDetails: FC<ProductInfoProps> = ({ product }) => {
     addToCart(product || ({} as IProduct));
   };
   const isAdded = findItem({ id: product.id, items: cart });
+
+  const handleFastBuy = () => {
+    updateLocalStorage({state: [product], key:"Fast-buy-dicar"})
+    navigateTo("/checkout/compra-rapida")
+  }
 
   return (
     <>
@@ -91,7 +99,7 @@ const ProductDetails: FC<ProductInfoProps> = ({ product }) => {
           bg="#fff"
           hover="rgba(246, 209, 188, 0.637)"
           border=" 1.5px solid #f6d1bc"
-          onClick={() => {}}
+          onClick={handleFastBuy}
           text={texts.buy}
         />
         <SendType>

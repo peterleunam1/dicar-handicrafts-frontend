@@ -41,8 +41,8 @@ const Count = styled.div`
   width: 15%;
 `;
 
-const Item: FC<CartItemProps> = ({ item, qt }) => {
-  const { image, price, name } = item;
+const Item: FC<CartItemProps> = ({ item }) => {
+  const { image, price, name, quantity } = item;
   return (
     <Row>
       <Images>
@@ -52,7 +52,7 @@ const Item: FC<CartItemProps> = ({ item, qt }) => {
         <Title>{name}</Title>
         <Price>{convertPrice(price)}</Price>
       </Info>
-      <Count>x {qt}</Count>
+      <Count>x {quantity || 1}</Count>
     </Row>
   );
 };

@@ -68,7 +68,7 @@ const CartList: FC = () => {
   const route = useRouter().push;
   const { cart: products, clearCart } = useCart();
   const lengthProducts: number = products.length;
-  const totalPrice = getTotalPrice(products);
+  const totalPrice = getTotalPrice({ products, type: "checkout"  });
 
   const handleClick = () => {
     route("/checkout/confirma-datos");

@@ -19,7 +19,7 @@ export const cartReducer = (state: typeof initialCart, action: ActionType) => {
       if (productInCartIndex >= 0) {
         const newCart = structuredClone(state);
         newCart[productInCartIndex].quantity! += 1;
-        updateLocalStorage(newCart);
+        updateLocalStorage({ state: newCart, key: "cart-dicar" });
         return newCart;
       }
       const newState = [
@@ -30,7 +30,7 @@ export const cartReducer = (state: typeof initialCart, action: ActionType) => {
           isAdded: true,
         },
       ];
-      updateLocalStorage(newState);
+      updateLocalStorage({ state: newState, key: "cart-dicar" });
       return newState;
     }
 
@@ -41,7 +41,7 @@ export const cartReducer = (state: typeof initialCart, action: ActionType) => {
         const newCart = structuredClone(state);
         if (newCart[productInCartIndex].quantity! > 1) {
           newCart[productInCartIndex].quantity! -= 1;
-          updateLocalStorage(newCart);
+          updateLocalStorage({ state: newCart, key: "cart-dicar" });
           return newCart;
         }
       }
@@ -50,12 +50,12 @@ export const cartReducer = (state: typeof initialCart, action: ActionType) => {
 
     case CART_ACTIONS_TYPES.REMOVE_FROM_CART: {
       const newCart = state.filter((item) => item.id !== payload);
-      updateLocalStorage(newCart);
+      updateLocalStorage({ state: newCart, key: "cart-dicar" });
       return newCart;
     }
 
     case CART_ACTIONS_TYPES.CLEAR_CART: {
-      updateLocalStorage([]);
+      updateLocalStorage({ state: [], key: "cart-dicar" });
       return [];
     }
 

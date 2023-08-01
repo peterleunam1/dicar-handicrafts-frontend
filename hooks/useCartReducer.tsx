@@ -6,7 +6,7 @@ export function useCartReducer() {
   const [state, dispatch] = useReducer(cartReducer, initialCart);
 
   useEffect(() => {
-    const cart = localStorage.getItem("cartNew");
+    const cart = localStorage.getItem("cart-dicar");
     if (cart) {
       dispatch({ type: "INITIAL_CART", payload: JSON.parse(cart) });
     }

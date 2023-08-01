@@ -1,13 +1,11 @@
-/* eslint-disable @next/next/no-sync-scripts */
-import { NextPage } from "next";
-import { useState } from "react";
 import styled from "styled-components";
 import { ShopLayout, Summary } from "../../components";
-import CheckoutForm from "../../components/organisms/checkout-form/checkout-form.component";
+import { NextPage } from "next";
+import { useState } from "react";
 import { getUrlEncoded } from "../../helpers/get-url-encode-from-object";
 import { WHATSAPP_ROUTE } from "../../constants";
-import { useCart } from "../../hooks/useCart";
-import { useNavigate } from "../../hooks/useNavigate";
+import CheckoutForm from "../../components/organisms/checkout-form/checkout-form.component";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const Main = styled.div`
   width: 100%;
@@ -28,27 +26,23 @@ const UserInformation = styled.section`
 `;
 
 const ConfirmaDatos: NextPage = () => {
-  const { navigateTo } = useNavigate();
+  const { storage } = useLocalStorage({ key: "Fast-buy-dicar" });
   const [data, setData] = useState<Record<string, string>>({});
-  const { cart } = useCart();
   const { personalData, products } = getUrlEncoded({
     data,
     productsInCart: [],
   });
 
-  if (!cart.length) {
-    navigateTo("/");
-  }
-
   const handleClick = () => {
     window.location.href = `${WHATSAPP_ROUTE}*%0A${personalData}*%0A%20${products}%0A`;
   };
-
+  
   return (
     <ShopLayout
       title="Confirma tus datos"
       descriptionPage="Verifica tus datos para comprar"
     >
+      <h1>compra rapida</h1>
       <h2>Verifica tus datos</h2>
       <Main>
         <UserInformation>
@@ -58,7 +52,7 @@ const ConfirmaDatos: NextPage = () => {
             handleClick={handleClick}
           />
         </UserInformation>
-        <Summary products={cart} type="checkout" />
+        <Summary products={storage} type="fast-buy" />
       </Main>
     </ShopLayout>
   );

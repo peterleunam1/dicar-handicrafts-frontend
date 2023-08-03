@@ -59,6 +59,18 @@ export const cartReducer = (state: typeof initialCart, action: ActionType) => {
       return [];
     }
 
+    case CART_ACTIONS_TYPES.UPDATE_PRODUCT_SIZE: {
+      const { id, newSize } = payload;
+      const productInCartIndex = state.findIndex((item) => item.id === id);
+      if (productInCartIndex >= 0) {
+        const newCart = structuredClone(state);
+        newCart[productInCartIndex].size = newSize;
+        updateLocalStorage({ state: newCart, key: "cart-dicar" });
+        return newCart;
+      }
+      return state;
+    }
+
     default:
       return state;
   }

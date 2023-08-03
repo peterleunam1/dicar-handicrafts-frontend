@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { cartReducer, initialCart } from "../reducers";
-import { IProduct } from "../interfaces";
+import { IProduct, UpdateProductSizeParams } from "../interfaces";
 
 export function useCartReducer() {
   const [state, dispatch] = useReducer(cartReducer, initialCart);
@@ -24,6 +24,9 @@ export function useCartReducer() {
   const clearCart = () => {
     dispatch({ type: "CLEAR_CART", payload: null });
   };
+  const updateProductSize = ({id, newSize}:UpdateProductSizeParams) => {
+    dispatch({ type: "UPDATE_PRODUCT_SIZE", payload: {id, newSize}  });
+  };
 
 
   return {
@@ -32,5 +35,6 @@ export function useCartReducer() {
     clearCart,
     removeItem,
     substractCounterFromCart,
+    updateProductSize,
   };
 }

@@ -8,6 +8,7 @@ export interface IProduct {
   type: string;
   image: string;
   quantity?: number;
+  size?: string;
 }
 
 export interface IProductComponent {

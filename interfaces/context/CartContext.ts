@@ -1,4 +1,5 @@
 import { IProduct } from "../helpers/products";
+import { UpdateProductSizeParams } from "../hooks";
 
 export interface CartContextProviderProps {
   children: React.ReactNode;
@@ -10,5 +11,6 @@ export interface CartContextParams {
   clearCart: () => void;
   removeItem: (id: number) => void;
   substractCounterFromCart: (product: IProduct) => void;
+  updateProductSize: (product: UpdateProductSizeParams) => void;
 }
 

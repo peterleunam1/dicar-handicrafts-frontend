@@ -8,10 +8,11 @@ export const CartContext = createContext<CartContextParams>({
   clearCart: () => {},
   removeItem: () => {},
   substractCounterFromCart: () => {},
+  updateProductSize: () => {},
 });
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const { state, addToCart, clearCart, removeItem, substractCounterFromCart } =
+  const { state, addToCart, clearCart, removeItem, substractCounterFromCart, updateProductSize } =
     useCartReducer();
   return (
     <CartContext.Provider
@@ -21,6 +22,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         clearCart,
         removeItem,
         substractCounterFromCart,
+        updateProductSize,
       }}
     >
       {children}

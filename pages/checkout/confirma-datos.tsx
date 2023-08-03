@@ -7,7 +7,7 @@ import CheckoutForm from "../../components/organisms/checkout-form/checkout-form
 import { getUrlEncoded } from "../../helpers/get-url-encode-from-object";
 import { WHATSAPP_ROUTE } from "../../constants";
 import { useCart } from "../../hooks/useCart";
-import { useNavigate } from "../../hooks/useNavigate";
+import { useRouter } from "next/router";
 
 const Main = styled.div`
   width: 100%;
@@ -28,6 +28,7 @@ const UserInformation = styled.section`
 `;
 
 const ConfirmaDatos: NextPage = () => {
+  const navigateTo = useRouter().push;
   const [data, setData] = useState<Record<string, string>>({});
   const { cart } = useCart();
   const { personalData, products } = getUrlEncoded({
@@ -35,9 +36,6 @@ const ConfirmaDatos: NextPage = () => {
     productsInCart: [],
   });
 
-  // if (!cart.length) {
-  //   navigateTo("/");
-  // }
 
   const handleClick = () => {
     window.location.href = `${WHATSAPP_ROUTE}*%0A${personalData}*%0A%20${products}%0A`;

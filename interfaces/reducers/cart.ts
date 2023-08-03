@@ -1,4 +1,5 @@
 import { IProduct } from "../helpers/products";
+import { UpdateProductSizeParams } from "../hooks";
 
 export type ActionType =
   | { type: "ADD_TO_CART"; payload: IProduct }
@@ -6,3 +7,4 @@ export type ActionType =
   | { type: "REMOVE_FROM_CART"; payload: number }
   | { type: "CLEAR_CART"; payload: null }
   | { type: "INITIAL_CART"; payload: IProduct[] }
+  | { type: "UPDATE_PRODUCT_SIZE"; payload: UpdateProductSizeParams };

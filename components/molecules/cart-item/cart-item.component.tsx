@@ -181,7 +181,7 @@ const Prices = styled.div<{ border?: string; margin?: string }>`
 `;
 
 const CartItem: FC<CartItemProps> = ({ item, mode }) => {
-  const { image, category, price, id, name, type, qty_in_stock, quantity } =
+  const { image, category, price, id, name, type, qty_in_stock, quantity, size } =
     item;
   const { removeItem } = useCart();
   const { status, toggle } = useModal({ initialMode: false });
@@ -226,8 +226,8 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
                 </DeleteItem>
               </Info>
               <Numbers>
-                <TitleChildren title="estado">
-                  {getStateOfProduct(qty_in_stock)}
+                <TitleChildren title="Talla">
+                  {size?.toUpperCase()}
                 </TitleChildren>
                 <TitleChildren title="categoria">
                   {toCapitalize(category)}

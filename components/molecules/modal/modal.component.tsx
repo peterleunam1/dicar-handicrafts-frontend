@@ -14,10 +14,10 @@ const Overlay = styled.div`
   justify-content: center;
   z-index: 10000;
   background: rgba(0, 0, 0, 0.5);
-`;
+  `;
 const Container = styled.section<{ width?: string; height?: string }>`
-  width: ${(props) => props.width || "40%"};
-  height: ${(props) => props.height || "30vh"};
+  min-width: ${(props) => props.width || "30%"};
+  min-height: ${(props) => props.height || "30vh"};
   background: #fff;
   position: relative;
   border-radius: 15px;
@@ -28,8 +28,8 @@ const Container = styled.section<{ width?: string; height?: string }>`
   justify-content: center;
   align-items: center;
   border: 0.5px solid #000;
-  padding: 0px 30px;
-  @media (max-width: 500px) {
+  padding: 30px 30px;
+    @media (max-width: 500px) {
     width: 80%;
   }
 `;

@@ -10,3 +10,4 @@ export * from './update-local-storage';
 export * from './get-discount';
 export * from './find-item'
 export * from './get-filtered-products';
+export * from './get-cutted-text';

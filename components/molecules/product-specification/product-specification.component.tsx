@@ -1,9 +1,14 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { getDiscount, getStateOfProduct } from "../../../helpers";
+import {
+  getCuttedText,
+  getDiscount,
+  getStateOfProduct,
+} from "../../../helpers";
 import { convertPrice } from "../../../helpers/convert-price";
 import { Strike } from "../../../components";
 import { ProductSpecificationProps } from "../../../interfaces";
+import ListOfSizes from "../list-of-sizes/list-of-sizes.component";
 
 const Text = styled.p`
   margin: 18px 0;
@@ -13,22 +18,6 @@ const AccentTex = styled.strong<{ size?: string; ml?: string; color?: string }>`
   color: ${(props) => props.color || "#f6d1bc"};
   font-size: ${(props) => props.size};
   margin-left: ${(props) => props.ml};
-`;
-const StrikeText = styled.div`
-  position: relative;
-  width: max-content;
-  padding: 0px 8px;
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 1px;
-    background-color: #000;
-    border-radius: 5px;
-  }
 `;
 const Price = styled.p`
   font-size: 23px;
@@ -48,15 +37,19 @@ const ProductSpecification: FC<ProductSpecificationProps> = ({
     price: price,
     pct: 30,
   });
-
   const availability = getStateOfProduct(qty_in_stock);
+  const cuttedDescription = getCuttedText(description);
 
   return (
     <div>
       <h2>{name}</h2>
-      <p>{description}</p>
+      <p>{cuttedDescription}</p>
       <Text>
-        Vendido y entregado por <AccentTex>Artesanías Dicar</AccentTex>
+        <AccentTex
+          color={availability === "Disponible" ? "lightgreen" : "#ff4142"}
+        >
+          {availability}
+        </AccentTex>
       </Text>
       <Strike>{discount}</Strike>
       <Price>
@@ -65,11 +58,6 @@ const ProductSpecification: FC<ProductSpecificationProps> = ({
           -30%
         </AccentTex>
       </Price>
-      <AccentTex
-        color={availability === "Disponible" ? "lightgreen" : "#ff4142"}
-      >
-        {availability}
-      </AccentTex>
     </div>
   );
 };

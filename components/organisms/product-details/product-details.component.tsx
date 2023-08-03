@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { IProduct, ProductInfoProps } from "../../../interfaces";
+import { ProductInfoProps } from "../../../interfaces";
 import { findItem, updateLocalStorage } from "../../../helpers";
 import Button from "../../atoms/button/button.component";
 import { useModal } from "../../../hooks/useModal";
-import { textToHandleCart } from "../../../constants";
+import { INTERRAPIDISIMO_ROUTE, textToHandleCart } from "../../../constants";
 import Modal from "../../molecules/modal/modal.component";
 import InterRapidisimo from "../../../public/assets/interapisidisimo.png";
 import CartGif from "../../../public/assets/shopping-cart.gif";
@@ -13,7 +13,7 @@ import { useCart } from "../../../hooks/useCart";
 import ProductSpecification from "../../molecules/product-specification/product-specification.component";
 import Icon from "../../atoms/icon/icon.component";
 import { useRouter } from "next/router";
-import { useNavigate } from "../../../hooks/useNavigate";
+import ListOfSizes from "../../molecules/list-of-sizes/list-of-sizes.component";
 
 const InfoContainer = styled.aside`
   height: 450px;
@@ -62,28 +62,70 @@ const ButtonContent = styled.div`
 const FigCaption = styled.figcaption`
   margin-right: 10px;
 `;
+const ListSizesContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 25px;
+  margin: 5px 0px 5px 0;
+  flex-wrap: wrap;
+`;
 
 const ProductDetails: FC<ProductInfoProps> = ({ product }) => {
-  // const {navigateTo} = useNavigate()
-  const navigateTo = useRouter().push
+  const navigateTo = useRouter().push;
   const { status, toggle } = useModal({ initialMode: false });
+  const { cart, addToCart, updateProductSize } = useCart();
+  const [isUpdateModal, setIsUpdateModal] = useState<boolean>(false);
+  const [sizeSelected, setSizeSelected] = useState<string>("");
+
+  const isAdded = findItem({ id: product.id, items: cart });
+  const verifiedSize: string = isAdded?.size || sizeSelected;
   const texts = textToHandleCart(product?.name || "");
-  const { cart, addToCart } = useCart();
+  const modalTexts = isAdded ? texts.updateQuantity : texts.add;
 
   const handleAddToCart = () => {
-    addToCart(product || ({} as IProduct));
+    if (isAdded) {
+      addToCart({ ...product });
+    } else if (sizeSelected) {
+      addToCart({ ...product, size: sizeSelected });
+    } else {
+      alert("Debes seleccionar una talla");
+    }
   };
-  const isAdded = findItem({ id: product.id, items: cart });
 
   const handleFastBuy = () => {
-    updateLocalStorage({state: [product], key:"Fast-buy-dicar"})
-    navigateTo("/checkout/compra-rapida")
-  }
+    if(!sizeSelected) return alert("Debes seleccionar una talla")
+    updateLocalStorage({ state: [product], key: "Fast-buy-dicar" });
+    navigateTo("/checkout/compra-rapida");
+  };
+
+  const handleUpdateSize = () => {
+    updateProductSize({ id: product.id, newSize: sizeSelected });
+    setIsUpdateModal(false);
+  };
 
   return (
     <>
       <InfoContainer>
         <ProductSpecification {...product} />
+        <small>Tallas</small>
+        <ListSizesContainer>
+          <ListOfSizes
+            category={product.category}
+            setSizeSelect={setSizeSelected}
+            sizeSelected={verifiedSize}
+          />
+          {isAdded && (
+            <span
+              onClick={() => {
+                setIsUpdateModal(true);
+                toggle();
+              }}
+            >
+              <Icon fill="fa-regular fa-pen-to-square" margin="0px"/>
+            </span>
+          )}
+        </ListSizesContainer>
         <Button
           bg="#f6d1bc"
           hover="rgba(246, 209, 188, 0.637)"
@@ -105,11 +147,7 @@ const ProductDetails: FC<ProductInfoProps> = ({ product }) => {
         />
         <SendType>
           <FigCaption>Envios a través de:</FigCaption>
-          <a
-            href="https://www.interrapidisimo.com/sigue-tu-envio/"
-            target={"_blank"}
-            rel="noreferrer"
-          >
+          <a href={INTERRAPIDISIMO_ROUTE} target={"_blank"} rel="noreferrer">
             <Image
               src={InterRapidisimo}
               width="135x"
@@ -120,8 +158,18 @@ const ProductDetails: FC<ProductInfoProps> = ({ product }) => {
         </SendType>
       </InfoContainer>
       <Modal status={status} setStatus={toggle}>
-        <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
-        {isAdded ? <p>{texts.updateQuantity}</p> : <p>{texts.add}</p>}
+        {!isUpdateModal ? (
+          <>
+            <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
+            <p>{modalTexts}</p>
+          </>
+        ) : (
+          <ListOfSizes
+            category={product.category}
+            setSizeSelect={setSizeSelected}
+            sizeSelected={sizeSelected}
+          />
+        )}
         <Button
           text="Confirmar"
           bg="#f6d1bc"
@@ -129,7 +177,7 @@ const ProductDetails: FC<ProductInfoProps> = ({ product }) => {
           mt="20px"
           width="200px"
           onClick={() => {
-            handleAddToCart();
+            !isUpdateModal ? handleAddToCart() : handleUpdateSize();
             toggle();
           }}
         />

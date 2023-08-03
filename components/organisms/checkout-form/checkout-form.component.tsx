@@ -76,7 +76,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
   handleClick,
 }) => {
   const [address, setAddress] = useState<AddressCheckoutModel>({});
-  const { departments } = useDepartments();
+  const { departments, error: err } = useDepartments();
   const { municipalities: cities, error } = useMunicipalities({
     department: address.Departamento,
   });
@@ -101,6 +101,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -150,6 +151,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
       />
       <InLineInput>
         <HalfInput>
+          {err && <p>cargando...</p>}
           <Select
             array={sortArray(departments || [], "departamento")}
             name="Departamento"
@@ -195,9 +197,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
           hover="rgba(246, 209, 188, 0.637)"
           mt="25px"
           mb="10px"
-          onClick={() => {
-            handleClick();
-          }}
+          onClick={() => handleClick()}
         />
       </ButtonContainer>
     </form>

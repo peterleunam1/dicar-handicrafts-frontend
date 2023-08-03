@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { AuthBoxProps } from "../../../interfaces";
-import { Icon } from "../..";
+import { Icon } from "../../../components";
 import Logo from "../../atoms/logo/logo.component";
 
 const Box = styled.div <{box_display: string}>`

@@ -37,4 +37,6 @@ export { default as Strike } from "./atoms/strike/strike.component";
 export { default as ZoomImage } from "./atoms/zoom-image/zoom-image.component";
 export { default as FilterCategories } from "./molecules/filter-categories/filter-cartegories.component";
 export { default as ProductDetails } from "./organisms/product-details/product-details.component";
-
+export { default as ConfirmCart } from "./organisms/confirm-cart/confirm-cart.component";
+export { default as EmptyCart } from "./molecules/empty-cart/empty-cart.component";
+export { default as ListOfSizes } from "./molecules/list-of-sizes/list-of-sizes.component";

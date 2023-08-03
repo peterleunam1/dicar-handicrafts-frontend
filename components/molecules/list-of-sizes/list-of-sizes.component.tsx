@@ -1,13 +1,8 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import Size from "../../atoms/size/size-component";
 import { getSizes } from "../../../helpers/get-sizes";
-
-interface ListOfSizesProps {
-  setSizeSelect: (size: string) => void;
-  category: string;
-  sizeSelected: string;
-}
+import { ListOfSizesProps } from "../../../interfaces";
 
 const SizeContainer = styled.div`
   display: flex;
@@ -15,7 +10,12 @@ const SizeContainer = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const ListOfSizes: FC<ListOfSizesProps> = ({ setSizeSelect, category, sizeSelected }) => {
+
+const ListOfSizes: FC<ListOfSizesProps> = ({
+  setSizeSelect,
+  category,
+  sizeSelected,
+}) => {
   const sizeList = getSizes(category);
   const handleSize = (size: string) => {
     setSizeSelect(size);

@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { Icon } from "../..";
 import { CounterProps } from "../../../interfaces";
-import { useCart } from "../../../hooks/useCart";
+import { useCart } from "../../../hooks";
 
 const Container = styled.span`
   width: 85px;

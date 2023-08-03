@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { CartContextParams, CartContextProviderProps } from "../interfaces";
-import { useCartReducer } from "../hooks/useCartReducer";
+import { useCartReducer } from "../hooks";
 
 export const CartContext = createContext<CartContextParams>({
   cart: [],
@@ -12,8 +12,14 @@ export const CartContext = createContext<CartContextParams>({
 });
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const { state, addToCart, clearCart, removeItem, substractCounterFromCart, updateProductSize } =
-    useCartReducer();
+  const {
+    state,
+    addToCart,
+    clearCart,
+    removeItem,
+    substractCounterFromCart,
+    updateProductSize,
+  } = useCartReducer();
   return (
     <CartContext.Provider
       value={{

@@ -23,8 +23,8 @@ const ImageContainer = styled.div<{ img: string }>`
 const SlideShow: FC<SlideShowProps> = ({ images }) => {
   return (
     <Slide duration={3000} easing="ease" indicators arrows={false}>
-      {images.map(({ url }, index) => (
-        <SlideContainer key={index}>
+      {images.map(({ url, id }) => (
+        <SlideContainer key={id}>
           <ImageContainer img={url}></ImageContainer>
         </SlideContainer>
       ))}

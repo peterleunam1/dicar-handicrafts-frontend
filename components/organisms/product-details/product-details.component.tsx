@@ -3,17 +3,12 @@ import Image from "next/image";
 import styled from "styled-components";
 import { ProductInfoProps } from "../../../interfaces";
 import { findItem, updateLocalStorage } from "../../../helpers";
-import Button from "../../atoms/button/button.component";
-import { useModal } from "../../../hooks/useModal";
 import { INTERRAPIDISIMO_ROUTE, textToHandleCart } from "../../../constants";
-import Modal from "../../molecules/modal/modal.component";
 import InterRapidisimo from "../../../public/assets/interapisidisimo.png";
 import CartGif from "../../../public/assets/shopping-cart.gif";
-import { useCart } from "../../../hooks/useCart";
-import ProductSpecification from "../../molecules/product-specification/product-specification.component";
-import Icon from "../../atoms/icon/icon.component";
+import { useCart, useModal } from "../../../hooks";
 import { useRouter } from "next/router";
-import ListOfSizes from "../../molecules/list-of-sizes/list-of-sizes.component";
+import {ListOfSizes, Icon, ProductSpecification, Modal, Button} from '../../../components'
 
 const InfoContainer = styled.aside`
   height: 450px;

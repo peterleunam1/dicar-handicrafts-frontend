@@ -1,6 +1,9 @@
 import React from "react";
-import { ThemeContextUiProps, ThemeContextUiProviderProps } from "../interfaces";
-import useThemeMode from "../hooks/useTheme";
+import {
+  ThemeContextUiProps,
+  ThemeContextUiProviderProps,
+} from "../interfaces";
+import {useTheme} from "../hooks";
 import { ThemeProvider } from "styled-components";
 import { light, dark } from "../globalStyles";
 import { themeMode } from "../constants";
@@ -10,9 +13,11 @@ const ContextTheme = React.createContext<ThemeContextUiProps>({
   toggleTheme: () => {},
 });
 
-export function ThemeContextProvider({ children }: ThemeContextUiProviderProps) {
+export function ThemeContextProvider({
+  children,
+}: ThemeContextUiProviderProps) {
   
-  const { theme, toggleTheme } = useThemeMode();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <ContextTheme.Provider value={{ toggleTheme, theme }}>

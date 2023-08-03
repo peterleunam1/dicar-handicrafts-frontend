@@ -1,6 +1,4 @@
-interface Sizes {
-  [key: string]: string[];
-}
+import { Sizes } from "../interfaces";
 
 export const sizes: Sizes = {
   mochilas: ["XS", "S", "M", "L"],

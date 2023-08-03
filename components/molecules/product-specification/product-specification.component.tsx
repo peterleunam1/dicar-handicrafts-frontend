@@ -8,7 +8,6 @@ import {
 import { convertPrice } from "../../../helpers/convert-price";
 import { Strike } from "../../../components";
 import { ProductSpecificationProps } from "../../../interfaces";
-import ListOfSizes from "../list-of-sizes/list-of-sizes.component";
 
 const Text = styled.p`
   margin: 18px 0;
@@ -53,7 +52,7 @@ const ProductSpecification: FC<ProductSpecificationProps> = ({
       </Text>
       <Strike>{discount}</Strike>
       <Price>
-        {convertPrice(price)}{" "}
+        {convertPrice(price)}
         <AccentTex size="15px" ml="8px">
           -30%
         </AccentTex>

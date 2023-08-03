@@ -1,18 +1,13 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
-import Input from "../../atoms/input/input.component";
 import { regexs } from "../../../constants";
-import Select from "../../atoms/select/select.component";
-import { returnedDepartments } from "../../../interfaces/services/address/get-state";
 import {
   AddressCheckoutModel,
   CheckoutFormProps,
-  ReturnedMunicipality,
 } from "../../../interfaces";
-import { sortArray } from "../../../helpers";
-import Button from "../../atoms/button/button.component";
-import useDepartments from "../../../hooks/useDepartments";
-import useMunicipalities from "../../../hooks/useMunicipalities";
+import { getSortedArray } from "../../../helpers";
+import {useDepartments, useMunicipalities} from "../../../hooks";
+import {Input, Select, Button} from "../../../components";
 
 const TitleSection = styled.p`
   font-weight: bolder;
@@ -102,6 +97,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
     e.preventDefault();
   };
   
+  const departmentsSorted = getSortedArray({array: departments || [], key: "departamento"});
 
   return (
     <form onSubmit={handleSubmit}>
@@ -153,7 +149,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
         <HalfInput>
           {err && <p>cargando...</p>}
           <Select
-            array={sortArray(departments || [], "departamento")}
+            array={departmentsSorted}
             name="Departamento"
             arg="departamento"
             label="Seleccione un departamento"

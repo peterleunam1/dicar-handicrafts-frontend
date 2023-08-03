@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
@@ -12,11 +12,10 @@ import {
   TitleChildren,
 } from "../..";
 import { CartItemProps } from "../../../interfaces";
-import { getStateOfProduct, toCapitalize } from "../../../helpers";
+import { toCapitalize } from "../../../helpers";
 import { convertPrice } from "../../../helpers/convert-price";
 import { cart, textToHandleCart } from "../../../constants";
-import { useCart } from "../../../hooks/useCart";
-import { useModal } from "../../../hooks/useModal";
+import { useCart, useModal } from "../../../hooks";
 
 const ListItem = styled.article`
   width: calc(100%-20px);

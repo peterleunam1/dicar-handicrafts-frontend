@@ -1,4 +1,6 @@
-export const about = {
+import { AboutModel, CartModel, SocialMediaIcons } from "../interfaces";
+
+export const about: AboutModel = {
   title: "Contácto",
   contact: "+57 300 7529260.",
   description: "Centro Comercial Parque Heredia Local 154 Cartagena de Indias.",
@@ -6,7 +8,7 @@ export const about = {
     " Copyright © 2021 Artesanias Dicar . Todos los derechos reservados.",
 };
 
-export const cart = {
+export const cart: CartModel = {
   title: "carrito de compras - artesanías dicar",
   empty: "No hay productos en el carrito",
   total: "Total",
@@ -16,7 +18,7 @@ export const cart = {
   unit_price: "Precio unitario",
 };
 
-export const socialMediaIcons = [
+export const socialMediaIcons: SocialMediaIcons[] = [
   {
     name: "Instagram",
     icon: "fa-brands fa-instagram",
@@ -49,6 +51,6 @@ export const textToHandleCart = (text: string) => {
     remove: "¿Estás seguro que deseas eliminar este producto?",
     cart: "Agregar al carrito",
     buy: "Compra rápida",
-    other: "Añadir otro al carrito"
+    other: "Añadir otro al carrito",
   };
 };

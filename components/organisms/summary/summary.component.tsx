@@ -1,13 +1,10 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { CartItem } from "../..";
+import { CartItem } from "../../../components";
 import { convertPrice } from "../../../helpers/convert-price";
-// import useCart from "../../../hooks/useCart";
-// import useTotalCart from "../../../hooks/useTotalCart";
 import { cart } from "../../../constants";
-import { useCart } from "../../../hooks/useCart";
 import { getTotalPrice } from "../../../helpers";
-import { SummaryProps } from "../../../interfaces/organisms/summary";
+import { SummaryProps } from "../../../interfaces";
 
 const Card = styled.article`
   width: 30%;

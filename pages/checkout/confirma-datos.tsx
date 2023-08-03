@@ -6,7 +6,7 @@ import { ShopLayout, Summary } from "../../components";
 import CheckoutForm from "../../components/organisms/checkout-form/checkout-form.component";
 import { getUrlEncoded } from "../../helpers/get-url-encode-from-object";
 import { WHATSAPP_ROUTE } from "../../constants";
-import { useCart } from "../../hooks/useCart";
+import { useCart } from "../../hooks";
 import { useRouter } from "next/router";
 
 const Main = styled.div`

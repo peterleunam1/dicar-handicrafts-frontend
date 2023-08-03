@@ -1,4 +1,4 @@
-import { SummaryProps } from "../interfaces/organisms/summary";
+import { SummaryProps } from "../interfaces";
 
 export const getTotalPrice = ({ products, type }: SummaryProps): number => {
   if (type === "checkout") {

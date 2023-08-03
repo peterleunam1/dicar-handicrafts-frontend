@@ -1,11 +1,10 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { CartItem, Button, TotalPanel } from "../..";
+import { CartItem, Button, TotalPanel, EmptyCart } from "../../../components";
 import { useRouter } from "next/router";
 import { getPlural, getTotalPrice } from "../../../helpers";
 import { cart } from "../../../constants";
-import { useCart } from "../../../hooks/useCart";
-import EmptyCart from "../../molecules/empty-cart/empty-cart.component";
+import { useCart } from "../../../hooks";
 
 const HeaderList = styled.header`
   width: 100%;

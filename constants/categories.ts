@@ -1,10 +1,4 @@
-interface Category {
-  id: number;
-  name: string;
-  href: string;
-  icon: string;
-}
-
+import { Category } from "../interfaces";
 
 export const categories: Category[] = [
   {

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { Icon } from "../..";
+import { Icon } from "../../../components";
 import { socialMediaIcons } from "../../../constants";
 
 const SocialBarStyled = styled.span`

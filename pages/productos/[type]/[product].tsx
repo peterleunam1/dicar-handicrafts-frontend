@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { ShopLayout } from "../../../components";
-import useProducts from "../../../hooks/useProducts";
+import { useProducts } from "../../../hooks";
 import { ProductDetails, ZoomImage } from "../../../components";
 
 const Container = styled.section`

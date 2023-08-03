@@ -1,16 +1,12 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import { CardCircular, Icon, Modal, Button } from "../..";
-import CartGif from "../../../public/assets/shopping-cart.gif";
-import { IProductComponent } from "../../../interfaces/helpers/products";
+import { CardCircular, Icon, Modal, ConfirmCart } from "../../../components";
+import { IProductComponent } from "../../../interfaces";
 import { convertPrice } from "../../../helpers/convert-price";
-import { useCart } from "../../../hooks/useCart";
-import { useModal } from "../../../hooks/useModal";
-import { textToHandleCart } from "../../../constants";
+import { useCart, useModal } from "../../../hooks";
 import { findItem } from "../../../helpers";
-import ConfirmCart from "../../organisms/confirm-cart/confirm-cart.component";
 
 const ProductContainer = styled.article`
   width: max-content;

@@ -1,10 +1,7 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styled from "styled-components";
-interface SizeProps {
-  size: string;
-  isActived: boolean;
-  onClick: () => void;
-}
+import { SizeProps } from "../../../interfaces";
+
 const SizeStyled = styled.button<{ isActived: boolean }>`
   width: 25px;
   height: 25px;
@@ -16,7 +13,7 @@ const SizeStyled = styled.button<{ isActived: boolean }>`
   align-items: center;
   background-color: #fff;
   padding: 15px;
-  font-size: .9rem;
+  font-size: 0.9rem;
   transition: background-color 0.3s ease;
   &:hover {
     background-color: #cececec3;
@@ -28,7 +25,7 @@ const SizeStyled = styled.button<{ isActived: boolean }>`
       font-weight: 500;
     `}
 `;
-const Size: FC<SizeProps> = ({ size, onClick,  isActived}) => {
+const Size: FC<SizeProps> = ({ size, onClick, isActived }) => {
   const handleSize = () => {
     onClick();
   };
@@ -36,7 +33,6 @@ const Size: FC<SizeProps> = ({ size, onClick,  isActived}) => {
     <SizeStyled onClick={handleSize} isActived={isActived || false}>
       {size}
     </SizeStyled>
-  
   );
 };
 export default Size;

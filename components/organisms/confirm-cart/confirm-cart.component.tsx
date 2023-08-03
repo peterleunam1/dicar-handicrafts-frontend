@@ -4,16 +4,10 @@ import { textToHandleCart } from "../../../constants";
 import { FC, useState } from "react";
 import styled from "styled-components";
 import { convertPrice } from "../../../helpers/convert-price";
-import ListOfSizes from "../../molecules/list-of-sizes/list-of-sizes.component";
-import Button from "../../atoms/button/button.component";
 import { findItem } from "../../../helpers";
-import { useCart } from "../../../hooks/useCart";
-import { IProduct } from "../../../interfaces";
-
-interface ConfirmCartProps {
-  product: IProduct;
-  toggle: () => void;
-}
+import { useCart } from "../../../hooks";
+import { ConfirmCartProps } from "../../../interfaces";
+import { Button, ListOfSizes } from "../../../components";
 
 const Container = styled.article`
   display: flex;
@@ -40,12 +34,7 @@ const Texts = styled.span`
 const Sizetext = styled.p`
   margin: 12px 0 8px 0;
 `;
-const SizeContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-`;
+
 const ConfirmCart: FC<ConfirmCartProps> = ({ product, toggle }) => {
   const texts = textToHandleCart(product.name);
   const { cart, addToCart } = useCart();

@@ -1,3 +1,3 @@
-export type { UseModalProps } from './useModal';
-export type { UseLocalStorageProps } from './useLocalStorage';
-export type {UpdateProductSizeParams} from './useCartReducer';
+export type { UseModalProps } from "./useModal.model";
+export type { UseLocalStorageProps } from "./useLocalStorage.model";
+export type { UpdateProductSizeParams } from "./useCartReducer.model";

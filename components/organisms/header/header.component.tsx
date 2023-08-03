@@ -7,7 +7,7 @@ import {
   NavLateral,
   Logo,
   TopCard,
-} from "../..";
+} from "../../../components";
 
 const OptionsLeft = styled.div`
   display: flex;

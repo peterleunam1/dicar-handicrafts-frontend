@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import styled from "styled-components";
-import { IProduct, ProductListProps } from "../../../interfaces";
-import Product from "../../molecules/product/product.component";
+import { ProductListProps } from "../../../interfaces";
+import { Product } from "../../../components";
 
 const ProducListStyled = styled.section`
   margin: 22px auto 0px auto;
@@ -20,14 +20,10 @@ const ProducListStyled = styled.section`
 `;
 
 const ProductList: FC<ProductListProps> = ({ products }) => {
-
   return (
     <ProducListStyled>
       {products?.map((product) => (
-        <Product
-          key={product.id}
-          product={product}
-        />
+        <Product key={product.id} product={product} />
       ))}
     </ProducListStyled>
   );

@@ -12,8 +12,7 @@ import Sandalia from "../public/assets/sandalias.png";
 import Sombrero from "../public/assets/sombreros.png";
 import Accesorio from "../public/assets/accesorios.png";
 import { products_combo, slideImages } from "../constants";
-import useDepartments from "../hooks/useDepartments";
-import useMunicipalities from "../hooks/useMunicipalities";
+
 
 const SliderContainer = styled.div`
   width: 60%;

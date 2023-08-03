@@ -1,4 +1,4 @@
-import { getDiscountParams } from "../interfaces/helpers/get-discount";
+import { getDiscountParams } from "../interfaces";
 import { convertPrice } from "./convert-price";
 
 export const getDiscount = ({ pct, price }: getDiscountParams): string => {

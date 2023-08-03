@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
 import { InputProps } from "../../../interfaces";
-import { RegexsModel } from "../../../interfaces/constants/regexs";
 
 const ContainerStyled = styled.div<{
   mb: string;

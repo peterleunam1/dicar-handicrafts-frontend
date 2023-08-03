@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { CardMenu } from "../..";
+import { CardMenu } from "../../../components";
 import { MenuProps } from "../../../interfaces";
 import { categories } from "../../../constants";
 

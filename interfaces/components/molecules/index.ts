@@ -1,0 +1,9 @@
+export type { TotalPanelProps } from "./total-panel.model";
+export type { BannerProps } from "./banner.model";
+export type { CardMenuProps } from "./card-menu.model";
+export type { CounterProps } from "./counter.model";
+export type { ListOfSizesProps } from "./list-of-sizes.model";
+export type { ModalProps } from "./modal.model";
+export type { NavLateralProps } from "./nav-lateral.model";
+export type { ProductSpecificationProps } from "./product-specification.model";
+export type { CartItemProps } from "./cart-item.model";

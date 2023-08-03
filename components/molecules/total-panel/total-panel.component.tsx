@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { convertPrice } from "../../../helpers/convert-price";
-import { Button } from "../..";
+import { Button } from "../../../components";
 import { TotalPanelProps } from "../../../interfaces";
 import { cart } from "../../../constants";
 

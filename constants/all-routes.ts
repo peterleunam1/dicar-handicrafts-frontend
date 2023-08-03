@@ -9,7 +9,7 @@ export const BASE_URL_DEPLOY: string =
 export const WHATSAPP_ROUTE: string =
   " https://api.whatsapp.com/send?phone=573008824913 &text=*¡Saludoos!%0AEstoy interesado en alguno de tus productos, estos son mis datos";
 
-export const INTERRAPIDISIMO_ROUTE: string = 'www.interrapidisimo.com'
+export const INTERRAPIDISIMO_ROUTE: string = "www.interrapidisimo.com";
 
 const roleApi: RoleApiModel = {
   public: `${BASE_URL}public/`,

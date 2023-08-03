@@ -1,4 +1,6 @@
-export const themeMode = {
-    light: 'light',
-    dark: 'dark',
+import { ThemeModel } from "../interfaces";
+
+export const themeMode: ThemeModel = {
+  light: "light",
+  dark: "dark",
 };

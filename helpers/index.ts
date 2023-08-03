@@ -1,13 +1,12 @@
-export { default as toCapitalize } from './capitalize';
-export * from './toSubcategories';
-export * from './banner-images';
-export { default as EmptyObject } from './empty-object';
-export * from './sorts';
-export * from './get-state-of-product';
-export * from './get-plural';
-export * from './get-total-price';
-export * from './update-local-storage';
-export * from './get-discount';
-export * from './find-item'
-export * from './get-filtered-products';
-export * from './get-cutted-text';
+export { toCapitalize } from "./capitalize";
+export { toSubcategories } from "./toSubcategories";
+export { getBannerImage } from "./banner-images";
+export { getSortedArray } from "./get sorted array";
+export { getStateOfProduct } from "./get-state-of-product";
+export { getPlural } from "./get-plural";
+export { getTotalPrice } from "./get-total-price";
+export { updateLocalStorage } from "./update-local-storage";
+export { getDiscount } from "./get-discount";
+export { findItem } from "./find-item";
+export { getFilterProducts } from "./get-filtered-products";
+export { getCuttedText } from "./get-cutted-text";

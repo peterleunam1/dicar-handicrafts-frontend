@@ -1,7 +1,6 @@
 export { default as ThemeIcon } from "./atoms/theme-icon/theme-icon.component";
 export { default as Icon } from "./atoms/icon/icon.component";
-export { default as ShopLayout } from "./templates/shop-layout.component";
-export { default as AuthLayout } from "./templates/auth-layout";
+export { default as ShopLayout } from "./templates/shop-layout/shop-layout.component";
 export { default as SocialBar } from "./molecules/social-bar/social-bar.component";
 export { default as NavBar } from "./molecules/navbar/nav-bar.component";
 export { default as Header } from "./organisms/header/header.component";
@@ -18,7 +17,6 @@ export { default as Banner } from "./molecules/banner/banner.component";
 export { default as Counter } from "./molecules/counter/counter.component";
 export { default as ProductList } from "./organisms/product-list/product-list.component";
 export { default as SlideShow } from "./organisms/slide-show/slide-show";
-export { default as AuthBox } from "./organisms/auth-box/auth-box.component";
 export { default as Button } from "./atoms/button/button.component";
 export { default as Offers } from "./organisms/offers/offers.component";
 export { default as CartItem } from "./molecules/cart-item/cart-item.component";
@@ -40,3 +38,4 @@ export { default as ProductDetails } from "./organisms/product-details/product-d
 export { default as ConfirmCart } from "./organisms/confirm-cart/confirm-cart.component";
 export { default as EmptyCart } from "./molecules/empty-cart/empty-cart.component";
 export { default as ListOfSizes } from "./molecules/list-of-sizes/list-of-sizes.component";
+export { default as CheckoutForm } from "./organisms/checkout-form/checkout-form.component"

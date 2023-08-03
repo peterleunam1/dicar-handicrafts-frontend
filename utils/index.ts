@@ -10,3 +10,5 @@ export { getDiscount } from "./get-discount.util";
 export { findItem } from "./find-item.util";
 export { getFilterProducts } from "./get-filtered-products.util";
 export { getCuttedText } from "./get-cutted-text.util";
+export { convertPrice } from "./convert-price.util";
+export { getUrlEncoded } from "./get-url-encode-from-object.util"

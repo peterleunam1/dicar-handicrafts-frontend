@@ -1,30 +1,9 @@
 import { FC } from "react";
-import styled from "styled-components";
-import {
-  getCuttedText,
-  getDiscount,
-  getStateOfProduct,
-} from "../../../utils";
+import { getCuttedText, getDiscount, getStateOfProduct } from "../../../utils";
 import { convertPrice } from "../../../utils/convert-price.util";
 import { Strike } from "../../../components";
 import { ProductSpecificationProps } from "../../../interfaces";
-
-const Text = styled.p`
-  margin: 18px 0;
-  font-size: 13px;
-`;
-const AccentTex = styled.strong<{ size?: string; ml?: string; color?: string }>`
-  color: ${(props) => props.color || "#f6d1bc"};
-  font-size: ${(props) => props.size};
-  margin-left: ${(props) => props.ml};
-`;
-const Price = styled.p`
-  font-size: 23px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  margin-bottom: 18px;
-`;
+import { AccentTex, Price, Text } from "./product-specification.styled";
 
 const ProductSpecification: FC<ProductSpecificationProps> = ({
   name,
@@ -32,10 +11,8 @@ const ProductSpecification: FC<ProductSpecificationProps> = ({
   price,
   qty_in_stock,
 }) => {
-  const discount = getDiscount({
-    price: price,
-    pct: 30,
-  });
+  
+  const discount = getDiscount({ price, pct: 30 });
   const availability = getStateOfProduct(qty_in_stock);
   const cuttedDescription = getCuttedText(description);
 
@@ -53,7 +30,7 @@ const ProductSpecification: FC<ProductSpecificationProps> = ({
       <Strike>{discount}</Strike>
       <Price>
         {convertPrice(price)}
-        <AccentTex size="15px" ml="8px">
+        <AccentTex size=".9375rem" ml=".5rem">
           -30%
         </AccentTex>
       </Price>

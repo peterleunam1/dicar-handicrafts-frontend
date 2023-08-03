@@ -7,3 +7,4 @@ export type { ModalProps } from "./modal.model";
 export type { NavLateralProps } from "./nav-lateral.model";
 export type { ProductSpecificationProps } from "./product-specification.model";
 export type { CartItemProps } from "./cart-item.model";
+export type { FilterCartegoriesProps } from "./filter-categories.model";

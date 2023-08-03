@@ -1,18 +1,11 @@
 import { FC } from "react";
 import Head from "next/head";
-import { ShopLayoutProps } from "../../interfaces";
-import styled from "styled-components";
-import { Header, Footer } from "..";
+import { ShopLayoutProps } from "../../../interfaces";
+import { Header, Footer } from "../..";
+import { Main } from "./shop-layout.styled";
 
-const Main = styled.main`
-  margin: 100px auto 70px auto;
-  width: 90%;
-  padding: "0px 3px";
-  min-height: 76vh;
-  max-width: 1440px;
-`;
 const ShopLayout: FC<ShopLayoutProps> = ({
-  title,
+  title = "",
   descriptionPage,
   children,
 }) => {

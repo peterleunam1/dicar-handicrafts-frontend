@@ -1,25 +1,9 @@
 import { useRouter } from "next/router";
 import { FC, useContext } from "react";
-import styled from "styled-components";
 import { Icon, ThemeIcon, CardCircular } from "../..";
 import ContextTheme from "../../../context/ThemeContextUI";
 import { useCart } from "../../../hooks";
-
-const NavBarStyled = styled.nav`
-  display: flex;
-  align-items: center;
-`;
-const CartContainer = styled.span`
-  position: relative;
-  margin: 0;
-  padding: 0;
-`;
-const CounterText = styled.p`
-  font-size: 10px;
-  font-weight: bolder;
-  color: #000;
-  font-weight: bold;
-`;
+import { CartContainer, CounterText, NavBarStyled } from "./nav-bar.styled";
 
 const NavBar: FC = () => {
   const { toggleTheme } = useContext(ContextTheme);
@@ -34,7 +18,7 @@ const NavBar: FC = () => {
     <NavBarStyled>
       <CartContainer onClick={() => handleClick("/cart")}>
         <Icon fill="fa-solid fa-cart-shopping" mr="0"></Icon>
-        <CardCircular top="-8px" left="30px" size="13px">
+        <CardCircular top="-8px" left="1.875rem" size=".8125rem">
           <CounterText>{cart.length}</CounterText>
         </CardCircular>
       </CartContainer>

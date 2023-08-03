@@ -1,75 +1,24 @@
 import { FC, useState } from "react";
-import styled from "styled-components";
 import { regexs } from "../../../constants";
-import {
-  AddressCheckoutModel,
-  CheckoutFormProps,
-} from "../../../interfaces";
+import { AddressCheckoutModel, CheckoutFormProps } from "../../../interfaces";
 import { getSortedArray } from "../../../utils";
-import {useDepartments, useMunicipalities} from "../../../hooks";
-import {Input, Select, Button} from "../../../components";
-
-const TitleSection = styled.p`
-  font-weight: bolder;
-  color: #f6d1bc;
-  font-size: 15px;
-  margin-top: 30px;
-  margin-bottom: 15px;
-`;
-const HalfInput = styled.div`
-  width: 45%;
-  @media (max-width: 500px) {
-    width: 100%;
-  }
-`;
-const InLineInput = styled.div`
-  width: 94%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 15px 0;
-  @media (max-width: 500px) {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-  }
-`;
-const SelectStyled = styled.select`
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  height: 33px;
-  border-radius: 5px;
-  color: #606066;
-  border: 1px solid rgb(202, 199, 199);
-  padding-left: 15px;
-  position: relative;
-`;
-const LabelInput = styled.label`
-  font-size: 13px;
-  font-weight: 500;
-  position: relative;
-  small {
-    position: absolute;
-    bottom: -30px;
-    right: 0;
-    color: red;
-  }
-`;
-const ButtonContainer = styled.div`
-  width: 25%;
-  @media (max-width: 500px) {
-    width: 100%;
-    margin-top: 10px;
-  }
-`;
+import { useDepartments, useMunicipalities } from "../../../hooks";
+import { Input, Select, Button } from "../../../components";
+import {
+  ButtonContainer,
+  HalfInput,
+  InLineInput,
+  LabelInput,
+  SelectStyled,
+  TitleSection,
+} from "./checkout-form.styled";
 
 const CheckoutForm: FC<CheckoutFormProps> = ({
   data,
   setData,
   handleClick,
 }) => {
+  
   const [address, setAddress] = useState<AddressCheckoutModel>({});
   const { departments, error: err } = useDepartments();
   const { municipalities: cities, error } = useMunicipalities({
@@ -96,17 +45,20 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
-  
-  const departmentsSorted = getSortedArray({array: departments || [], key: "departamento"});
+
+  const departmentsSorted = getSortedArray({
+    array: departments || [],
+    key: "departamento",
+  });
 
   return (
     <form onSubmit={handleSubmit}>
       <TitleSection>Datos de usuario</TitleSection>
       <Input
         type="text"
-        bradius="5px"
+        bradius=".3125rem"
         label="Nombre completo"
-        mb="10px"
+        mb=".625rem"
         placeholder="ej: Juan Perez Lorem"
         onChange={handleChange}
         name="*👤 Nombre*"
@@ -114,9 +66,9 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
       />
       <Input
         type="email"
-        bradius="5px"
+        bradius=".3125rem"
         label="Email"
-        mb="10px"
+        mb=".625rem"
         placeholder="usuario@lorem.com"
         onChange={handleChange}
         name="*📨 Correo electrónico*"
@@ -125,9 +77,9 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
       <HalfInput>
         <Input
           type="number"
-          bradius="5px"
+          bradius=".3125rem"
           label="Celular"
-          mb="10px"
+          mb=".625rem"
           placeholder="ej: +57 307 6784509"
           onChange={handleChange}
           name="*📲 Telefono*"
@@ -137,9 +89,9 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
       <TitleSection>Datos de envío</TitleSection>
       <Input
         type="text"
-        bradius="5px"
+        bradius=".3125rem"
         label="Dirección"
-        mb="10px"
+        mb=".625rem"
         placeholder="ej: Centro, Getsemaní, Calle de las Maravillas No. 30-45"
         onChange={handleChange}
         name="*📍➡️ Dirección*"
@@ -180,8 +132,8 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
         type="text"
         label="Punto de referencia"
         placeholder="Ingrese guía"
-        bradius="5px"
-        mb="10px"
+        bradius=".3125rem"
+        mb=".625rem"
         name="*🗒️ Datos de guía*"
         onChange={handleChange}
         regexs={regexs.referencePoint}
@@ -191,8 +143,8 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
           text="Continuar"
           bg="#f6d1bc"
           hover="rgba(246, 209, 188, 0.637)"
-          mt="25px"
-          mb="10px"
+          mt="1.5625rem"
+          mb=".625rem"
           onClick={() => handleClick()}
         />
       </ButtonContainer>

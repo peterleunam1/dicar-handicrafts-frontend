@@ -2,40 +2,15 @@ import Image from "next/image";
 import CartGif from "../../../public/assets/shopping-cart.gif";
 import { textToHandleCart } from "../../../constants";
 import { FC, useState } from "react";
-import styled from "styled-components";
 import { convertPrice } from "../../../utils/convert-price.util";
 import { findItem } from "../../../utils";
 import { useCart } from "../../../hooks";
 import { ConfirmCartProps } from "../../../interfaces";
 import { Button, ListOfSizes } from "../../../components";
-
-const Container = styled.article`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const Content = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin-top: 15px;
-  width: 100%;
-  gap: 40px;
-`;
-const Texts = styled.span`
-  max-width: 280px;
-  strong {
-    font-size: 0.9rem;
-  }
-`;
-const Sizetext = styled.p`
-  margin: 12px 0 8px 0;
-`;
+import { Container, Content, Sizetext, Texts } from "./confirm-cart.styled";
 
 const ConfirmCart: FC<ConfirmCartProps> = ({ product, toggle }) => {
+  
   const texts = textToHandleCart(product.name);
   const { cart, addToCart } = useCart();
   const isAdded = findItem({ id: product.id, items: cart });
@@ -57,15 +32,15 @@ const ConfirmCart: FC<ConfirmCartProps> = ({ product, toggle }) => {
         <p>{texts.updateQuantity}</p>
       ) : (
         <Container>
-          <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
+          <Image src={CartGif} width="3.75rem" height="3.125rem" alt="Cart Gif" />
           <Content>
             <picture>
               <Image
                 src={product.image}
-                width="120px"
-                height="140px"
+                width="7.5rem"
+                height="8.75rem"
                 alt={product.name}
-                style={{ borderRadius: "5px" }}
+                style={{ borderRadius: ".3125rem" }}
               />
             </picture>
             <Texts>
@@ -85,8 +60,8 @@ const ConfirmCart: FC<ConfirmCartProps> = ({ product, toggle }) => {
         text="Confirmar"
         bg="#f6d1bc"
         hover="rgba(246, 209, 188, 0.637)"
-        mt="20px"
-        width="200px"
+        mt="1.25rem"
+        width="12.5rem"
         onClick={() => {
           handleAddToCart();
           toggle();

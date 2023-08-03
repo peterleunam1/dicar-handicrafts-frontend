@@ -3,10 +3,9 @@ import {
   ThemeContextUiProps,
   ThemeContextUiProviderProps,
 } from "../interfaces";
-import {useTheme} from "../hooks";
+import { useTheme } from "../hooks";
 import { ThemeProvider } from "styled-components";
-import { light, dark } from "../globalStyles";
-import { themeMode } from "../constants";
+import { themeMode, themePalette } from "../constants";
 
 const ContextTheme = React.createContext<ThemeContextUiProps>({
   theme: themeMode.light,
@@ -16,7 +15,7 @@ const ContextTheme = React.createContext<ThemeContextUiProps>({
 export function ThemeContextProvider({
   children,
 }: ThemeContextUiProviderProps) {
-  
+  const { dark, light } = themePalette;
   const { theme, toggleTheme } = useTheme();
 
   return (

@@ -22,19 +22,19 @@ const FilterContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 35px;
-  @media (max-width: 500px) {
+  margin-top: 2.1875rem;
+  @media (max-width: 31.25rem) {
   }
 `;
 
-
 const ProductsContainer = styled.div`
-  border-top: 2px solid #e8e8e8;
+  border-top: .125rem solid #e8e8e8;
   width: 100%;
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     border: none;
   }
 `;
+
 const ProductType: NextPage = () => {
   const { type: category } = useRouter().query as { type: string };
   const [filter, setFilter] = useState<string>("todas");

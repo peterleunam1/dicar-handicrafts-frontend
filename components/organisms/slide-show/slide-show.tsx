@@ -9,15 +9,15 @@ const SlideContainer = styled.div`
   justify-content: center;
   background-size: contain;
   background-position: center;
-  height: 400px;
+  height: 25rem;
   width: 100%;
-  border-radius: 10px;
+  border-radius: .625rem;
 `;
 const ImageContainer = styled.div<{ img: string }>`
   background-image: url(${(props) => props.img});
   background-size: cover;
   width: 100%;
-  border-radius: 10px;
+  border-radius: .625rem;
 `;
 
 const SlideShow: FC<SlideShowProps> = ({ images }) => {

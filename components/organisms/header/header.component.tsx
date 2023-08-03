@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import styled from "styled-components";
 import {
   Icon,
   SocialBar,
@@ -8,17 +7,7 @@ import {
   Logo,
   TopCard,
 } from "../../../components";
-
-const OptionsLeft = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const SocialContainer = styled.div`
-  @media (max-width: 500px) {
-    display: none;
-  }
-`;
+import { OptionsLeft, SocialContainer } from "./header.styled";
 
 const Header: FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
@@ -26,13 +15,13 @@ const Header: FC = () => {
     <TopCard>
       <OptionsLeft>
         <span onClick={() => setIsOpenMenu(!isOpenMenu)}>
-          <Icon fill="fa-solid fa-bars" margin="0px" />
+          <Icon fill="fa-solid fa-bars" margin="0" />
         </span>
         <SocialContainer>
           <SocialBar />
         </SocialContainer>
         {isOpenMenu ? (
-          <NavLateral transform="translateX(0px)" setIsOpen={setIsOpenMenu} />
+          <NavLateral transform="translateX(0)" setIsOpen={setIsOpenMenu} />
         ) : (
           <NavLateral
             transform="translateX(-350px)"

@@ -1,15 +1,8 @@
 import { FC } from "react";
-import styled from "styled-components";
 import Size from "../../atoms/size/size-component";
 import { getSizes } from "../../../utils/get-sizes.util";
 import { ListOfSizesProps } from "../../../interfaces";
-
-const SizeContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-`;
+import { SizeContainer } from "./list-of-sizes.styled";
 
 const ListOfSizes: FC<ListOfSizesProps> = ({
   setSizeSelect,

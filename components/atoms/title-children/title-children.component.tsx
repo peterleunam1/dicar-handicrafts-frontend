@@ -1,14 +1,7 @@
 import { FC } from "react";
-import styled from "styled-components";
 import { TitleChildrenProps } from "../../../interfaces";
 import { toCapitalize } from "../../../utils";
-
-const Paragraph = styled.p`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5px;
-`;
+import { Paragraph } from "./title-children.styled";
 
 const TitleChildren: FC<TitleChildrenProps> = ({ title, children }) => {
   return (

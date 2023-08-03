@@ -16,7 +16,7 @@ import { products_combo, slideImages } from "../constants";
 
 const SliderContainer = styled.div`
   width: 60%;
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     width: 100%;
   }
 `;
@@ -27,17 +27,17 @@ const Wrapper = styled.div<{ width: string; sizeText: string }>`
   justify-content: center;
   align-items: center;
   article {
-    margin: 10px 0 20px 0;
+    margin: .625rem 0 1.25rem 0;
   }
   p {
     width: 82%;
     font-size: ${(props) => props.sizeText};
-    @media (max-width: 500px) {
-      font-size: 16px;
+    @media (max-width: 31.25rem) {
+      font-size: 1rem;
       width: 100%;
     }
   }
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     max-width: unset;
     width: 100%;
   }
@@ -46,12 +46,12 @@ const ArtSection = styled.section<{ bg?: string }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 25px auto 0px auto;
+  margin: 1.5625rem auto 0 auto;
   width: 95%;
   background-color: ${(props) => props.bg};
-  border-radius: 10px;
+  border-radius: .625rem;
 
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     flex-direction: column-reverse;
     width: 100%;
   }
@@ -59,19 +59,19 @@ const ArtSection = styled.section<{ bg?: string }>`
 const StrongText = styled.strong<{ size?: string }>`
   font-weight: bolder;
   color: #f6d1bc;
-  font-size: ${(props) => props.size || "20px"};
-  @media (max-width: 500px) {
+  font-size: ${(props) => props.size || "1.25rem"};
+  @media (max-width: 31.25rem) {
     color: ${(props) => props.theme.text};
-    font-size: 15px;
+    font-size: .9375rem;
   }
 `;
 
 const Text = styled.p`
-  font-size: 18px;
-  margin: 20px 0px;
-  @media (max-width: 500px) {
-    font-size: 16px;
-    margin: 0px;
+  font-size: 1.125rem;
+  margin: 1.25rem 0;
+  @media (max-width: 31.25rem) {
+    font-size: 1rem;
+    margin: 0;
     width: 100%;
     text-align: left;
   }
@@ -80,9 +80,9 @@ const Title = styled.h3`
   font-weight: bolder;
   width: 100%;
   text-transform: uppercase;
-  padding-left: 65px;
-  @media (max-width: 500px) {
-    padding-left: 0px;
+  padding-left: 4.0625rem;
+  @media (max-width: 31.25rem) {
+    padding-left: 0;
   }
 `;
 
@@ -92,24 +92,24 @@ const Divisor = styled.div`
   justify-content: center;
   align-items: center;
   width: 95%;
-  margin: 45px auto;
+  margin: 2.8125rem auto;
   background: url("../assets/bg-pattern-circles.svg");
   background-size: cover;
   background-repeat: no-repeat top;
   background-position: bottom;
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     width: 100%;
   }
   p {
     width: 43%;
     margin: 0;
     padding: 0;
-    font-size: 19px;
+    font-size: 1.1875rem;
     text-align: center;
     font-family: ibm-plex-mono, sans-serif;
     font-style: normal;
     font-weight: 100;
-    @media (max-width: 500px) {
+    @media (max-width: 31.25rem) {
       width: 100%;
     }
   }
@@ -126,10 +126,10 @@ const Home: NextPage = () => {
       <Divisor>
         <p>
           Detrás de cada una de nuestras{" "}
-          <StrongText size="19px">creaciones</StrongText> esta una{" "}
-          <StrongText size="19px">artesana wayuu </StrongText> resaltando toda
+          <StrongText size="1.1875rem">creaciones</StrongText> esta una{" "}
+          <StrongText size="1.1875rem">artesana wayuu </StrongText> resaltando toda
           su cultura, historia y tradición en
-          <StrongText size="19px"> cada pieza.</StrongText>
+          <StrongText size="1.1875rem"> cada pieza.</StrongText>
         </p>
       </Divisor>
       <Offers type="video" urlMultimedia="https://i.imgur.com/GjxYwv6.mp4">
@@ -137,7 +137,7 @@ const Home: NextPage = () => {
       </Offers>
       <Title>Artes ancestrales</Title>
       <ArtSection>
-        <Wrapper width="38%" sizeText="18px">
+        <Wrapper width="38%" sizeText="1.125rem">
           <Text>
             El tejido para el pueblo wuayúu es más que una práctica cultural y{" "}
             <StrongText>herencia de sus ancestros</StrongText>, es una forma de{" "}

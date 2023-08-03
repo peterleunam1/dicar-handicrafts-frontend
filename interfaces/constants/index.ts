@@ -5,4 +5,4 @@ export type { SocialMediaIcons, CartModel, AboutModel } from "./about.model";
 export type { Category } from "./categories.model";
 export type { Sizes } from "./sizes.model";
 export type { SlideImageModel } from "./slide-images.model";
-export type { ThemeModel } from "./theme.model";
+export type { ThemeModel, ThemePaletteModel } from "./theme.model";

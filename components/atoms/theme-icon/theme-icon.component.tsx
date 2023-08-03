@@ -1,13 +1,6 @@
 import { FC } from "react";
-import styled from "styled-components";
 import { ThemeIconsProps } from "../../../interfaces";
-
-const Container = styled.span`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  height: 100%;
-`;
+import { Container } from "./theme-icon.styled";
 
 const ThemeIcon: FC<ThemeIconsProps> = ({ onClick, children }) => {
   return <Container onClick={onClick}>{children}</Container>;

@@ -6,7 +6,7 @@ const Container = styled.section`
   width: 92%;
   height: 100%;
   margin: 0 auto;
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     width: 100%;
     margin: 0;
   }

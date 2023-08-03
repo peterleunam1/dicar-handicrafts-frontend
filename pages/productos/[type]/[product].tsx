@@ -10,24 +10,24 @@ const Container = styled.section`
   align-items: center;
   justify-content: center;
   height: 78vh;
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     flex-direction: column;
     height: auto;
   }
 `;
 const ImageContainer = styled.picture`
-  width: 350px;
+  width: 21.875rem;
   height: auto;
   overflow: hidden;
   cursor: pointer;
-  margin-right: 40px;
+  margin-right: 2.5rem;
   img {
-    border-radius: 10px;
+    border-radius: .625rem;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     width: 100%;
     margin-right: 0;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 `;
 

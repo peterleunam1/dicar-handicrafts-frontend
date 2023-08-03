@@ -5,22 +5,22 @@ import { useState } from "react";
 import { getUrlEncoded } from "../../utils/get-url-encode-from-object.util";
 import { WHATSAPP_ROUTE } from "../../constants";
 import CheckoutForm from "../../components/organisms/checkout-form/checkout-form.component";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useLocalStorage } from "../../hooks";
 
 const Main = styled.div`
   width: 100%;
-  margin: 0px auto;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     flex-direction: column-reverse;
     align-items: center;
   }
 `;
 const UserInformation = styled.section`
   width: 65%;
-  @media (max-width: 500px) {
+  @media (max-width: 31.25rem) {
     width: 100%;
   }
 `;
@@ -36,7 +36,7 @@ const ConfirmaDatos: NextPage = () => {
   const handleClick = () => {
     window.location.href = `${WHATSAPP_ROUTE}*%0A${personalData}*%0A%20${products}%0A`;
   };
-  
+
   return (
     <ShopLayout
       title="Confirma tus datos"

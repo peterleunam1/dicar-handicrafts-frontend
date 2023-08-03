@@ -12,8 +12,8 @@ import {
   TitleChildren,
 } from "../..";
 import { CartItemProps } from "../../../interfaces";
-import { toCapitalize } from "../../../helpers";
-import { convertPrice } from "../../../helpers/convert-price";
+import { toCapitalize } from "../../../utils";
+import { convertPrice } from "../../../utils/convert-price.util";
 import { cart, textToHandleCart } from "../../../constants";
 import { useCart, useModal } from "../../../hooks";
 

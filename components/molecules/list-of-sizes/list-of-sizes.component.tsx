@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import Size from "../../atoms/size/size-component";
-import { getSizes } from "../../../helpers/get-sizes";
+import { getSizes } from "../../../utils/get-sizes.util";
 import { ListOfSizesProps } from "../../../interfaces";
 
 const SizeContainer = styled.div`

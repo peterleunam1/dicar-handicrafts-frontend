@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import Icon from "../../atoms/icon/icon.component";
-import { toCapitalize, toSubcategories } from "../../../helpers";
+import { toCapitalize, toSubcategories } from "../../../utils";
 
 const HeaderFilter = styled.header`
   width: 100%;

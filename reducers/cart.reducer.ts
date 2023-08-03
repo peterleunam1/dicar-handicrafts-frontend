@@ -1,5 +1,5 @@
 import { CART_ACTIONS_TYPES } from "../constants";
-import { updateLocalStorage } from "../helpers";
+import { updateLocalStorage } from "../utils";
 import { ActionType, IProduct } from "../interfaces";
 
 export const initialCart: IProduct[] = [];

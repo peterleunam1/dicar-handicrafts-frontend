@@ -13,7 +13,7 @@ import {
   getBannerImage,
   getFilterProducts,
   toCapitalize,
-} from "../../../helpers";
+} from "../../../utils";
 import { BannerOptions } from "../../../interfaces";
 import useProducts from "../../../hooks/useProducts";
 

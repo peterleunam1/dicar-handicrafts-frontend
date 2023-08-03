@@ -4,9 +4,9 @@ import Link from "next/link";
 import styled from "styled-components";
 import { CardCircular, Icon, Modal, ConfirmCart } from "../../../components";
 import { IProductComponent } from "../../../interfaces";
-import { convertPrice } from "../../../helpers/convert-price";
+import { convertPrice } from "../../../utils/convert-price.util";
 import { useCart, useModal } from "../../../hooks";
-import { findItem } from "../../../helpers";
+import { findItem } from "../../../utils";
 
 const ProductContainer = styled.article`
   width: max-content;

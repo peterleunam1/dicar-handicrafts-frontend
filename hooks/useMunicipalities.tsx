@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { GetCurrentMunicipalityParams, MunicipalityModel } from "../interfaces";
-import { getCurrentMunicipality } from "../services/address/get-current-municipality";
+import { getCurrentMunicipality } from "../services/address/get-current-municipality.service";
 
 export default function useMunicipalities({ department }: GetCurrentMunicipalityParams) {
 

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { toCapitalize } from "../../../helpers";
+import { toCapitalize } from "../../../utils";
 import { SelectProps } from "../../../interfaces";
 
 const SelectStyled = styled.select`

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import getProductByCatgory from "../services/products/get-product-by-category";
+import getProductByCatgory from "../services/products/get-product-by-category.service";
 import { GetProductByCategoryParams, ProductsModel } from "../interfaces";
-import { findItem } from "../helpers";
+import { findItem } from "../utils";
 
 export default function useProducts ({ category, filterById = 0 }: GetProductByCategoryParams) {
 

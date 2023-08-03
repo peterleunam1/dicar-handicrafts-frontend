@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { ProductInfoProps } from "../../../interfaces";
-import { findItem, updateLocalStorage } from "../../../helpers";
+import { findItem, updateLocalStorage } from "../../../utils";
 import { INTERRAPIDISIMO_ROUTE, textToHandleCart } from "../../../constants";
 import InterRapidisimo from "../../../public/assets/interapisidisimo.png";
 import CartGif from "../../../public/assets/shopping-cart.gif";

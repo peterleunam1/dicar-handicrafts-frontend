@@ -5,7 +5,7 @@ import {
   AddressCheckoutModel,
   CheckoutFormProps,
 } from "../../../interfaces";
-import { getSortedArray } from "../../../helpers";
+import { getSortedArray } from "../../../utils";
 import {useDepartments, useMunicipalities} from "../../../hooks";
 import {Input, Select, Button} from "../../../components";
 

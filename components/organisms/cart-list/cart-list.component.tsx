@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { CartItem, Button, TotalPanel, EmptyCart } from "../../../components";
 import { useRouter } from "next/router";
-import { getPlural, getTotalPrice } from "../../../helpers";
+import { getPlural, getTotalPrice } from "../../../utils";
 import { cart } from "../../../constants";
 import { useCart } from "../../../hooks";
 

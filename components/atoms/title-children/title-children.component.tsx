@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { TitleChildrenProps } from "../../../interfaces";
-import { toCapitalize } from "../../../helpers";
+import { toCapitalize } from "../../../utils";
 
 const Paragraph = styled.p`
   display: flex;

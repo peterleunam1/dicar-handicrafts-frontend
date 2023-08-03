@@ -1,4 +1,4 @@
-import { IProduct } from "../../helpers/products.model";
+import { IProduct } from "../../utils/products.model";
 
 export interface ProductsModel {
   data: IProduct[];

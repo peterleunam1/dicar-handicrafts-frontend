@@ -2,7 +2,7 @@ import Image from "next/image";
 import { FC } from "react";
 import styled from "styled-components";
 import { CartItemProps } from "../../../interfaces";
-import { convertPrice } from "../../../helpers/convert-price";
+import { convertPrice } from "../../../utils/convert-price.util";
 
 const Row = styled.div`
   width: 100%;

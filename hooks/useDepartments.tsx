@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStates } from "../services/address/get-state";
+import { getStates } from "../services/address/get-state.service";
 import { DepartmentsModel } from "../interfaces";
 
 export default function useDepartments() {

@@ -1,9 +1,9 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { CartItem } from "../../../components";
-import { convertPrice } from "../../../helpers/convert-price";
+import { convertPrice } from "../../../utils/convert-price.util";
 import { cart } from "../../../constants";
-import { getTotalPrice } from "../../../helpers";
+import { getTotalPrice } from "../../../utils";
 import { SummaryProps } from "../../../interfaces";
 
 const Card = styled.article`

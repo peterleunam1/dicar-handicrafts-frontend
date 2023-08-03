@@ -1,0 +1,12 @@
+export { toCapitalize } from "./capitalize.util";
+export { toSubcategories } from "./toSubcategories.util";
+export { getBannerImage } from "./banner-images.util";
+export { getSortedArray } from "./get-sorted-array.util";
+export { getStateOfProduct } from "./get-state-of-product.util";
+export { getPlural } from "./get-plural.util";
+export { getTotalPrice } from "./get-total-price.util";
+export { updateLocalStorage } from "./update-local-storage.util";
+export { getDiscount } from "./get-discount.util";
+export { findItem } from "./find-item.util";
+export { getFilterProducts } from "./get-filtered-products.util";
+export { getCuttedText } from "./get-cutted-text.util";

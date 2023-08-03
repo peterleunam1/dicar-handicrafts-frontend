@@ -4,8 +4,8 @@ import {
   getCuttedText,
   getDiscount,
   getStateOfProduct,
-} from "../../../helpers";
-import { convertPrice } from "../../../helpers/convert-price";
+} from "../../../utils";
+import { convertPrice } from "../../../utils/convert-price.util";
 import { Strike } from "../../../components";
 import { ProductSpecificationProps } from "../../../interfaces";
 

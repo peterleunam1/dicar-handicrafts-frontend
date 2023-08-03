@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ShopLayout, Summary } from "../../components";
 import { NextPage } from "next";
 import { useState } from "react";
-import { getUrlEncoded } from "../../helpers/get-url-encode-from-object";
+import { getUrlEncoded } from "../../utils/get-url-encode-from-object.util";
 import { WHATSAPP_ROUTE } from "../../constants";
 import CheckoutForm from "../../components/organisms/checkout-form/checkout-form.component";
 import { useLocalStorage } from "../../hooks/useLocalStorage";

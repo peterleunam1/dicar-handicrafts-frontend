@@ -11,8 +11,8 @@ const Item: FC<CartItemProps> = ({ item }) => {
       <Images>
         <Image
           src={image}
-          width="3.125rem"
-          height="3.75rem"
+          width="50px"
+          height="60px"
           layout="responsive"
           alt={name}
         />

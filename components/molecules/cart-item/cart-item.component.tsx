@@ -56,8 +56,8 @@ const CartItem: FC<CartItemProps> = ({ item, mode }) => {
               <ImageContainer>
                 <Image
                   src={image}
-                  width="6.25rem"
-                  height="7.5rem"
+                  width="100px"
+                  height="120px"
                   layout="responsive"
                   alt="Product Image"
                 />

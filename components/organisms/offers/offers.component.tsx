@@ -15,7 +15,7 @@ const Offers: FC<OffersProps> = ({ type, urlMultimedia, children }) => {
           <Image
             width={"auto"}
             src={urlMultimedia}
-            height="31.25rem"
+            height="500px"
             alt="offer"
           />
         )}

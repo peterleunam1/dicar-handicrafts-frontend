@@ -111,7 +111,7 @@ const ProductDetails: FC<ProductInfoProps> = ({ product }) => {
       <Modal status={status} setStatus={toggle}>
         {!isUpdateModal ? (
           <>
-            <Image src={CartGif} width="3.75rem" height="3.125rem" alt="Cart Gif" />
+            <Image src={CartGif} width="60px" height="50px" alt="Cart Gif" />
             <p>{modalTexts}</p>
           </>
         ) : (

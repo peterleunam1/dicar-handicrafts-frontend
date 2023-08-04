@@ -46,11 +46,20 @@ export const CopyandRight = styled.div`
 export const Text = styled.p`
   text-align: center;
   font-weight: 350;
-  font-size: .875rem;
+  font-size: 0.875rem;
   max-width: 80%;
   @media (max-width: 31.25rem) {
     text-align: left;
     padding-left: 1.25rem;
     margin-top: 1.875rem;
   }
+`;
+
+export const Credit = styled.div`
+  width: 100%;
+  text-align: center;
+  font-weight: 350;
+  font-size: .875rem;
+  padding-bottom: .625rem;
+  background-color: ${(props) => props.theme.card};
 `;

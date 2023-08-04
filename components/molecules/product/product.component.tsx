@@ -35,8 +35,8 @@ const Product: FC<IProductComponent> = ({ product }) => {
           <ImageContainer>
             <Image
               src={image}
-              width="13.125rem"
-              height="14.5rem"
+              width="210px"
+              height="232px"
               alt={name}
             />
           </ImageContainer>

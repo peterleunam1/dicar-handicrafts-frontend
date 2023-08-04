@@ -10,8 +10,8 @@ const EmptyCart: FC = () => {
       <ImageContainer>
         <Image
           src={CartEmpty}
-          width="4rem"
-          height="4rem"
+          width="64px"
+          height="64px"
           layout="responsive"
           alt="empty-cart"
         />

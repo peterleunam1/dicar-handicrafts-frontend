@@ -16,8 +16,8 @@ const Logo: FC<LogoProps> = ({ route }) => {
       <LogoContainer>
         <Image
           src={theme === themeMode.light ? LogoWhite : LogoBlack}
-          width="3.6875rem"
-          height="3.6875rem"
+          width="59px"
+          height="59px"
           alt="Logo"
         />
       </LogoContainer>

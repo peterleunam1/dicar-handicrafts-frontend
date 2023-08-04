@@ -17,8 +17,8 @@ const CardMenu: FC<CardMenuProps> = ({ src, title }) => {
         <ImageContainer>
           <Image
             src={src}
-            width="15.625rem"
-            height="17.625rem"
+            width="250px"
+            height="282px"
             alt={title.toUpperCase()}
           />
         </ImageContainer>

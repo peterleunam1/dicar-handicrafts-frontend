@@ -37,8 +37,8 @@ const ConfirmCart: FC<ConfirmCartProps> = ({ product, toggle }) => {
             <picture>
               <Image
                 src={product.image}
-                width="7.5rem"
-                height="8.75rem"
+                width="120px"
+                height="140px"
                 alt={product.name}
                 style={{ borderRadius: ".3125rem" }}
               />
